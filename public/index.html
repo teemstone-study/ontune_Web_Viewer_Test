@@ -4,39 +4,15 @@
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
-	<title>Svelte app</title>
+	<title>onTuneViewer - [Svelte]</title>
 
 	<link rel='icon' type='image/png' href='/favicon.png'>
 	<link rel='stylesheet' href='/global.css'>
 	<link rel='stylesheet' href='/build/bundle.css'>
 
-	<script defer src='/build/bundle.js'></script>
+	<script defer src='/build/bundle.js'></script>	
 </head>
 
 <body>
-	<div id="div_tree">Tree Area</div>
-
-	<div id="main_Col" draggable="true" onmousedown="onMouseDown_Main_bar_event(event)"></div>
-
-	<div id="div_mosaic">
-		<div id="div_mosaic_menubar">
-			<button onclick="change_arr(event)" name="P1">P1</button>
-			<button onclick="change_arr(event)" name="P2">P2</button>
-			<button onclick="change_arr(event)" name="P3">P3</button>
-			<button onclick="change_arr(event)" name="P4">P4</button>
-			<button onclick="change_arr(event)" name="P5">P5</button>
-
-			<button onclick="save_arr(event)" name="Save" style="width: 100px">Save</button>
-		</div>
-
-		<div id="div_mosaic_main">
-			<div id="div_mosaic_body" name="root"></div>
-		</div>
-
-		<div id="div_grid">
-			<div id="main_Row" draggable="true" onmousedown="onMouseDown_Main_bar_event(event)"></div>
-			<div id="div_grid_main">Grid Area</div>
-		</div>  
-	</div>	
 </body>
 </html>

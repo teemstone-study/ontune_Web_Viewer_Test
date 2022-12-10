@@ -1,5 +1,5 @@
-// export class Node {
-class Node {
+// class Node {
+  export class Node {
   constructor(
     id,                           // 자신의 ID
     div_type = "N",               // DIV 표시 방식(None / Col / Row)
@@ -56,7 +56,7 @@ class Node {
 //   return null;
 // };
 
-class Binary_Tree {
+export class Binary_Tree {
   constructor() {
     this.root = null;
   }

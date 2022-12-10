@@ -1,11 +1,27 @@
 <script>
+
+
   // import tree from './Tree.svelte';
   // import jnp from './Jnp.svelte';
   import Mosaic from './Mosaic.svelte';
   // import grid from './Grid.svelte';
 
   // export let url = "";
-  
+
+	import { Node } from "./Binary_tree";
+	import { Binary_Tree } from "./Binary_tree";
+
+	const bst = new Binary_Tree();
+	let idx = 0;
+	let node_text_idx = 0;  
+	let arr = [];
+  let a = new Node;  
+  arr.push(a);
+
+  console.log("----------- App.svelte");  
+  console.log(arr);
+
+
   // function change_arr (e) {
       // 	// TODO inset 계산
       // 	console.log('===========DB Arr 버튼 클릭===========');
@@ -181,9 +197,11 @@
   </div>
 
   <div id="div_mosaic_main">
-    <div id="shadow" class="div_Shadow" draggable="true" on:dragover={onDrag_Over_shadow_event}></div>
-    <!-- <div id="div_mosaic_body">Mosaic Area</div> -->
-    <Mosaic />
+    <div id="div_mosaic_body">
+      <div id="shadow" class="div_Shadow" draggable="true" on:dragover={onDrag_Over_shadow_event}></div>
+      <!-- <div id="div_mosaic_body">Mosaic Area</div> -->
+      <Mosaic bind:arr={arr} />
+    </div>    
   </div>
 
   <div id="div_grid_main">

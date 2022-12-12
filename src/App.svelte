@@ -188,7 +188,6 @@
 
 <!-- HTML -->
 <div id="div_tree">Tree Area
- 
   
 </div>
 

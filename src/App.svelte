@@ -1,0 +1,227 @@
+<script>
+  // export let url = "";
+
+
+  // import tree from './Tree.svelte';
+  // import jnp from './Jnp.svelte';
+  import Mosaic from './Mosaic.svelte';
+  // import grid from './Grid.svelte';
+
+	import { Node } from "./Binary_tree";
+	import { Binary_Tree } from "./Binary_tree";
+  //import OntuneTreeView from './ontuneTreeView.svelte';
+
+
+	const bst = new Binary_Tree();
+  const mosaic_props = {
+    bst : bst,
+    idx : 0,
+    node_text_idx: 0,
+    arr: []
+  };
+
+	// let idx = 0;
+	// let node_text_idx = 0;  
+	// let arr = [];
+  // let a = new Node;  
+  // arr.push(a);
+
+  console.log("----------- App.svelte");  
+  console.log(mosaic_props.arr);
+
+
+  // function change_arr (e) {
+      // 	// TODO inset 계산
+      // 	console.log('===========DB Arr 버튼 클릭===========');
+      // 	// console.log(e.target.name);
+      // 	// // 0을 1|2로 Div 추가하기
+      // 	// const insert_result = bst.insert(arr[e.target.id], arr.length, node_text_idx);
+      // 	// e.preventDefault();
+
+      // 	let tmp_index = 0;
+      // 	let tmp_button = null;
+
+      // 	// Init Button Style
+      // 	for (let index = 0; index <= 4; index++) {
+      // 		// tmp_button = document.getElementsByName('P' + (index).toString)[0];
+      // 		tmp_button = document.getElementsByName('P' + String(index + 1))[0];
+      // 		tmp_button.style = 'background-color: buttonface; color: buttontext; font-weight: normal';
+      // 	}
+
+      // 	// Set Button Style
+      // 	tmp_button = document.getElementsByName(e.target.name)[0];
+      // 	tmp_button.style = 'background-color: darksalmon; color: blue; font-weight: bold';
+
+      // 	switch (e.target.name) {
+      // 		case "P1":
+      // 			tmp_index = 0;
+      // 			break;
+      // 		case "P2":
+      // 			tmp_index = 1;
+      // 			break;
+      // 		case "P3":
+      // 			tmp_index = 2;
+      // 			break;
+      // 		case "P4":
+      // 			tmp_index = 3;
+      // 			break;
+      // 		case "P5":
+      // 			tmp_index = 4;
+      // 			break;
+      // 	}
+
+      // 	// App - arr 배열을 선택한 배열로 Copy 해주고 랜더링~
+      // 	console.log(tmp_index);
+      // 	// App(arr[tmp_index]);
+      // };
+
+      // function save_arr (e) {
+      // 	// TODO inset 계산
+      // 	console.log('===========Save 버튼 클릭===========');
+      // 	alert('저장이 완료되었습니다!(미구현)');
+      // }
+
+  function onMouseDown_Main_bar_event(e) {
+    // drag_node = null;
+
+    console.log("============Main Bar Down===========");
+
+    // 마우스 다운 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
+    // 마우스 움직임에 따른 이벤트 등록
+    let main_bar = e.target;
+    main_bar.addEventListener('dragstart', onMouseDragstart_Main_bar_event);
+    main_bar.addEventListener('drag',      onMouseDrag_Main_bar_event);
+    main_bar.addEventListener('dragend',   onMouseDragend_Main_bar_event);
+
+    // bar.addEventListener("touchmove", onMouseDrag_bar_event, TOUCH_EVENT_OPTIONS);
+    // bar.addEventListener("touchend", onMouseDragend_bar_event, true);
+
+    function onMouseDragstart_Main_bar_event(event) {
+      console.log("==========Main Bar Drag Start=========");
+
+      // let cv = new ImageBitmap();
+      // cv.width  = 0;
+      // cv.height = 0;
+      // event.dataTransfer.setDragImage(cv, 0, 0);      
+    }    
+
+    function onMouseDrag_Main_bar_event(event) {
+      console.log("===========Main Bar Drag===========");
+      event.preventDefault();
+
+      // 배율 변경
+      if (event.x > 0 || event.y > 0) {
+        let tmp_ratio = 0;
+        let tmp_A = document.getElementById("div_tree");
+        let tmp_B = document.getElementById("div_mosaic");
+        let tmp_C = document.getElementById("div_mosaic_main");
+        let tmp_D = document.getElementById("div_grid");
+
+        // 현재 마우스의 좌표를 기준으로, 몇퍼센트인지 역계산을 해줘야한다.
+        // (마우스의 현재 좌표 / 부모의 길이) * 100
+        // 대상이 main_Col | main_Row 에 따라 다르다.
+        if (main_bar.id === "main_Col") {
+          tmp_ratio = ((event.clientX)      / window.innerWidth)  * 100;
+        } else {
+          tmp_ratio = ((event.clientY - 40) / window.innerHeight) * 100;
+        } 
+        if (tmp_ratio < 15) {
+          tmp_ratio = 15;
+        } else if (tmp_ratio > 85) {
+          tmp_ratio = 85;
+        }
+
+        // debugger;
+        if (main_bar.id === "main_Col") {
+          tmp_A.style.width  =        tmp_ratio  + '%';
+          tmp_B.style.width  = (100 - tmp_ratio) + '%';
+
+          console.log( tmp_A.style.width);
+          console.log( tmp_B.style.width);
+        } else {
+          tmp_C.style.height =        tmp_ratio  + '%';
+          tmp_D.style.height = (100 - tmp_ratio) + '%';
+
+          console.log( tmp_C.style.height);
+          console.log( tmp_D.style.height);
+        }             
+        // `${e.right.inset_top}% ${e.right.inset_right}% ${e.right.inset_bottom}% ${e.right.inset_left}%` 
+        // tmp_r.ratio = 100 - tmp_l.ratio;
+
+        // // inset 재조정
+        // bst.resize_div(arr);
+
+        // // 배열 갱신
+        // setArr([...arr]);        
+
+        // console.log("=============client 좌표");
+        // console.log(event.clientX + " / " + event.clientY);
+      };
+    }
+
+    function onMouseDragend_Main_bar_event() {
+      console.log("============Main Bar Up===========");
+
+      main_bar.removeEventListener('dragstart', onMouseDragstart_Main_bar_event);          
+      main_bar.removeEventListener('drag',      onMouseDrag_Main_bar_event);
+      main_bar.removeEventListener('dragend',   onMouseDragend_Main_bar_event);
+
+      // bar.removeEventListener("touchmove", onMouseDrag_bar_event,TOUCH_EVENT_OPTIONS);
+      // bar.removeEventListener("touchend", onMouseDragend_bar_event, true);
+
+      // console.log(arr);
+
+      // // inset 재조정
+      // bst.resize_div(arr);
+
+      // // 배열 갱신
+      // setArr([...arr]);
+    }    
+  };
+
+  const onDrag_Over_shadow_event = (e) => {
+  e.dataTransfer.dropEffect = "move";
+  e.preventDefault();
+}  
+</script>
+
+
+<!-- HTML -->
+<div id="div_tree">Tree Area
+ 
+  
+</div>
+
+<div id="main_Col" draggable="true" on:mousedown={onMouseDown_Main_bar_event}></div>
+
+<div id="div_mosaic">
+  <div id="div_mosaic_menubar">Jennifer Area
+<!-- 			
+    <button onclick="change_arr(event)" name="P1">P1</button>
+    <button onclick="change_arr(event)" name="P2">P2</button>
+    <button onclick="change_arr(event)" name="P3">P3</button>
+    <button onclick="change_arr(event)" name="P4">P4</button>
+    <button onclick="change_arr(event)" name="P5">P5</button>
+
+    <button onclick="save_arr(event)" name="Save" style="width: 100px">Save</button> 
+-->
+  </div>
+
+  <div id="div_mosaic_main">
+    <div id="div_mosaic_body">
+      <div id="shadow" class="div_Shadow" draggable="true" on:dragover={onDrag_Over_shadow_event}></div>
+      <!-- <div id="div_mosaic_body">Mosaic Area</div> -->
+      <Mosaic {...mosaic_props} />
+    </div>    
+  </div>
+
+  <div id="div_grid_main">
+    <!-- <div id="main_Row" draggable="true" onmousedown="onMouseDown_Main_bar_event(event)"></div> -->
+    <div id="div_grid_body">Grid Area</div>
+  </div>  
+</div>	
+
+
+<style>
+
+</style>

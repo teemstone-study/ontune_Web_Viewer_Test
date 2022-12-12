@@ -1,4 +1,5 @@
 <script>
+  // export let url = "";
 
 
   // import tree from './Tree.svelte';
@@ -6,20 +7,25 @@
   import Mosaic from './Mosaic.svelte';
   // import grid from './Grid.svelte';
 
-  // export let url = "";
-
 	import { Node } from "./Binary_tree";
 	import { Binary_Tree } from "./Binary_tree";
 
 	const bst = new Binary_Tree();
-	let idx = 0;
-	let node_text_idx = 0;  
-	let arr = [];
-  let a = new Node;  
-  arr.push(a);
+  const mosaic_props = {
+    bst : bst,
+    idx : 0,
+    node_text_idx: 0,
+    arr: []
+  };
+
+	// let idx = 0;
+	// let node_text_idx = 0;  
+	// let arr = [];
+  // let a = new Node;  
+  // arr.push(a);
 
   console.log("----------- App.svelte");  
-  console.log(arr);
+  console.log(mosaic_props.arr);
 
 
   // function change_arr (e) {
@@ -200,7 +206,7 @@
     <div id="div_mosaic_body">
       <div id="shadow" class="div_Shadow" draggable="true" on:dragover={onDrag_Over_shadow_event}></div>
       <!-- <div id="div_mosaic_body">Mosaic Area</div> -->
-      <Mosaic bind:arr={arr} />
+      <Mosaic {...mosaic_props} />
     </div>    
   </div>
 

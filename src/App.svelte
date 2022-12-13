@@ -9,7 +9,7 @@
 
 	import { Node } from "./Binary_tree";
 	import { Binary_Tree } from "./Binary_tree";
-  //import OntuneTreeView from './ontuneTreeView.svelte';
+  import OntuneTreeView from './ontuneTreeView.svelte';
 
 
 	const bst = new Binary_Tree();
@@ -187,7 +187,7 @@
 
 
 <!-- HTML -->
-<div id="div_tree">Tree Area
+<div id="div_tree"><OntuneTreeView />
   
 </div>
 

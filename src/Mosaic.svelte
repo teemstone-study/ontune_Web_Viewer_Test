@@ -18,7 +18,7 @@
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
 // ==================================================================================================================================================
-const Add_Div = (e) => {
+  const Add_Div = (e) => {
     // TODO inset 계산
     console.log('===========DIV 추가===========');
 
@@ -164,12 +164,6 @@ const onMouseDown_bar_event = (e) => {
     }    
   };
 
-
-
-
-
-
-
 // ==================================================================================================================================================
 // =================================================================== Div Event ====================================================================
 // ==================================================================================================================================================
@@ -220,9 +214,9 @@ const onDragStart_div_event = (e) => {
 
       // 4. 자신도 감춘다.
       tmp_el = document.getElementsByName(drag_node.id);
-      tmp_el[0].style.zIndex = 2;
+      tmp_el[0].style.zIndex = "2";
       // tmp_el[0].style.pointerEvents = false;
-      tmp_el[0].style.opacity = 0;
+      tmp_el[0].style.opacity = "0";
     }
   }
 
@@ -237,7 +231,7 @@ const onDragStart_div_event = (e) => {
     // drop_id가 -1이 아니고 나 자신이 아닐때 drag_node의 zindex를 뒤로 보낸다!
     if ((drop_id !== -1) || (drop_id !== drag_node.id)) {
       let tmp_el = document.getElementsByName(drag_node.id);
-      tmp_el[0].style.zIndex = 0;
+      tmp_el[0].style.zIndex = "0";
     }
 
     // drag_node이면 제외하고 재계산 해줘야한다.
@@ -373,7 +367,7 @@ const onDragStart_div_event = (e) => {
         break;
     }          
     shadow_div.style.display = 'block';
-    shadow_div.style.zIndex  = 100;
+    shadow_div.style.zIndex  = "100";
 
     // console.log(tmp_position);
     // console.log(drag_state);
@@ -390,7 +384,7 @@ const onDragStart_div_event = (e) => {
 
     console.log("DragEnd");
     shadow_div.style.display = 'none';
-    shadow_div.style.zIndex  = -1;
+    shadow_div.style.zIndex  = "-1";
 
     console.log("==============Drop=============");
     console.log("Node id = " + drop_id);
@@ -439,14 +433,8 @@ const onDragStart_div_event = (e) => {
     drop_id    = -1;
   }
 
-
-
-
-
-
-
 	if (bst.root == null) {
-		console.log("===========Root 생성===========");
+		// console.log("===========Root 생성===========");
     bst.root = new Node(idx, "N", "C", "windows " + (node_text_idx + 1), 0, 0, 0, 0, 100);
     arr = [bst.root];
     // setArr([bst.root]);
@@ -454,12 +442,8 @@ const onDragStart_div_event = (e) => {
     node_text_idx = node_text_idx + 1;
 
     console.log(arr);
-		console.log('------------Mosaic.svelte');
+		// console.log('------------Mosaic.svelte');
 	};
-
-
-
-
 </script>
 
 <!-- {#each arr as list}
@@ -469,27 +453,31 @@ const onDragStart_div_event = (e) => {
 <!--  on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event} -->
 <!-- HTML 태그 -->
 
-{console.log("반복문 진행")}
+<!-- {console.log("반복문 진행")} -->
+<!-- {console.log(arr)} -->
+
 {#each arr as item}
-	{console.log(item.node_type)}
+	<!-- {console.log(item)} -->
+	<!-- {console.log(i)} -->
 	
   <!-- <li>{i + 1} : {item.div_type}</li>  -->
 	<!-- Node_Type = P 이면, 부모 타입 이므로, 자식 노드에 관련된 노드를 느려야한다. -->
-	{#if item.node_type == "P"}
+	{#if item.node_type === "P"}
 		<!-- 부모 Node가 없을 때 => Root -->
 		{#if item.p_id == null}
 			<div
-				class="div_Main_Background" name={"root_"+item.id} id={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
+				class="div_Main_Background" name="root" id={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
 				style="inset: 0%">
 			</div>
 		{/if}
-		{#if item.div_type === "C"}
+
+    <!-- P 타입은 부모이므로, 자식을 반드시 소유한다. 따라서, Div Type에 따라 세로선/가로선이 반드시 존재한다. -->
+    {#if item.div_type === "C"}
 			<div 
 				class="div_Col" name={item.id} draggable="true" on:mousedown={onMouseDown_bar_event}
 				style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}>
 			</div>
-		{/if}
-		{#if item.div_type === "R"}
+		{:else if item.div_type === "R"}
 			<div 
 				class="div_Row" name={item.id} draggable="true" on:mousedown={onMouseDown_bar_event}
 				style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}>
@@ -522,9 +510,9 @@ const onDragStart_div_event = (e) => {
 			</div>
 		{/if}
 	{:else if (item.div_type === "N" && item.node_type !== "D" && item.p_id == null)}
-		{console.log("Root 출력")}
+		<!-- {console.log("Root 출력")} -->
 		<div
-			class="div_Main_Background" name={"root_"+item.id} id={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
+			class="div_Main_Background" name="root" id={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
 			style={"inset: "+`0%`}>
 		</div>
 		<div
@@ -537,7 +525,9 @@ const onDragStart_div_event = (e) => {
 			</div>
 			<div class="div_Body">{item.node_text}</div>
 		</div>
-	{/if}
-{/each}
+  {/if}
+{/each} 
+
+
 
 <!-- export default Mosaic; -->

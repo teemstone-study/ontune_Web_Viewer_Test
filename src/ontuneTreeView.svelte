@@ -119,12 +119,12 @@
             <TreeView branchHoverColor="yellow">
                 <TreeBranch rootContent="Linux" >
                     {#each findValue as item, i (item)}
-                    <!-- {console.log(i)} -->
                     <TreeLeaf>linux{item}</TreeLeaf>
                     {/each}
-                </TreeBranch>
-                <!-- <TreeBranch rootContent="windows" >
+                  </TreeBranch>
+                  <!-- <TreeBranch rootContent="windows" >
                     {#each findValue as item (item)}
+                    {console.log(i)}
                     <TreeLeaf>linux{item}</TreeLeaf>
                     {/each}
                 </TreeBranch> -->

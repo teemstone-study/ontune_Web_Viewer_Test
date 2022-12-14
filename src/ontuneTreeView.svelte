@@ -1,138 +1,131 @@
 <script>
-    import TreeView from "../node_modules/svelte-tree-view-component/TreeView.svelte"
-    import TreeBranch from "../node_modules/svelte-tree-view-component/TreeBranch.svelte"
-    import TreeLeaf from "../node_modules/svelte-tree-view-component/TreeLeaf.svelte"
-    import Svrollbar from "../node_modules/svrollbar/src/Svrollbar.svelte"
-    import Svroller from "../node_modules/svrollbar/src/Svroller.svelte"
-  import { element, text } from "svelte/internal";
+// @ts-nocheck
 
-    
-    const tree = {
-		label: "USA", children: [
-			{label: "Florida", children: [
-				{label: "Jacksonville"},
-				{label: "Orlando", children: [
-					{label: "Disney World"},
-					{label: "Universal Studio"},
-					{label: "Sea World"},
-				]},
-				{label: "Miami"},
-			]},
-			{label: "California", children: [
-				{label: "San Francisco"},
-				{label: "Los Angeles"},
-				{label: "Sacramento"},
-			]},
-		],
-	}
+  import { Tabs, TabList, TabPanel, Tab } from 'svelte-tabs'; 
+  import OntuneTreeTypeOne from './ontuneTreeTypeOne.svelte';
 
-    function ChangeData() {
-        let searchText = document.getElementById("search_text");
-        console.log("go?");
-        drawCount++;
-        findValue = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
-       // findValue = items.find(searchText);
+  
+  // onMount(() => {
+  //   intervalTimer = setInterval(() => {
+  //     WorkInterval();
+  //   }, workIntervalTime * 1000)
+
+  // });
+
+  function WorkInterval() {
+    //여기서 개수 바꾸는거 테스트 하면 될듯\
+    for(let i=0;i<copyupdateCount; i++) {
+      const randomnum = Math.floor(Math.random()* 10000);
+      const secondrandomnum = Math.floor(Math.random()* 10000);
+      ItemList[i] = i + "바뀜";// +  randomnum;// + secondrandomnum;
+
     }
-
-    function ChangeData_1() {
-        let searchText = document.getElementById("search_text");
-        console.log("go?");
-        drawCount--;
-        findValue = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
-       // findValue = items.find(searchText);
-    }
-
-    function ChangeData_2() {
-        let searchText = document.getElementById("search_text");
-        console.log("go?");
-        findValue[0] = "123";
-       // findValue = items.find(searchText);
-    }
-
-
- 
-
-
-    let items = Array.from({ length: 50 }).map((_, i) => `item ${i}`)
-
-    let drawCount = 10;
-    let findValue = items;
-    let viewport
-    let contents
-    let scrollHeight;
-
-</script>
-
-
-<style>
-  .wrapper {
-    position: relative;
-    height: inherit;
-    width:98%;
-  }
-
-  #search_section {
-    align-items: center;
-  }
-
-  #search_div {
-    height: 40px;
-    width: auto;
-  }
-
-  .viewport {
-    position: relative;
-    width: inherit;
-    height: inherit;
-    overflow: scroll;
-    border: 1px solid gray;
-    box-sizing: border-box;
-
-    /* hide scrollbar */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .viewport::-webkit-scrollbar {
-    /* hide scrollbar */
-    display: none;
   }
   
-</style>
-<section id="draw_section">
-    <div id="draw_div">
-        <input type="text" id="draw_text"/>
-        <button width=100 on:click={ChangeData}>더하기</button>
-    </div>
-</section>
-<section id="search_section">
-    <div id="search_div">
-        <input type="text" id="search_text"/>
-        <button width=100 on:click={ChangeData_1}>빼기</button>
-        <button width=100 on:click={ChangeData_2}>바꾸기</button>
-    </div>
-</section>
-<div class="wrapper">
-    <div bind:this={viewport} class="viewport">
-        <div bind:this={contents} class="contents">
+  function tabChange(e) {
+      activeTab = e.detail;
+      console.log(e.detail);
+    }
 
-            <TreeView branchHoverColor="yellow">
-                <TreeBranch rootContent="Linux" >
-                    {#each findValue as item, i (item)}
-                    <TreeLeaf>linux{item}</TreeLeaf>
-                    {/each}
-                  </TreeBranch>
-                  <!-- <TreeBranch rootContent="windows" >
-                    {#each findValue as item (item)}
-                    {console.log(i)}
-                    <TreeLeaf>linux{item}</TreeLeaf>
-                    {/each}
-                </TreeBranch> -->
-            </TreeView>
-        </div>
-    </div>
-<Svrollbar {viewport} {contents} />
-</div>
+    function ChangeChangeCount() {
+      copyupdateCount = updateCount;
+    }
+
+  function ChangeWorkIntervalTime() {    
+    if (workIntervalTime > 0) {
+      clearInterval(intervalTimer);  
+      intervalTimer = setInterval(() => {
+        WorkInterval();
+      }, workIntervalTime * 1000);      
+    }
+    else {
+      console.log("0초니까 ");
+      clearInterval(intervalTimer);      
+    }
+  }
+
+    function ChangeNodeCount() {
+      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+    }
+
+    function EnterWork(e) {
+      if(e.key === "Enter") {
+        ChangeNodeCount();
+      }
+    }
+
+
+    let activeTab;
+    let workEvent;
+    let intervalTimer;
+    let drawCount = 1000;
+    let updateCount = 500;
+    let copyupdateCount = 0;
+    let workIntervalTime = 1;
+    let ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
+    
+    let scrollHeight;
+
+
+
+
+
+    let ttabItems = [
+		{ id: 1, label: 'Tab1', back: 'red' },
+		{ id: 2, label: 'Tab2', back: 'blue' },
+		{ id: 3, label: 'Tab3', back: 'green' },
+	];
+	let tactiveTab = 0, tstate = 0;
+</script>
+
+<style>
+  .inputtext {
+    width : 50px;
+  }
+  .inputbutton {
+    width : 160px;
+  }
+  label {
+    color: azure;
+    font-size: medium;
+  }
+</style>
+
+
+<input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
+<button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
+<br>
+<label>데이터 업데이트 시간</label><input type="text" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
+<br>
+<input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
+<button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >동시변경개수변경</button>
+<br>
+<button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
+<br>
+<section>
+  <Tabs on:tabChange={tabChange}>
+    <TabList>
+      <Tab HtmlTag="svelte-tree-view-component">host</Tab>
+      <Tab HtmlTag="sample">Test2</Tab>
+      <Tab HtmlTag="sample">Test3</Tab>
+    </TabList>
+    <TabPanel>
+      
+        <OntuneTreeTypeOne nodeItem={ItemList} />
+
+    </TabPanel>
+  
+    <TabPanel>
+      <h2>Second panel</h2>
+    </TabPanel>
+  
+    <TabPanel>
+      <h2>Third panel</h2>
+    </TabPanel>
+  </Tabs>
+</section>
+
+
 
 
 

@@ -4,13 +4,13 @@
 	import { Node } from "./Binary_tree";
 	// import { Binary_Tree } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
-
+  
 	export let bst;
 	export let idx;
 	export let node_text_idx;
 	export let arr;  
 
-	let drag_node = null;                 // Null or Node
+  let drag_node = null;                 // Null or Node
 	let drag_state = "N";                 // N / T / R / B / L
 	let drag_bleft = false;               // T = Left / F = Right
 	let drop_id    = -1;
@@ -64,6 +64,23 @@
 		arr = [...arr];
     console.log(arr);
   };
+
+  // const Changes = () => {
+  //   console.log('===========Arr 변경===========');
+
+  //   // 기존 배열에서 inset 값을 변경 후 가져와야한다.
+  //   let tmp_arr = [];
+  //   let tmp_node = new Node(3, "N", "C", "windwos3", 50, 50, 50, 50, 100, 0, null, null);
+  //   arr.map((e) => {
+  //     e.node_text = "windwos 123";
+  //     tmp_arr.push(e);
+  //   });
+
+  //   // tmp_arr.push(tmp_node)
+  //   arr = tmp_arr;
+
+  //   console.log(arr);
+  // };
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -456,9 +473,9 @@ const onDragStart_div_event = (e) => {
 <!-- {console.log("반복문 진행")} -->
 <!-- {console.log(arr)} -->
 
-{#each arr as item}
+{#each arr as item, index}
 	<!-- {console.log(item)} -->
-	<!-- {console.log(i)} -->
+	<!-- {console.log(index)} -->
 	
   <!-- <li>{i + 1} : {item.div_type}</li>  -->
 	<!-- Node_Type = P 이면, 부모 타입 이므로, 자식 노드에 관련된 노드를 느려야한다. -->
@@ -493,6 +510,7 @@ const onDragStart_div_event = (e) => {
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
 					<button on:click={Add_Div} id={item.left.id}>추가</button>
 					<button on:click={()=>{Del_Div(item.left)}}>삭제</button>
+          <!-- <button on:click={Changes}>변경</button> -->
 				</div>
 				<div class="div_Body">{item.left.node_text}</div>
 			</div>

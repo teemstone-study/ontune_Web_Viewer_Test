@@ -3,7 +3,7 @@
 
 
   // import tree from './Tree.svelte';
-  // import jnp from './Jnp.svelte';
+  import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
   import Grid from './Com_Grid.svelte';
 
@@ -194,7 +194,9 @@
 <div id="main_Col" draggable="true" on:mousedown={onMouseDown_Main_bar_event}></div>
 
 <div id="div_mosaic">
-  <div id="div_mosaic_menubar">Jennifer Area
+  <div id="div_mosaic_menubar">
+    <Jennifer />
+
 <!-- 			
     <button onclick="change_arr(event)" name="P1">P1</button>
     <button onclick="change_arr(event)" name="P2">P2</button>
@@ -216,7 +218,7 @@
 
   <div id="div_grid_main">
     <!-- <div id="main_Row" draggable="true" onmousedown="onMouseDown_Main_bar_event(event)"></div> -->
-    <div id="div_grid_body">Grid Area
+    <div id="div_grid_body">
       <Grid />
     </div>
   </div>  

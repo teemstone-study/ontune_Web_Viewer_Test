@@ -3,7 +3,28 @@
 
   import { Tabs, TabList, TabPanel, Tab } from 'svelte-tabs'; 
   import OntuneTreeTypeOne from './ontuneTreeTypeOne.svelte';
+  import OntuneTreeTypeTwo from './ontuneTreeTypeTwo.svelte';
+  import { fade, draw, fly } from 'svelte/transition';
+  import { tweened } from 'svelte/motion';
+  import { expoInOut } from 'svelte/easing';
 
+  import {Svrollbar, Svroller} from "svrollbar"    
+
+
+  let activeTab;
+  let workEvent;
+  let intervalTimer;
+  let alterWorkTimer;
+  let isSend = false;
+  let drawCount = 1000;
+  let updateCount = 500;
+  let copyupdateCount = 0;
+  let workIntervalTime = 1;
+  let ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
+  
+  let visibleTestMode = false;
+
+  $: dddd = visibleTestMode;
   
   // onMount(() => {
   //   intervalTimer = setInterval(() => {
@@ -12,12 +33,17 @@
 
   // });
 
+  const progress = tweened(0, {
+		duration: 400,
+		easing: expoInOut
+	});
+
   function WorkInterval() {
     //여기서 개수 바꾸는거 테스트 하면 될듯\
     for(let i=0;i<copyupdateCount; i++) {
       const randomnum = Math.floor(Math.random()* 10000);
       const secondrandomnum = Math.floor(Math.random()* 10000);
-      ItemList[i] = i + "바뀜";// +  randomnum;// + secondrandomnum;
+      ItemList[i] = i + "바뀜" +  randomnum;// + secondrandomnum;
 
     }
   }
@@ -37,10 +63,12 @@
       intervalTimer = setInterval(() => {
         WorkInterval();
       }, workIntervalTime * 1000);      
+      StartProcess();
     }
     else {
       console.log("0초니까 ");
-      clearInterval(intervalTimer);      
+      clearInterval(intervalTimer); 
+      clearInterval(alterWorkTimer);     
     }
   }
 
@@ -54,28 +82,23 @@
       }
     }
 
+    function StartProcess() {
+      clearInterval(alterWorkTimer);   
+      alterWorkTimer = setInterval(() => {
+        if (isSend === false) {
+            isSend = true;
+            progress.set(1.0)            
+        } else {
+            isSend = false;
+            progress.set(0.0)            
+        }
 
-    let activeTab;
-    let workEvent;
-    let intervalTimer;
-    let drawCount = 1000;
-    let updateCount = 500;
-    let copyupdateCount = 0;
-    let workIntervalTime = 1;
-    let ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
-    
-    let scrollHeight;
+      }, 1000);   
+    }
 
+    let viewport;
+    let contents;
 
-
-
-
-    let ttabItems = [
-		{ id: 1, label: 'Tab1', back: 'red' },
-		{ id: 2, label: 'Tab2', back: 'blue' },
-		{ id: 3, label: 'Tab3', back: 'green' },
-	];
-	let tactiveTab = 0, tstate = 0;
 </script>
 
 <style>
@@ -89,26 +112,82 @@
     color: azure;
     font-size: medium;
   }
+  h2 {
+    color:azure;
+  }
+  #tabsection{    
+    padding-right: 6px;
+  }
+
+
+
+
+  .wrapper {
+      position: relative;
+      width:inherit;
+    }
+  
+    .viewport {
+      position: relative;
+      height: 500px;
+      width:inherit;
+      right: 0px;
+      overflow: scroll;
+      /* border: 1px solid gray; */
+      /* box-sizing: context-box; */
+
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    .viewport::-webkit-scrollbar {
+      /* hide scrollbar */
+      display: none;
+    }
+
+    .contents {
+        font: 800;
+    }
+
 </style>
 
+<section id="tabsection">
+  <label>
+    <input type="checkbox" bind:checked={visibleTestMode}>testMode
+  </label>
+  <br>
+  {#if visibleTestMode}
+  <div class="centered" display=none>
+    <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
+    <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
+    <br>
+    <label>데이터 업데이트 주기</label>
+    <br>
+    <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
+    <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
+    <br>
+    <input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
+    <button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >동시변경개수변경</button>
+    <br>
+    <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
+    <br>
+    <progress value={$progress}></progress>
+  </div>
+  {/if}
 
-<input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
-<button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
-<br>
-<label>데이터 업데이트 시간</label><input type="text" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
-<br>
-<input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
-<button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >동시변경개수변경</button>
-<br>
-<button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
-<br>
-<section>
-  <Tabs on:tabChange={tabChange}>
+  
+  <Tabs on:tabChange={tabChange} >
     <TabList>
       <Tab HtmlTag="svelte-tree-view-component">host</Tab>
-      <Tab HtmlTag="sample">Test2</Tab>
-      <Tab HtmlTag="sample">Test3</Tab>
+      <Tab HtmlTag="sample">VMHost</Tab>
     </TabList>
+  <div class="wrapper">
+    <div bind:this={viewport} class="viewport">
+        <div bind:this={contents} class="contents">
+            
+
+
+
     <TabPanel>
       
         <OntuneTreeTypeOne nodeItem={ItemList} />
@@ -116,13 +195,18 @@
     </TabPanel>
   
     <TabPanel>
-      <h2>Second panel</h2>
+      <OntuneTreeTypeTwo />
     </TabPanel>
   
     <TabPanel>
       <h2>Third panel</h2>
     </TabPanel>
+  </div>
+  </div>
+  <Svrollbar {viewport} {contents} />
+  </div>
   </Tabs>
+
 </section>
 
 

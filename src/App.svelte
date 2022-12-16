@@ -187,8 +187,8 @@
 
 
 <!-- HTML -->
-<div id="div_tree"><OntuneTreeView />
-  
+<div id="div_tree">
+  <OntuneTreeView />  
 </div>
 
 <div id="main_Col" draggable="true" on:mousedown={onMouseDown_Main_bar_event}></div>

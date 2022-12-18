@@ -20,11 +20,14 @@
   let updateCount = 500;
   let copyupdateCount = 0;
   let workIntervalTime = 1;
-  let ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`)
+  let isReverse = false;
+  let ItemList;
   
   let visibleTestMode = false;
 
   $: dddd = visibleTestMode;
+
+  ChangeNodeCount();
   
   // onMount(() => {
   //   intervalTimer = setInterval(() => {
@@ -40,12 +43,23 @@
 
   function WorkInterval() {
     //여기서 개수 바꾸는거 테스트 하면 될듯\
-    for(let i=0;i<copyupdateCount; i++) {
-      const randomnum = Math.floor(Math.random()* 10000);
-      const secondrandomnum = Math.floor(Math.random()* 10000);
-      ItemList[i] = i + "바뀜" +  randomnum;// + secondrandomnum;
 
+    if (isReverse === true) 
+    {
+      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+      isReverse = false;
     }
+    else
+    {
+      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
+      isReverse = true;
+    }
+
+    // for(let i=0;i<copyupdateCount; i++) {
+    //   const randomnum = Math.floor(Math.random()* 10000);
+    //   const secondrandomnum = Math.floor(Math.random()* 10000);
+    //   ItemList[i] = i + "바뀜" +  randomnum;// + secondrandomnum;
+    // }
   }
   
   function tabChange(e) {
@@ -53,9 +67,9 @@
       console.log(e.detail);
     }
 
-    function ChangeChangeCount() {
-      copyupdateCount = updateCount;
-    }
+  function ChangeChangeCount() {
+    copyupdateCount = updateCount;
+  }
 
   function ChangeWorkIntervalTime() {    
     if (workIntervalTime > 0) {
@@ -73,7 +87,14 @@
   }
 
     function ChangeNodeCount() {
-      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+      if (isReverse === false) 
+      {
+        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+      }
+      else
+      {
+        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
+      }
     }
 
     function EnterWork(e) {
@@ -117,6 +138,9 @@
   }
   #tabsection{    
     padding-right: 6px;
+    overflow: hidden;
+    width: 100%;
+    
   }
 
 
@@ -124,13 +148,17 @@
 
   .wrapper {
       position: relative;
+      
+     
       width:inherit;
     }
   
     .viewport {
       position: relative;
-      height: 500px;
-      width:inherit;
+      display: flex;
+      /* height: 100%; */
+      width:auto;
+      height: 800px;
       right: 0px;
       overflow: scroll;
       /* border: 1px solid gray; */
@@ -178,28 +206,22 @@
   
   <Tabs on:tabChange={tabChange} >
     <TabList>
-      <Tab HtmlTag="svelte-tree-view-component">host</Tab>
-      <Tab HtmlTag="sample">VMHost</Tab>
+      <Tab HtmlTag="host">host</Tab>
+      <Tab HtmlTag="vmhost">VMHost</Tab>
+      <Tab HtmlTag="group">group</Tab>
     </TabList>
   <div class="wrapper">
     <div bind:this={viewport} class="viewport">
         <div bind:this={contents} class="contents">
             
-
-
-
     <TabPanel>
-      
         <OntuneTreeTypeOne nodeItem={ItemList} />
-
     </TabPanel>
-  
     <TabPanel>
-      <OntuneTreeTypeTwo />
+      <OntuneTreeTypeTwo isReverse={isReverse} />
     </TabPanel>
-  
     <TabPanel>
-      <h2>Third panel</h2>
+      <h1>또다른 그룹</h1>
     </TabPanel>
   </div>
   </div>

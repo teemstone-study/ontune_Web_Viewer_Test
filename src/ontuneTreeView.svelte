@@ -63,7 +63,6 @@
   }
 
   async function WorkInterval() {
-    console.log("이게 도는중?");
     if (isReverse === true) 
     {
         ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 

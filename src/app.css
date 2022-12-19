@@ -55,7 +55,7 @@ button {
   /* flex: 1; */
   border: 0;
   border-color: Red;
-  background-color: gray;
+  background-color: darkgray;
   width: 100%;
   height: 80px;
   position: static;
@@ -191,24 +191,4 @@ button {
   z-index: 10;
   /* touch-action: none; */
   background-color: pink;
-}
-
-
-
-
-.rect {
-  width: 10px;
-  height: 10px;
-  display: block;
-  position: absolute;
-  background: white;
-  top: 10px;
-  left: 10px;
-  
-  transition: all 3s;
-  z-index: 10;
-}
-
-.rect.state-show {
-  transform: translate(300px, 0px);
 }

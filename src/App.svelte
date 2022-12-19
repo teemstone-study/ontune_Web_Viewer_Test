@@ -26,8 +26,8 @@
   // let a = new Node;  
   // arr.push(a);
 
-  console.log("----------- App.svelte");  
-  console.log(mosaic_props.arr);
+  // console.log("----------- App.svelte");  
+  // console.log(mosaic_props.arr);
 
 
   // function change_arr (e) {
@@ -84,7 +84,7 @@
   function onMouseDown_Main_bar_event(e) {
     // drag_node = null;
 
-    console.log("============Main Bar Down===========");
+    // console.log("============Main Bar Down===========");
 
     // 마우스 다운 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
     // 마우스 움직임에 따른 이벤트 등록
@@ -97,7 +97,7 @@
     // bar.addEventListener("touchend", onMouseDragend_bar_event, true);
 
     function onMouseDragstart_Main_bar_event(event) {
-      console.log("==========Main Bar Drag Start=========");
+      // console.log("==========Main Bar Drag Start=========");
 
       // let cv = new ImageBitmap();
       // cv.width  = 0;
@@ -106,7 +106,7 @@
     }    
 
     function onMouseDrag_Main_bar_event(event) {
-      console.log("===========Main Bar Drag===========");
+      // console.log("===========Main Bar Drag===========");
       event.preventDefault();
 
       // 배율 변경
@@ -136,14 +136,14 @@
           tmp_A.style.width  =        tmp_ratio  + '%';
           tmp_B.style.width  = (100 - tmp_ratio) + '%';
 
-          console.log( tmp_A.style.width);
-          console.log( tmp_B.style.width);
+          // console.log( tmp_A.style.width);
+          // console.log( tmp_B.style.width);
         } else {
           tmp_C.style.height =        tmp_ratio  + '%';
           tmp_D.style.height = (100 - tmp_ratio) + '%';
 
-          console.log( tmp_C.style.height);
-          console.log( tmp_D.style.height);
+          // console.log( tmp_C.style.height);
+          // console.log( tmp_D.style.height);
         }             
         // `${e.right.inset_top}% ${e.right.inset_right}% ${e.right.inset_bottom}% ${e.right.inset_left}%` 
         // tmp_r.ratio = 100 - tmp_l.ratio;
@@ -160,7 +160,7 @@
     }
 
     function onMouseDragend_Main_bar_event() {
-      console.log("============Main Bar Up===========");
+      // console.log("============Main Bar Up===========");
 
       main_bar.removeEventListener('dragstart', onMouseDragstart_Main_bar_event);          
       main_bar.removeEventListener('drag',      onMouseDrag_Main_bar_event);

@@ -3,8 +3,11 @@
     import {Svrollbar, Svroller} from "svrollbar"    
 
     export let nodeItem;
+    export let isReverse;
     let viewport;
     let contents;
+    let onsrc = "img/hostOS_icon_linux.png";
+    let offsrc = "img/hostOS_icon_linux_un.png";
 </script>
 
 <style>
@@ -34,13 +37,20 @@
         font: 800;
     } */
     
+    
 </style>
 
 
     <TreeView branchHoverColor="yellow" iconColor="black"  >
         <TreeBranch rootContent="Linux" >
             {#each nodeItem as item, i (item)}
-            <TreeLeaf> linux{item}</TreeLeaf>
+            <TreeLeaf>
+              {#if (i % 2) === 0 && isReverse}
+                <img src={onsrc} alt="onimage" />
+              {:else}
+                <img src={offsrc} alt="offimage" />
+              {/if}
+                 linux {item}</TreeLeaf>
             {/each}
           </TreeBranch>
     </TreeView>

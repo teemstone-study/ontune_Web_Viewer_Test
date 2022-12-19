@@ -4,13 +4,13 @@
 	import { Node } from "./Binary_tree";
 	// import { Binary_Tree } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
-
+  
 	export let bst;
 	export let idx;
 	export let node_text_idx;
 	export let arr;  
 
-	let drag_node = null;                 // Null or Node
+  let drag_node = null;                 // Null or Node
 	let drag_state = "N";                 // N / T / R / B / L
 	let drag_bleft = false;               // T = Left / F = Right
 	let drop_id    = -1;
@@ -20,7 +20,7 @@
 // ==================================================================================================================================================
   const Add_Div = (e) => {
     // TODO inset 계산
-    console.log('===========DIV 추가===========');
+    // console.log('===========DIV 추가===========');
 
     // 0을 1|2로 Div 추가하기
     const insert_result = bst.insert(arr[e.target.id], arr.length, node_text_idx);
@@ -37,7 +37,7 @@
 
     //setArr([...arr]);
     // setIdx(idx + 1);
-    console.log(arr);
+    // console.log(arr);
   };
 
   // filter를 써서 새 배열 만들고 arr배열을 변경해줘야함.
@@ -46,7 +46,7 @@
       return false;
     }
 
-    console.log('===========DIV 삭제===========');
+    // console.log('===========DIV 삭제===========');
 
     // 기존 배열에서 inset 값을 변경 후 가져와야한다.
     if (arr[arr[arr[e.id].p_id].p_id]) {
@@ -62,8 +62,25 @@
 
     // setArr([...arr]);
 		arr = [...arr];
-    console.log(arr);
+    // console.log(arr);
   };
+
+  // const Changes = () => {
+  //   console.log('===========Arr 변경===========');
+
+  //   // 기존 배열에서 inset 값을 변경 후 가져와야한다.
+  //   let tmp_arr = [];
+  //   let tmp_node = new Node(3, "N", "C", "windwos3", 50, 50, 50, 50, 100, 0, null, null);
+  //   arr.map((e) => {
+  //     e.node_text = "windwos 123";
+  //     tmp_arr.push(e);
+  //   });
+
+  //   // tmp_arr.push(tmp_node)
+  //   arr = tmp_arr;
+
+  //   console.log(arr);
+  // };
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -71,7 +88,7 @@
 const onMouseDown_bar_event = (e) => {
     drag_node = null;
 
-    console.log("==============Bar Down=============");
+    // console.log("==============Bar Down=============");
 
     // 마우스 다운 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
     // 마우스 움직임에 따른 이벤트 등록
@@ -84,7 +101,7 @@ const onMouseDown_bar_event = (e) => {
     // bar.addEventListener("touchend", onMouseDragend_bar_event, true);
 
     function onMouseDragstart_bar_event(event) {
-      console.log("============Bar Drag Start===========");
+      // console.log("============Bar Drag Start===========");
 
       // let cv = new ImageBitmap();
       // cv.width  = 0;
@@ -93,7 +110,7 @@ const onMouseDown_bar_event = (e) => {
     }    
 
     function onMouseDrag_bar_event(event) {
-      console.log("==============Bar Drag=============");
+      // console.log("==============Bar Drag=============");
       // console.log(event);
       // event.dataTransfer.dragEffect = "move";
       event.preventDefault();
@@ -145,7 +162,7 @@ const onMouseDown_bar_event = (e) => {
     }
 
     function onMouseDragend_bar_event() {
-      console.log("==============Bar Up=============");
+      // console.log("==============Bar Up=============");
 
       bar.removeEventListener('dragstart', onMouseDragstart_bar_event);
       bar.removeEventListener('drag',      onMouseDrag_bar_event);
@@ -154,7 +171,7 @@ const onMouseDown_bar_event = (e) => {
       // bar.removeEventListener("touchmove", onMouseDrag_bar_event,TOUCH_EVENT_OPTIONS);
       // bar.removeEventListener("touchend", onMouseDragend_bar_event, true);
 
-      console.log(arr);
+      // console.log(arr);
 
       // // inset 재조정
       // bst.resize_div(arr);
@@ -168,7 +185,7 @@ const onMouseDown_bar_event = (e) => {
 // =================================================================== Div Event ====================================================================
 // ==================================================================================================================================================
 const onDragStart_div_event = (e) => {
-    console.log("==============Div Drag Start=============");  
+    // console.log("==============Div Drag Start=============");  
     //console.log("Node id = " + e.target.parentElement.getAttribute("name") + " / X 좌표 = " + e.clientX + " / 좌표 Y = " + e.clientY);
     //console.log(e.target);
     // e.preventDefault();
@@ -225,7 +242,7 @@ const onDragStart_div_event = (e) => {
       return false;
     }
 
-    console.log("==============Div enter=============");  
+    // console.log("==============Div enter=============");  
     // e.preventDefault();
 
     // drop_id가 -1이 아니고 나 자신이 아닐때 drag_node의 zindex를 뒤로 보낸다!
@@ -266,8 +283,8 @@ const onDragStart_div_event = (e) => {
       }
     });
 
-    console.log('inset 재계산 이후');
-    console.log(arr);
+    // console.log('inset 재계산 이후');
+    // console.log(arr);
 
     let tmp_el = null;
     arr.forEach(tmp_node => {
@@ -294,7 +311,7 @@ const onDragStart_div_event = (e) => {
       return false;
     }
 
-    console.log("==============Drag Over=============");
+    // console.log("==============Drag Over=============");
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
 
@@ -306,7 +323,7 @@ const onDragStart_div_event = (e) => {
     } else {
       tmp_node = arr[parseInt(e.target.parentElement.getAttribute("name"))];
     }
-    console.log(tmp_node);    
+    // console.log(tmp_node);    
 
     let tmp_tree   = document.getElementById("div_tree").offsetWidth;
     let tmp_title  = document.getElementById("div_mosaic_menubar").offsetHeight;
@@ -382,12 +399,12 @@ const onDragStart_div_event = (e) => {
 
     let shadow_div = document.getElementById("shadow");
 
-    console.log("DragEnd");
+    // console.log("DragEnd");
     shadow_div.style.display = 'none';
     shadow_div.style.zIndex  = "-1";
 
-    console.log("==============Drop=============");
-    console.log("Node id = " + drop_id);
+    // console.log("==============Drop=============");
+    // console.log("Node id = " + drop_id);
     // console.log("Node id = " + e.target.parentElement.getAttribute("name") + " / X 좌표 = " + e.clientX + " / 좌표 Y = " + e.clientY);
     // console.log(e.target.parentElement);
     // console.log(e.target.parentElement.getAttribute("name"));
@@ -416,11 +433,11 @@ const onDragStart_div_event = (e) => {
       // inset 재조정
       bst.resize_div(arr);
 
-      console.log("==============Drop after Log=============");
-      console.log(drag_node);
-      console.log(drag_state);
-      console.log(drag_bleft);
-      console.log(arr);
+      // console.log("==============Drop after Log=============");
+      // console.log(drag_node);
+      // console.log(drag_state);
+      // console.log(drag_bleft);
+      // console.log(arr);
 
       // 배열 갱신
       // setArr([...arr]);
@@ -456,9 +473,9 @@ const onDragStart_div_event = (e) => {
 <!-- {console.log("반복문 진행")} -->
 <!-- {console.log(arr)} -->
 
-{#each arr as item}
+{#each arr as item, index}
 	<!-- {console.log(item)} -->
-	<!-- {console.log(i)} -->
+	<!-- {console.log(index)} -->
 	
   <!-- <li>{i + 1} : {item.div_type}</li>  -->
 	<!-- Node_Type = P 이면, 부모 타입 이므로, 자식 노드에 관련된 노드를 느려야한다. -->
@@ -493,6 +510,7 @@ const onDragStart_div_event = (e) => {
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
 					<button on:click={Add_Div} id={item.left.id}>추가</button>
 					<button on:click={()=>{Del_Div(item.left)}}>삭제</button>
+          <!-- <button on:click={Changes}>변경</button> -->
 				</div>
 				<div class="div_Body">{item.left.node_text}</div>
 			</div>

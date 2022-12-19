@@ -7,6 +7,8 @@
   import { fade, draw, fly } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
   import { expoInOut } from 'svelte/easing';
+  import {tick} from 'svelte';
+  
 
   import {Svrollbar, Svroller} from "svrollbar"    
 
@@ -15,6 +17,7 @@
   let workEvent;
   let intervalTimer;
   let alterWorkTimer;
+  let timeOutTimer;
   let isSend = false;
   let drawCount = 1000;
   let updateCount = 500;
@@ -41,26 +44,41 @@
 		easing: expoInOut
 	});
 
-  function WorkInterval() {
-    //여기서 개수 바꾸는거 테스트 하면 될듯\
+   //addEventListener('load', testWorker);
+  
+   function testloop() {
+    clearTimeout(timeOutTimer);
+    timeOutTimer = setTimeout( function() {
+      WorkInterval();
+      testloop();
+    },workIntervalTime * 1000);
+   }
 
+  function testWorker() {
+    clearInterval(intervalTimer);  
+    intervalTimer = setInterval(() => {
+      WorkInterval();
+    }, workIntervalTime * 1000);      
+
+  }
+
+  async function WorkInterval() {
+    console.log("이게 도는중?");
     if (isReverse === true) 
     {
-      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
-      isReverse = false;
+        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        isReverse = false;
     }
     else
     {
-      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
-      isReverse = true;
+        //ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
+        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        isReverse = true;
     }
-
-    // for(let i=0;i<copyupdateCount; i++) {
-    //   const randomnum = Math.floor(Math.random()* 10000);
-    //   const secondrandomnum = Math.floor(Math.random()* 10000);
-    //   ItemList[i] = i + "바뀜" +  randomnum;// + secondrandomnum;
-    // }
+    await tick();
   }
+
+  
   
   function tabChange(e) {
       activeTab = e.detail;
@@ -73,10 +91,13 @@
 
   function ChangeWorkIntervalTime() {    
     if (workIntervalTime > 0) {
-      clearInterval(intervalTimer);  
-      intervalTimer = setInterval(() => {
-        WorkInterval();
-      }, workIntervalTime * 1000);      
+      removeEventListener('click', testloop);
+      addEventListener('click', testloop);
+      // clearInterval(intervalTimer);  
+      // addEventListener('load', testWorker);
+      // intervalTimer = setInterval(() => {
+      //   WorkInterval();
+      // }, workIntervalTime * 1000);      
       StartProcess();
     }
     else {
@@ -193,7 +214,7 @@
     <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
-    <label><h2>데이터 업데이트 주기</h2></label>
+    <label>데이터 업데이트 주기</label>
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
@@ -219,7 +240,7 @@
         <div bind:this={contents} class="contents">
             
     <TabPanel>
-        <OntuneTreeTypeOne nodeItem={ItemList} />
+        <OntuneTreeTypeOne nodeItem={ItemList} isReverse={isReverse} />
     </TabPanel>
     <TabPanel>
       <OntuneTreeTypeTwo isReverse={isReverse} />

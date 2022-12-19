@@ -103,6 +103,11 @@
       }
     }
 
+    function ResizeTree(event) {
+      let data = document.getElementById("wrapper");
+
+    }
+
     function StartProcess() {
       clearInterval(alterWorkTimer);   
       alterWorkTimer = setInterval(() => {
@@ -133,40 +138,39 @@
     color: azure;
     font-size: medium;
   }
-  h2 {
-    color:azure;
+
+  #tabsection{  
+    position: relative;  
+    height: 100%;
+    margin-right: 6px;
+
+    /* overflow: hidden; */
   }
-  #tabsection{    
-    padding-right: 6px;
-    overflow: hidden;
-    width: 100%;
-    
-  }
-
-
-
 
   .wrapper {
-      position: relative;
-      
-     
-      width:inherit;
-    }
-  
-    .viewport {
-      position: relative;
-      display: flex;
-      /* height: 100%; */
-      width:auto;
-      height: 800px;
-      right: 0px;
-      overflow: scroll;
-      /* border: 1px solid gray; */
-      /* box-sizing: context-box; */
+    position: absolute;
+    inset: "0% 0% 0% 0%";
+    width: 100%;
+    height: 100%;
 
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+  }
+  
+  .viewport {
+    /* position: relative; */
+    display: flex;
+    /* height: 100%; */
+    width:auto;
+    height: inherit;
+    /* right: 0px; */
+    overflow: scroll;
+    /* overflow-y: 100%; */
+    /* border: 1px solid gray; */
+    /* box-sizing: context-box; */
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   
     .viewport::-webkit-scrollbar {
       /* hide scrollbar */
@@ -189,7 +193,7 @@
     <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
-    <label>데이터 업데이트 주기</label>
+    <label><h2>데이터 업데이트 주기</h2></label>
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
@@ -225,7 +229,7 @@
     </TabPanel>
   </div>
   </div>
-  <Svrollbar {viewport} {contents} />
+  <Svrollbar {viewport} {contents} alwaysVisible={true} />
   </div>
   </Tabs>
 

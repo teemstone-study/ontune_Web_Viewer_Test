@@ -4,6 +4,10 @@
 	import { Node } from "./Binary_tree";
 	// import { Binary_Tree } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
+
+  import Grid from './Com_Grid.svelte';
+  import Bar_Chart from './Com_BarChart.svelte';
+  import Line_Chart from './Com_LineChart.svelte';
   
 	export let bst;
 	export let idx;
@@ -14,6 +18,13 @@
 	let drag_state = "N";                 // N / T / R / B / L
 	let drag_bleft = false;               // T = Left / F = Right
 	let drop_id    = -1;
+
+  let component_type = [
+		{ id: 0, text: "None" },
+		{ id: 1, text: "Grid" },
+		{ id: 2, text: "Bar Chart" },
+		{ id: 3, text: "Line Chart" }
+	];
 
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
@@ -81,6 +92,15 @@
 
   //   console.log(arr);
   // };
+
+  const Chart_Select = (item) => {
+    // 선택된 노드의 차트를 변경한다.
+    item.node_text = "";
+
+    // 배열 갱신
+		arr = [...arr];
+    // console.log(arr);
+  };  
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -184,7 +204,7 @@ const onMouseDown_bar_event = (e) => {
 // ==================================================================================================================================================
 // =================================================================== Div Event ====================================================================
 // ==================================================================================================================================================
-const onDragStart_div_event = (e) => {
+  const onDragStart_div_event = (e) => {
     // console.log("==============Div Drag Start=============");  
     //console.log("Node id = " + e.target.parentElement.getAttribute("name") + " / X 좌표 = " + e.clientX + " / 좌표 Y = " + e.clientY);
     //console.log(e.target);
@@ -452,11 +472,73 @@ const onDragStart_div_event = (e) => {
 
 	if (bst.root == null) {
 		// console.log("===========Root 생성===========");
-    bst.root = new Node(idx, "N", "C", "windows " + (node_text_idx + 1), 0, 0, 0, 0, 100);
+    // bst.root = new Node(idx, "N", "C", "windows " + (node_text_idx + 1), 0, 0, 0, 0, 100);
+    bst.root = new Node(idx, "N", "C", "None", 0, 0, 0, 0, 100);
     arr = [bst.root];
     // setArr([bst.root]);
 		//arr.push(bst.root);
     node_text_idx = node_text_idx + 1;
+
+    // 기본 모자이크 생성 1
+    // 0을 1|2로 Div 추가하기
+    const insert1_result = bst.insert(arr[0], arr.length, node_text_idx);
+
+    if (insert1_result) {
+      //arr.push(insert_result[0]);
+      //arr.push(insert_result[1]);
+      idx = idx + 2;
+      node_text_idx = node_text_idx + 1;
+
+      insert1_result[0].node_text = "Bar Chart";
+      insert1_result[1].node_text = "2";
+
+      // setArr([...arr, insert_result[0], insert_result[1]]);
+			arr = [...arr, insert1_result[0], insert1_result[1]];
+    };
+
+    // 기본 모자이크 생성 2
+    // 0을 1|2로 Div 추가하기
+    const insert2_result = bst.insert(arr[1], arr.length, node_text_idx);
+
+    if (insert2_result) {
+      //arr.push(insert_result[0]);
+      //arr.push(insert_result[1]);
+      idx = idx + 2;
+      node_text_idx = node_text_idx + 1;
+
+      insert1_result[0].node_text = "3";
+      insert1_result[1].node_text = "4";
+
+      // setArr([...arr, insert_result[0], insert_result[1]]);
+			arr = [...arr, insert2_result[0], insert2_result[1]];
+    };
+
+    // 2 -> 3 자리 변경
+    // 위치에 따라, Col | Row   /   Left | Right 를 지정하여 Insert / remove 해줘야한다.
+    const change_result = bst.change(arr[3], arr.length, arr[2], "R", false);
+
+    if (change_result) {
+      idx = idx + 2;
+      // node_text_idx = node_text_idx + 1;
+
+      arr[4].node_text = "Grid";
+      change_result[0].node_text = "Bar Chart";
+      change_result[1].node_text = "Line Chart";
+
+      arr.push(change_result[0]);
+      arr.push(change_result[1]);
+      // setArr([...arr, change_result[0], change_result[1]]);
+    };
+
+    // 기존 배열에서 inset 값을 변경 후 가져와야한다.
+    if (arr[arr[arr[arr[2].id].p_id].p_id]) {
+      bst.remove(arr[arr[arr[2].p_id].p_id], arr[arr[2].p_id], arr[2]);
+    } else {
+      bst.remove(null, arr[arr[2].p_id], arr[2]);
+    } 
+    // drag_node = null;
+    // inset 재조정
+    bst.resize_div(arr);    
 
     console.log(arr);
 		// console.log('------------Mosaic.svelte');
@@ -508,11 +590,28 @@ const onDragStart_div_event = (e) => {
 				style={"inset: " + `${item.left.inset_top}% ${item.left.inset_right}% ${item.left.inset_bottom}% ${item.left.inset_left}%`}
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
+          <!-- <select on:change="{() => item.left.node_text = this.options[this.selectedIndex].text}"> -->
+          <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
+          <select bind:value={item.left.node_text}>
+            {#each component_type as type}
+              <option value={type.text}>
+                {type.text}
+              </option>
+            {/each}
+          </select>
 					<button on:click={Add_Div} id={item.left.id}>추가</button>
 					<button on:click={()=>{Del_Div(item.left)}}>삭제</button>
           <!-- <button on:click={Changes}>변경</button> -->
 				</div>
-				<div class="div_Body">{item.left.node_text}</div>
+        <div class="div_Body">
+          {#if      (item.left.node_text == "Grid")}
+            <Grid />
+          {:else if (item.left.node_text == "Bar Chart")}
+            <Bar_Chart />
+          {:else if (item.left.node_text == "Line Chart")}
+            <Line_Chart />
+          {/if}
+        </div>
 			</div>
 		{/if}
 		{#if item.right.node_type === "C"}
@@ -521,10 +620,25 @@ const onDragStart_div_event = (e) => {
 			style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
+          <select bind:value={item.right.node_text}>
+            {#each component_type as type}
+              <option value={type.text}>
+                {type.text}
+              </option>
+            {/each}
+          </select>
 					<button on:click={Add_Div} id={item.right.id}>추가</button>
 					<button on:click={()=>{Del_Div(item.right)}}>삭제</button>
 				</div>
-				<div class="div_Body">{item.right.node_text}</div>
+        <div class="div_Body">
+          {#if      (item.right.node_text == "Grid")}
+            <Grid />
+          {:else if (item.right.node_text == "Bar Chart")}
+            <Bar_Chart />
+          {:else if (item.right.node_text == "Line Chart")}
+            <Line_Chart />
+          {/if}
+        </div>
 			</div>
 		{/if}
 	{:else if (item.div_type === "N" && item.node_type !== "D" && item.p_id == null)}
@@ -537,11 +651,26 @@ const onDragStart_div_event = (e) => {
 			class="div_Background" name={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
 			style={"inset: " + `${item.inset_top}% ${item.inset_right}% ${item.inset_bottom}% ${item.inset_left}%`}
 		>
-			<div class="div_Title" style={"cursor: " + 'default'}> 
+			<div class="div_Title" style={"cursor: " + 'default'}>
+        <select bind:value={item.node_text}>
+          {#each component_type as type}
+            <option value={type.text}>
+              {type.text}
+            </option>
+          {/each}
+        </select>
 				<button on:click={Add_Div} id={item.id}>추가</button>
 				<button on:click={()=>{Del_Div(item)}}>삭제</button>
 			</div>
-			<div class="div_Body">{item.node_text}</div>
+			<div class="div_Body">
+        {#if      (item.node_text == "Grid")}
+          <Grid />
+        {:else if (item.node_text == "Bar Chart")}
+          <Bar_Chart />
+        {:else if (item.node_text == "Line Chart")}
+          <Line_Chart />
+        {/if}
+      </div>
 		</div>
   {/if}
 {/each} 

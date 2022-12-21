@@ -4,7 +4,7 @@
           id,                           // 자신의 ID
           div_type = "N",               // DIV 표시 방식(None / Col / Row)
           node_type = "C",              // 노드 타입(Disable / Parent / Child )
-          node_text = "",               // Body Text
+          node_text = "None",           // Body Text -> Chart Type
           inset_top = 0,
           inset_right = 0,
           inset_bottom = 0,
@@ -71,8 +71,9 @@
           // 부모 node 정보를 불러와서 left, right 로 분류하여 추가해준다.(기존 Left, 신규 Right)
           // const old_node = this.find_node(parent_id);
           const old_node   = parent_node;
-          const left_node  = new Node(new_id,     "N", "C",          old_node.node_text, old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
-          const right_node = new Node(new_id + 1, "N", "C", "windows " + (text_idx + 1), old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          const left_node  = new Node(new_id,     "N", "C",  old_node.node_text, old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          // const right_node = new Node(new_id + 1, "N", "C", "windows " + (text_idx + 1), old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          const right_node = new Node(new_id + 1, "N", "C",              "None", old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
       
           // console.log("부모 ID = " + old_node.id);
           // console.log(old_node);
@@ -130,8 +131,8 @@
           // 부모 node 정보를 불러와서 left, right 로 분류하여 추가해준다.(기존 Left, 신규 Right)
           // const old_node = this.find_node(parent_id);
           const old_node   = parent_node;
-          const left_node  = new Node(new_id,     "N", "C", "", 0, 0, 0, 0, 50, old_node.id);
-          const right_node = new Node(new_id + 1, "N", "C", "", 0, 0, 0, 0, 50, old_node.id);
+          const left_node  = new Node(new_id,     "N", "C", "None", 0, 0, 0, 0, 50, old_node.id);
+          const right_node = new Node(new_id + 1, "N", "C", "None", 0, 0, 0, 0, 50, old_node.id);
       
           if (bLeft === true) {
             left_node.node_text  = change_node.node_text;

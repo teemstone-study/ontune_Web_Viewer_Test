@@ -1,4 +1,5 @@
 <!-- HTML -->
+
 <svg height="100%" width="100%">
 	<!-- <rect id="rect1" x="0" y="5" width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
 	<rect id="rect2" x="0" y="20" width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
@@ -6,39 +7,122 @@
 	<rect id="rect4" x="0" y="50" width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
 	<rect id="rect5" x="0" y="65" width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" /> -->	
 	{#each restList as item}	
-		{colorSet = colorList % 7}
+		{colorSet = item % 3}
+		{console.log("-------")}
+		{console.log(colorSet)}
+		{console.log(item)}
+		{console.log("===========")}
+		{#if colorSet === 0}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
+		{:else if colorSet === 1}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:orange; stroke-width:5" />
+		{:else if colorSet === 2}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
+		{:else if colorSet === 3}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:green; stroke-width:5" />			
+		{:else if colorSet === 4}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
+		{:else if colorSet === 5}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:Indigo; stroke-width:5" />
+		{:else if colorSet === 6}
+			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" />
+		{/if}
+	{/each}
+
+	<ellipse cx="500" cy="40" rx="5" ry="30" style="fill:purple; stroke:red; stroke-width:1"  />
+	<ellipse cx="510" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="520" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="530" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="540" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="550" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="560" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="570" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="580" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="590" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="600" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="610" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="620" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="630" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="640" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="650" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="660" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="670" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="680" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="690" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="700" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="710" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="720" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="730" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="740" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="750" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="760" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="770" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="780" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="790" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="800" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="810" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="820" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="830" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="840" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="850" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="860" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="870" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="880" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="890" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="900" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="910" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="920" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="930" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="940" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="950" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="960" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="970" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="980" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="990" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="1000" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+	<ellipse cx="1010" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
+		{#each restList as item}	
+		{colorSet = item % 3}
 		{console.log(colorSet)}
 		{console.log(colorList)}
 		{#if colorSet === 0}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
 		{:else if colorSet === 1}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:orange; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:orange; stroke-width:5" />
 		{:else if colorSet === 2}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
 		{:else if colorSet === 3}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:green; stroke-width:5" />			
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:green; stroke-width:5" />			
 		{:else if colorSet === 4}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
 		{:else if colorSet === 5}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:Indigo; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:Indigo; stroke-width:5" />
 		{:else if colorSet === 6}
-			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" />
+			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" />
 		{/if}
 		{colorList = colorList+ 1}
 	{/each}
-
 </svg>
 
+
 <script>
+	import { tweened } from 'svelte/motion';
 	window.onload = tmp_Event;
 	let colorList = 0;
 	let colorSet;
-	const restList = Array.from({ length: 70 }).map((_, i) => `${i}`) 
+
+
+	const restList = Array.from({ length: 40 }).map((_, i) => i) 
 
 	function logs() {
 		let el1 = document.getElementById("rect");
 
 		console.log(el1);
+	}
+
+	function DrawAnimation() {
+		document.writeln("<svg><ellipse cx='10' cy='40' rx='5' ry='30' style='fill:red; stroke:red; stroke-width:1'  /></svg>")
+		
 	}
 
 	function tmp_Event() {
@@ -48,7 +132,9 @@
 		// let el4 = document.getElementById("rect4");
 		// let el5 = document.getElementById("rect5");
 		colorList = 1;
+		//DrawAnimation();
 		let rectclass = document.getElementsByClassName("rect");
+		let outrectclass = document.getElementsByClassName("outrect");
 
 
 		// console.log(el1.clientLeft );
@@ -121,12 +207,38 @@
 			rectclass[i].animate(
 				{ transform: ['translateX(0%)', 'translateX(30%)'] },   // 시작 값 // 종료 값
 				{
-					duration: 2000 - (startTime * (20)),       // 밀리초 지정 
+					duration: 1500 - (startTime * (20)),       // 밀리초 지정 
 					fill: 'forwards',     // 종료 시 속성을 지님
-					easing: 'ease',       // 가속도 종류
+					easing: 'ease-out',       // 가속도 종류
 					iterations: Infinity  // 반복 횟수
 				}
 		);		
+		}
+
+		let endTime = 0;
+		for(let i =0; i < outrectclass.length; i++) {
+			endTime++;
+			outrectclass[i].animate(
+				{ transform: ['translateX(62%)', 'translateX(100%)'] },   // 시작 값 // 종료 값
+				{
+					duration: 1500 - (endTime * (20)),       // 밀리초 지정 
+					fill: 'forwards',     // 종료 시 속성을 지님
+					easing: 'ease-In',       // 가속도 종류
+					iterations: Infinity  // 반복 횟수
+				}
+				);	
+
+			// outrectclass[i].animate(
+			// 	[{transform: 'translateX(0%)', 'translateX(50%)'},
+			// 	  {transform: 'translateX(50%) translateY(80%)'}]   // 시작 값 // 종료 값
+			// 	{
+			// 		duration: 2000 - (endTime * (20)),       // 밀리초 지정 
+			// 		fill: 'forwards',     // 종료 시 속성을 지님
+			// 		easing: 'ease',       // 가속도 종류
+			// 		iterations: Infinity  // 반복 횟수
+			// 	}
+			// 	);	
+			// 	outrectclass[i].animate([{0% transform:translateX(0px) translateY(0px)}]);
 		}
 
 		// for(let i =0; i < rectclass.length; i++) {
@@ -160,6 +272,23 @@
 
 <!-- Style -->
 <style>
+
+	.flowgun {
+		width:50px;
+		height:50px;
+		top:220px;
+		left:220px;
+		border:5px solid #FFBB00;
+		/* 추가된 부분 */
+		animation:square-2 2.5s infinite cubic-bezier(0.415, 0.547, 0, 0.809);
+	}
+
+	@keyframes flowgun {
+		0% {transform:translateX(0px)}
+		50% {transform:translateX(150px)}
+		100% {transform:translateX(200px)}
+	}
+
 /* rect {
   width: 10px;
   height: 10px;

@@ -63,17 +63,29 @@
   }
 
   async function WorkInterval() {
+    let ReturnValue = [];
     if (isReverse === true) 
     {
-        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+      ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        // ReturnValue = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        // for (let i = 0; i < drawCount; i++) {
+        //   ItemList.push('item' + i);
+        // }    
         isReverse = false;
     }
     else
     {
-        //ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
         ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        // ReturnValue = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
+        // for (let i = 0; i < drawCount; i++) {
+        //   ItemList.push('item' + i);
+        // }        
         isReverse = true;
     }
+    // console.log("----------");
+    // console.log(ItemList);
+
+    // ItemList = ReturnValue;
     await tick();
   }
 
@@ -172,7 +184,7 @@
     inset: "0% 0% 0% 0%";
 
     width: 100%;
-    height: 96.5%;
+    height: 96.3%;
 
   }
   

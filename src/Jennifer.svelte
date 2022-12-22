@@ -7,100 +7,45 @@
 	<rect id="rect4" x="0" y="50" width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
 	<rect id="rect5" x="0" y="65" width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" /> -->	
 	{#each restList as item}	
-		{colorSet = item % 3}
-		{console.log("-------")}
-		{console.log(colorSet)}
-		{console.log(item)}
-		{console.log("===========")}
+		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:red; stroke-width:1" />
 		{:else if colorSet === 1}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:orange; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:orange; stroke-width:1" />
 		{:else if colorSet === 2}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:yellow; stroke-width:1" />
 		{:else if colorSet === 3}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:green; stroke-width:5" />			
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:green; stroke-width:1" />			
 		{:else if colorSet === 4}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:Indigo; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:Indigo; stroke-width:1" />
 		{:else if colorSet === 6}
-			<rect class="rect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" />
+			<circle class="rect" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:purple; stroke-width:1" />
 		{/if}
 	{/each}
 
-	<ellipse cx="500" cy="40" rx="5" ry="30" style="fill:purple; stroke:red; stroke-width:1"  />
-	<ellipse cx="510" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="520" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="530" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="540" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="550" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="560" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="570" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="580" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="590" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="600" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="610" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="620" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="630" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="640" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="650" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="660" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="670" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="680" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="690" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="700" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="710" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="720" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="730" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="740" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="750" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="760" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="770" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="780" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="790" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="800" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="810" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="820" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="830" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="840" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="850" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="860" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="870" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="880" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="890" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="900" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="910" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="920" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="930" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="940" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="950" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="960" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="970" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="980" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="990" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="1000" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-	<ellipse cx="1010" cy="40" rx="5" ry="30" style="fill:red; stroke:red; stroke-width:1"  />
-		{#each restList as item}	
-		{colorSet = item % 3}
-		{console.log(colorSet)}
-		{console.log(colorList)}
+	{#each restList as item}	
+		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:red; stroke:red; stroke-width:1" />
 		{:else if colorSet === 1}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:orange; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:orange; stroke:orange; stroke-width:1" />
 		{:else if colorSet === 2}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:yellow; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:yellow; stroke:yellow; stroke-width:1" />
 		{:else if colorSet === 3}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:green; stroke-width:5" />			
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:green; stroke:green; stroke-width:1" />			
 		{:else if colorSet === 4}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:blue; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:blue; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:Indigo; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:Indigo; stroke:Indigo; stroke-width:1" />
 		{:else if colorSet === 6}
-			<rect class="outrect" x="0" y={item + 20} width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" />
+			<circle class="outrect" cx="0" cy={getStartHeight()} r="5" style="fill:purple; stroke:purple; stroke-width:1" />
 		{/if}
-		{colorList = colorList+ 1}
+	{/each}
+
+	{#each diskList as disk}
+	<ellipse cx={(sizeWidth * 0.25) + (disk * 6)}px cy="40" rx="3" ry="20" style="fill:skyblue; stroke:skyblue; stroke-width:1"  />
 	{/each}
 </svg>
 
@@ -108,11 +53,26 @@
 <script>
 	import { tweened } from 'svelte/motion';
 	window.onload = tmp_Event;
-	let colorList = 0;
+	const startHeight = 15;
+	const diskStartPositionX = 450;
 	let colorSet;
+	let sizeData = document.getElementById("div_mosaic_menubar");
+	let sizeWidth = 0;
+	let sizeHeight = 0;
 
 
-	const restList = Array.from({ length: 40 }).map((_, i) => i) 
+	const restList = Array.from({ length: 20 }).map((_, i) => i) 
+	let diskList = Array.from({ length: 100 }).map((_, i) => i) 
+
+	function getStartHeight() {
+		return getRandomInt(startHeight, startHeight + 40);
+	}
+
+	function getRandomInt(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+	}
 
 	function logs() {
 		let el1 = document.getElementById("rect");
@@ -131,95 +91,44 @@
 		// let el3 = document.getElementById("rect3");
 		// let el4 = document.getElementById("rect4");
 		// let el5 = document.getElementById("rect5");
-		colorList = 1;
+		sizeData = document.getElementById("div_mosaic_menubar");
+		sizeWidth = sizeData.offsetWidth;
+		sizeHeight = sizeData.offsetHeight;
+		let diskLength = ((sizeWidth * 0.5) / 6) + 2 ;
+		diskList = Array.from({ length: diskLength }).map((_, i) => i) 
 		//DrawAnimation();
 		let rectclass = document.getElementsByClassName("rect");
 		let outrectclass = document.getElementsByClassName("outrect");
 
-
-		// console.log(el1.clientLeft );
-		// console.log(el2);
-		// console.log(el3);
-
-		// el1.animate(
-		// 	{ transform: ['translateX(0%)', 'translateX(95%)'] },   // 시작 값 // 종료 값
-		// 	{
-		// 		duration: 5000,       // 밀리초 지정 
-		// 		fill: 'forwards',     // 종료 시 속성을 지님
-		// 		easing: 'ease',       // 가속도 종류
-		// 		iterations: Infinity  // 반복 횟수
-		// 	}
-		// );
-
-		// el2.animate(
-		// { transform: ['translateX(0%)', 'translateX(95%)'] },   // 시작 값 // 종료 값
-		// {
-		// 	duration: 4000,       // 밀리초 지정
-		// 	fill: 'forwards',  		// 종료 시 속성을 지님
-		// 	easing: 'ease',  			// 가속도 종류
-		// 	iterations: Infinity  // 반복 횟수
-		// });
-
-		// el3.animate(
-		// { transform: ['translateX(0%)', 'translateX(95%)'] },   // 시작 값 // 종료 값
-		// {
-		// 	duration: 3000,       // 밀리초 지정 
-		// 	fill: 'forwards',     // 종료 시 속성을 지님
-		// 	easing: 'ease',       // 가속도 종류
-		// 	iterations: Infinity  // 반복 횟수
-		// });
-
-		// el4.animate(
-		// 	{ transform: ['translateX(0%)', 'translateX(30%)'] },   // 시작 값 // 종료 값
-		// 	{
-		// 		duration: 2000,       // 밀리초 지정 
-		// 		fill: 'forwards',     // 종료 시 속성을 지님
-		// 		easing: 'ease',       // 가속도 종류
-		// 		iterations: Infinity  // 반복 횟수
-		// 	}
-		// );
-
-		// el5.animate(
-		// 	{ transform: ['translateX(0%)', 'translateX(30%)'] },   // 시작 값 // 종료 값
-		// 	{
-		// 		duration: 1000,       // 밀리초 지정 
-		// 		fill: 'forwards',     // 종료 시 속성을 지님
-		// 		easing: 'ease',       // 가속도 종류
-		// 		iterations: Infinity  // 반복 횟수
-		// 	}
-		// );		
-			
-		// elementlist.forEach(element => {
-		// 	startTime++;
-		// 	element.animate(
-		// 		{ transform: ['translateX(0%)', 'translateX(95%)'] },   // 시작 값 // 종료 값
-		// 		{
-		// 			duration: 1000 + (startTime * 100),       // 밀리초 지정 
-		// 			fill: 'forwards',     // 종료 시 속성을 지님
-		// 			easing: 'ease',       // 가속도 종류
-		// 			iterations: Infinity  // 반복 횟수
-		// 		}
-		// );		
-		// });
 		let startTime = 0;
 		for(let i =0; i < rectclass.length; i++) {
 			startTime++;
+			let rectPosition = rectclass[i].getBoundingClientRect();
+			//console.log(((newTest.top)));
 			rectclass[i].animate(
-				{ transform: ['translateX(0%)', 'translateX(30%)'] },   // 시작 값 // 종료 값
+				{ transform: ['translateX(0px)',
+							  'translateX(' + (sizeWidth * 0.2) +'px)', 
+							  'translate(' + (sizeWidth * 0.25) +'px, ' +(((sizeHeight / 2) - rectPosition.top - rectPosition.height + 2)) + 'px)' ] },   // 시작 값 // 종료 값
 				{
 					duration: 1500 - (startTime * (20)),       // 밀리초 지정 
 					fill: 'forwards',     // 종료 시 속성을 지님
 					easing: 'ease-out',       // 가속도 종류
-					iterations: Infinity  // 반복 횟수
+					iterations: Infinity  // 반복 횟수					
 				}
 		);		
 		}
 
 		let endTime = 0;
+
 		for(let i =0; i < outrectclass.length; i++) {
 			endTime++;
+			let rectPosition = outrectclass[i].getBoundingClientRect();
+			let originValue = rectPosition.top - rectPosition.height + 2;
+			console.log(originValue);
 			outrectclass[i].animate(
-				{ transform: ['translateX(62%)', 'translateX(100%)'] },   // 시작 값 // 종료 값
+				{ transform: ['translate(' + (sizeWidth * 0.75) +'px, ' +(((sizeHeight / 2) - rectPosition.top - rectPosition.height + 2)) + 'px)',
+							  'translate(' + (sizeWidth * 0.80) +'px, ' + originValue + 'px)',
+						      'translate(' + (sizeWidth * 1) +'px, ' + originValue + 'px)'] },   // 시작 값 // 종료 값
 				{
 					duration: 1500 - (endTime * (20)),       // 밀리초 지정 
 					fill: 'forwards',     // 종료 시 속성을 지님

@@ -7,8 +7,8 @@
 	<rect id="rect5" x="0" y="65" width="10" height="10" style="fill:#dddddd; stroke:purple; stroke-width:5" /> -->	
 	{#each restList as item}	
 		{colorSet = colorList % 7}
-		{console.log(colorSet)}
-		{console.log(colorList)}
+		<!-- {console.log(colorSet)}
+		{console.log(colorList)} -->
 		{#if colorSet === 0}
 			<rect class="rect" x="0" y={item} width="10" height="10" style="fill:#dddddd; stroke:red; stroke-width:5" />
 		{:else if colorSet === 1}
@@ -38,7 +38,7 @@
 	function logs() {
 		let el1 = document.getElementById("rect");
 
-		console.log(el1);
+		// console.log(el1);
 	}
 
 	function tmp_Event() {

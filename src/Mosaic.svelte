@@ -12,7 +12,7 @@
 	export let bst;
 	export let idx;
 	export let node_text_idx;
-	export let arr;  
+	export let arr;
 
   let drag_node = null;                 // Null or Node
 	let drag_state = "N";                 // N / T / R / B / L
@@ -93,12 +93,13 @@
   //   console.log(arr);
   // };
 
-  const Chart_Select = (item) => {
-    // 선택된 노드의 차트를 변경한다.
-    item.node_text = "";
+  const Set_Random_Data = (e) => {
+    console.log('----Set_Random_Data-----');
+    // console.log(arr[e.target.id]);
 
-    // 배열 갱신
-		arr = [...arr];
+    // 노드의 Random Data 생성 함수를 실행시킨다.
+    // arr[e.target.id].arr_Data = [];
+    arr[e.target.id].arr_Data = [...bst.set_random_data(arr[e.target.id], 0)];
     // console.log(arr);
   };  
 
@@ -506,8 +507,8 @@ const onMouseDown_bar_event = (e) => {
       idx = idx + 2;
       node_text_idx = node_text_idx + 1;
 
-      insert1_result[0].node_text = "3";
-      insert1_result[1].node_text = "4";
+      // insert1_result[0].node_text = "3";
+      // insert1_result[1].node_text = "4";
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
 			arr = [...arr, insert2_result[0], insert2_result[1]];
@@ -592,7 +593,8 @@ const onMouseDown_bar_event = (e) => {
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
           <!-- <select on:change="{() => item.left.node_text = this.options[this.selectedIndex].text}"> -->
           <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
-          <select bind:value={item.left.node_text}>
+          <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
+          <select bind:value={item.left.node_text} id={item.left.id} on:ratechange={Set_Random_Data}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -605,11 +607,11 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.left.node_text == "Grid")}
-            <Grid />
+            <Grid data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Bar Chart")}
-            <Bar_Chart />
+            <Bar_Chart data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
-            <Line_Chart />
+            <Line_Chart data={item.left.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -620,7 +622,8 @@ const onMouseDown_bar_event = (e) => {
 			style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
-          <select bind:value={item.right.node_text}>
+          <button style="width: 100px;" on:click={Set_Random_Data} id={item.right.id}>자동변경 시작</button>
+          <select bind:value={item.right.node_text} id={item.right.id} on:ratechange={Set_Random_Data}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -632,11 +635,11 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.right.node_text == "Grid")}
-            <Grid />
+            <Grid data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Bar Chart")}
-            <Bar_Chart />
+            <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
-            <Line_Chart />
+            <Line_Chart data={item.right.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -652,7 +655,8 @@ const onMouseDown_bar_event = (e) => {
 			style={"inset: " + `${item.inset_top}% ${item.inset_right}% ${item.inset_bottom}% ${item.inset_left}%`}
 		>
 			<div class="div_Title" style={"cursor: " + 'default'}>
-        <select bind:value={item.node_text}>
+        <button style="width: 100px;" on:click={Set_Random_Data} id={item.id}>자동변경 시작</button>
+        <select bind:value={item.node_text} id={item.id} on:ratechange={Set_Random_Data}>
           {#each component_type as type}
             <option value={type.text}>
               {type.text}
@@ -664,11 +668,11 @@ const onMouseDown_bar_event = (e) => {
 			</div>
 			<div class="div_Body">
         {#if      (item.node_text == "Grid")}
-          <Grid />
+          <Grid data={item.arr_Data} />
         {:else if (item.node_text == "Bar Chart")}
-          <Bar_Chart />
+          <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}
-          <Line_Chart />
+          <Line_Chart data={item.arr_Data} />
         {/if}
       </div>
 		</div>

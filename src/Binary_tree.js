@@ -13,7 +13,8 @@
       
           p_id = null,
           left = null,
-          right = null
+          right = null,
+          arr_Data = []
         ) {
           this.id = id;
           this.div_type = div_type;
@@ -29,6 +30,7 @@
           this.p_id = p_id;
           this.left = left;
           this.right = right;
+          this.arr_Data = arr_Data;
         }
       }
       
@@ -284,5 +286,102 @@
             }
       //      console.log(tmp_node);
           });
+        }
+
+        // Grid Data Random 생성
+        create_grid_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 7; i++) {
+            tmp_data.push(
+              {
+                name: "data_" + parseInt(i+counter),
+                email: "data_" + parseInt(i+counter) + "@email.com",
+                col1: "A" + parseInt(i+counter),
+                col2: "B" + parseInt(i+counter),
+                col3: "C" + parseInt(i+counter),
+                col4: "D" + parseInt(i+counter),
+                col5: "E" + parseInt(i+counter),
+                col6: "F" + parseInt(i+counter),
+                col7: "G" + parseInt(i+counter),
+                col8: "H" + parseInt(i+counter),
+                col9: "I" + parseInt(i+counter),
+                col10: "J" + parseInt(i+counter),
+              },
+            );
+          }
+
+          return tmp_data;
+        }
+
+        // Bar Chart Data Random 생성
+        create_bar_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 10; i++) {
+            if (((i*10)+counter) == 0) {
+              tmp_data.push(
+                {
+                  host: (i),
+                  value: 0,
+                },
+              );
+            } else {
+              tmp_data.push(
+                {
+                  host: (i),
+                  value: (i*10)+counter,
+                },
+              );
+            }
+	          // 	{ year: 1990, birthrate: 16.7 },
+          }
+          // console.log(tmp_data);
+          return tmp_data;
+        }
+
+        // Line Chart Data Random 생성
+        create_line_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 10; i++) {
+            if (((i*10)+counter) == 0) {
+              tmp_data.push(
+                {
+                  x: (i),
+                  y: 0,
+                },
+              );
+            } else {
+              tmp_data.push(
+                {
+                  x: (i),
+                  y: (i*10)+counter,
+                },
+              );
+            }
+          }
+          // console.log(tmp_data);
+          return tmp_data;
+        }        
+
+        set_random_data(target_node, counter) {
+          let tmp_arr = [];
+
+          console.log(target_node.node_text);
+
+          if        (target_node.node_text == "Grid") {
+            tmp_arr =  this.create_grid_data(counter);
+          } else if (target_node.node_text == "Bar Chart") {
+            tmp_arr = this.create_bar_data(counter);
+          } else if (target_node.node_text == "Line Chart") {
+            tmp_arr = this.create_line_data(counter);
+          } else {
+            tmp_arr = [];
+          }
+
+          // target_node.arr_Data = [...tmp_arr];
+
+          return tmp_arr;
         }
       }

@@ -5,8 +5,7 @@
   // import tree from './Tree.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
-  import Grid from './Com_Grid.svelte';
-
+  
 	import { Node } from "./Binary_tree";
 	import { Binary_Tree } from "./Binary_tree";
   import OntuneTreeView from './ontuneTreeView.svelte';
@@ -215,13 +214,11 @@
       <Mosaic {...mosaic_props} />
     </div>    
   </div>
-
-  <div id="div_grid_main">
-    <!-- <div id="main_Row" draggable="true" onmousedown="onMouseDown_Main_bar_event(event)"></div> -->
+  <!-- <div id="div_grid_main">
     <div id="div_grid_body">
       <Grid />
     </div>
-  </div>  
+  </div>   -->
 </div>	
 
 

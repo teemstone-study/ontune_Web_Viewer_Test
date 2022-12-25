@@ -4,7 +4,7 @@
           id,                           // 자신의 ID
           div_type = "N",               // DIV 표시 방식(None / Col / Row)
           node_type = "C",              // 노드 타입(Disable / Parent / Child )
-          node_text = "",               // Body Text
+          node_text = "None",           // Body Text -> Chart Type
           inset_top = 0,
           inset_right = 0,
           inset_bottom = 0,
@@ -13,7 +13,8 @@
       
           p_id = null,
           left = null,
-          right = null
+          right = null,
+          arr_Data = []
         ) {
           this.id = id;
           this.div_type = div_type;
@@ -29,6 +30,7 @@
           this.p_id = p_id;
           this.left = left;
           this.right = right;
+          this.arr_Data = arr_Data;
         }
       }
       
@@ -71,8 +73,9 @@
           // 부모 node 정보를 불러와서 left, right 로 분류하여 추가해준다.(기존 Left, 신규 Right)
           // const old_node = this.find_node(parent_id);
           const old_node   = parent_node;
-          const left_node  = new Node(new_id,     "N", "C",          old_node.node_text, old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
-          const right_node = new Node(new_id + 1, "N", "C", "windows " + (text_idx + 1), old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          const left_node  = new Node(new_id,     "N", "C",  old_node.node_text, old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          // const right_node = new Node(new_id + 1, "N", "C", "windows " + (text_idx + 1), old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
+          const right_node = new Node(new_id + 1, "N", "C",              "None", old_node.inset_top, old_node.inset_right, old_node.inset_bottom, old_node.inset_left, 50, old_node.id);
       
           // console.log("부모 ID = " + old_node.id);
           // console.log(old_node);
@@ -130,8 +133,8 @@
           // 부모 node 정보를 불러와서 left, right 로 분류하여 추가해준다.(기존 Left, 신규 Right)
           // const old_node = this.find_node(parent_id);
           const old_node   = parent_node;
-          const left_node  = new Node(new_id,     "N", "C", "", 0, 0, 0, 0, 50, old_node.id);
-          const right_node = new Node(new_id + 1, "N", "C", "", 0, 0, 0, 0, 50, old_node.id);
+          const left_node  = new Node(new_id,     "N", "C", "None", 0, 0, 0, 0, 50, old_node.id);
+          const right_node = new Node(new_id + 1, "N", "C", "None", 0, 0, 0, 0, 50, old_node.id);
       
           if (bLeft === true) {
             left_node.node_text  = change_node.node_text;
@@ -283,5 +286,102 @@
             }
       //      console.log(tmp_node);
           });
+        }
+
+        // Grid Data Random 생성
+        create_grid_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 7; i++) {
+            tmp_data.push(
+              {
+                name: "data_" + parseInt(i+counter),
+                email: "data_" + parseInt(i+counter) + "@email.com",
+                col1: "A" + parseInt(i+counter),
+                col2: "B" + parseInt(i+counter),
+                col3: "C" + parseInt(i+counter),
+                col4: "D" + parseInt(i+counter),
+                col5: "E" + parseInt(i+counter),
+                col6: "F" + parseInt(i+counter),
+                col7: "G" + parseInt(i+counter),
+                col8: "H" + parseInt(i+counter),
+                col9: "I" + parseInt(i+counter),
+                col10: "J" + parseInt(i+counter),
+              },
+            );
+          }
+
+          return tmp_data;
+        }
+
+        // Bar Chart Data Random 생성
+        create_bar_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 10; i++) {
+            if (((i*10)+counter) == 0) {
+              tmp_data.push(
+                {
+                  host: (i),
+                  value: 0,
+                },
+              );
+            } else {
+              tmp_data.push(
+                {
+                  host: (i),
+                  value: (i*10)+counter,
+                },
+              );
+            }
+	          // 	{ year: 1990, birthrate: 16.7 },
+          }
+          // console.log(tmp_data);
+          return tmp_data;
+        }
+
+        // Line Chart Data Random 생성
+        create_line_data(counter) {
+          let tmp_data = [];
+
+          for (let i = 0; i < 10; i++) {
+            if (((i*10)+counter) == 0) {
+              tmp_data.push(
+                {
+                  x: (i),
+                  y: 0,
+                },
+              );
+            } else {
+              tmp_data.push(
+                {
+                  x: (i),
+                  y: (i*10)+counter,
+                },
+              );
+            }
+          }
+          // console.log(tmp_data);
+          return tmp_data;
+        }        
+
+        set_random_data(target_node, counter) {
+          let tmp_arr = [];
+
+          console.log(target_node.node_text);
+
+          if        (target_node.node_text == "Grid") {
+            tmp_arr =  this.create_grid_data(counter);
+          } else if (target_node.node_text == "Bar Chart") {
+            tmp_arr = this.create_bar_data(counter);
+          } else if (target_node.node_text == "Line Chart") {
+            tmp_arr = this.create_line_data(counter);
+          } else {
+            tmp_arr = [];
+          }
+
+          // target_node.arr_Data = [...tmp_arr];
+
+          return tmp_arr;
         }
       }

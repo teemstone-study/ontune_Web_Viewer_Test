@@ -214,6 +214,17 @@
         font: 800;
     }
 
+    :global(.svelte-tabs li.svelte-tabs__tab) {
+      color:white;
+    }
+
+    :global(.svelte-tabs li.svelte-tabs__selected){
+      color: #4F81E5;
+    }
+
+   
+   
+
 </style>
 
 <section id="tabsection">
@@ -241,7 +252,7 @@
   {/if}
 
   
-  <Tabs on:tabChange={tabChange} >
+  <Tabs on:tabChange={tabChange}  >
     <TabList>
       <Tab HtmlTag="host">host</Tab>
       <Tab HtmlTag="vmhost">VMHost</Tab>
@@ -252,7 +263,7 @@
         <div bind:this={contents} class="contents">
             
     <TabPanel>
-        <OntuneTreeTypeOne nodeItem={ItemList} isReverse={isReverse} />
+        <OntuneTreeTypeOne nodeItem={ItemList} isReverse={isReverse} updateCount={updateCount}  />
     </TabPanel>
     <TabPanel>
       <OntuneTreeTypeTwo isReverse={isReverse} />

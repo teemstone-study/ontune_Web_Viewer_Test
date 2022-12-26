@@ -3,7 +3,7 @@
 <svg height="100%" width="100%">
 
 	<!-- 들어가는 부분 -->
-	{#each restList as item}	
+	{#each startBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
 			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:red; stroke-width:1" />
@@ -23,7 +23,7 @@
 	{/each}
 
 	<!-- 나오는 부분 -->
-	{#each restList as item}	
+	{#each endBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
 			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:red; stroke:red; stroke-width:1" />
@@ -91,15 +91,18 @@
 	let resizeTimer;
 
 
-	const restList = Array.from({ length: 20 }).map((_, i) => i) 
-	let diskList = Array.from({ length: 100 }).map((_, i) => i) 
-	let bulletList = Array.from({ length: 20 }).map((_, i) => i) 
+	const startBulletList = Array.from({ length: 15 }).map((_, i) => i);
+	const lastBulletList = Array.from({ length: 15 }).map((_, i) => i);
+	let diskList = Array.from({ length: 80 }).map((_, i) => i) 
+	let bulletList = Array.from({ length: 15 }).map((_, i) => i) 
 	let diskcount = new Array();
+	$: startBulletMaker = startBulletList;
+	$: endBulletMaker = lastBulletList;
+
 	$: diskMaker = diskList;
 	$: circleBubble = bulletList;
 
 	function updateListener() {
-		console.log("addEvent");
     clearTimeout(updateTimer);
     updateTimer = setTimeout( function() {
 	  DiskGenerator();
@@ -132,10 +135,6 @@
 		second = getRandomInt(0,diskList.length - first);
 		third = getRandomInt(0,diskList.length - first - second);
 		forth = diskList.length - first - second - third;
-		console.log("totalvalue = ");
-		console.log(diskList);
-		console.log("total = " + diskList.length);
-		console.log("1, 2, 3, 4 = " + first + ", " + second + ", " + third + ", " + forth);
 
 		for(let i = 0; i < diskList.length; i++) {
 			if(i < first) {
@@ -196,7 +195,6 @@
 			bulletList = Array.from({ length: 20 }).map((_, i) => i);
 			//$: circleBubble = bulletList;
 			reDraw(); // disk 항목만 새로 만들고 나머지는 그대로 처리
-			console.log("is Change Work");		
 		}, 300);
 	}
 
@@ -210,7 +208,7 @@
 		sizeHeight = sizeData.offsetHeight;
 	
 		diskMaker = diskList;
-		console.log(diskMaker);
+		
 		//DrawAnimation();
 		let inbulletclass = document.getElementsByClassName("inBullet");
 		let outbulletclass = document.getElementsByClassName("outBullet");
@@ -277,6 +275,9 @@
 				}
 		);		
 		}
+
+		startBulletMaker = startBulletList;
+		endBulletMaker = lastBulletList;
 	}
 
 	function reDraw() {
@@ -308,17 +309,4 @@
 		50% {transform:translateX(150px)}
 		100% {transform:translateX(200px)}
 	}
-
-/* rect {
-  width: 10px;
-  height: 10px;
-  display: block;
-  position: absolute;
-  background: white;
-  top: 10px;
-  left: 10px;
-  
-  transition: all 3s;
-  z-index: 10;
-} */
 </style>

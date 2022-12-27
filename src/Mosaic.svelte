@@ -26,6 +26,9 @@
 		{ id: 3, text: "Line Chart" }
 	];
 
+  let t_Timer;
+  let tmp_counter = 0;
+
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
 // ==================================================================================================================================================
@@ -99,9 +102,11 @@
 
     // 노드의 Random Data 생성 함수를 실행시킨다.
     // arr[e.target.id].arr_Data = [];
-    arr[e.target.id].arr_Data = [...bst.set_random_data(arr[e.target.id], 0)];
-    // console.log(arr);
-  };  
+    // arr[e.target.id].arr_Data = [...bst.set_random_data(arr[e.target.id], tmp_counter)];
+    arr[e.target.id].set_timer();
+    // console.log(tmp_counter);    
+    // Random_Timer(e);
+  };
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -607,11 +612,11 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.left.node_text == "Grid")}
-            <Grid data={item.left.arr_Data} />
+            <Grid bind:data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Bar Chart")}
-            <Bar_Chart data={item.left.arr_Data} />
+            <Bar_Chart bind:data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
-            <Line_Chart data={item.left.arr_Data} />
+            <Line_Chart bind:data={item.left.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -635,11 +640,11 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.right.node_text == "Grid")}
-            <Grid data={item.right.arr_Data} />
+            <Grid bind:data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Bar Chart")}
-            <Bar_Chart data={item.right.arr_Data} />
+            <Bar_Chart bind:data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
-            <Line_Chart data={item.right.arr_Data} />
+            <Line_Chart bind:data={item.right.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -668,11 +673,11 @@ const onMouseDown_bar_event = (e) => {
 			</div>
 			<div class="div_Body">
         {#if      (item.node_text == "Grid")}
-          <Grid data={item.arr_Data} />
+          <Grid bind:data={item.arr_Data} />
         {:else if (item.node_text == "Bar Chart")}
-          <Bar_Chart data={item.arr_Data} />
+          <Bar_Chart bind:data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}
-          <Line_Chart data={item.arr_Data} />
+          <Line_Chart bind:data={item.arr_Data} />
         {/if}
       </div>
 		</div>

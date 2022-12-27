@@ -294,19 +294,4 @@
 <!-- Style -->
 <style>
 
-	.flowgun {
-		width:50px;
-		height:50px;
-		top:220px;
-		left:220px;
-		border:5px solid #FFBB00;
-		/* 추가된 부분 */
-		animation:square-2 2.5s infinite cubic-bezier(0.415, 0.547, 0, 0.809);
-	}
-
-	@keyframes flowgun {
-		0% {transform:translateX(0px)}
-		50% {transform:translateX(150px)}
-		100% {transform:translateX(200px)}
-	}
 </style>

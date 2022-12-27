@@ -7,7 +7,7 @@
   import { fade, draw, fly } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
   import { expoInOut } from 'svelte/easing';
-  import {tick} from 'svelte';
+  import {onMount, tick} from 'svelte';
   
 
   import {Svrollbar, Svroller} from "svrollbar"    
@@ -20,32 +20,40 @@
   let isSend = false;
   let drawCount = 1000;
   let updateCount = 500;
-  let copyupdateCount = 0;
   let workIntervalTime = 1;
   let SetWorkIntervalTime = 1;
   let isReverse = false;
   let ItemList;
-  $: UpdateListItem = ItemList;
-  
   let visibleTestMode = false;
+  $: UpdateListItem = ItemList;
+  $: copyupdateCount = updateCount;
+  
 
   $: dddd = visibleTestMode;
+  init();
 
-  ChangeNodeCount();
+  function init() {
+    console.log("init");
+    ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`);
+  }
+  
   const progress = tweened(0, {
 		duration: 400,
 		easing: expoInOut
 	});
 
-  function updateItemList(e) {
-    if (e.data != 'error') {
-        if (isReverse === true) { 
+  function updateTreeList(listData) {
+    if (isReverse === true) { 
           isReverse = false; 
         } else {
           isReverse = true;
         }
-        ItemList = e.data;
-        UpdateListItem = ItemList;
+        ItemList = listData;
+  }
+
+  function updateItemList(e) {
+    if (e.data != 'error') {
+       updateTreeList(e.data);
       }
   }
 
@@ -91,14 +99,7 @@
   }
 
     function ChangeNodeCount() {
-      if (isReverse === false) 
-      {
-        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
-      }
-      else
-      {
-        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
-      }
+      updateTreeList(ItemList);
     }
 
     function EnterWork(e) {

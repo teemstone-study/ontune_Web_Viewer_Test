@@ -15,7 +15,6 @@
 
   let activeTab;
   let workEvent;
-  let intervalTimer;
   let alterWorkTimer;
   let timeOutTimer;
   let isSend = false;
@@ -23,61 +22,46 @@
   let updateCount = 500;
   let copyupdateCount = 0;
   let workIntervalTime = 1;
+  let SetWorkIntervalTime = 1;
   let isReverse = false;
   let ItemList;
+  $: UpdateListItem = ItemList;
   
   let visibleTestMode = false;
 
   $: dddd = visibleTestMode;
 
   ChangeNodeCount();
-  
-  // onMount(() => {
-  //   intervalTimer = setInterval(() => {
-  //     WorkInterval();
-  //   }, workIntervalTime * 1000)
-
-  // });
-
   const progress = tweened(0, {
 		duration: 400,
 		easing: expoInOut
 	});
 
-   //addEventListener('load', testWorker);
-  
-   function testloop() {
-    clearTimeout(timeOutTimer);
-    timeOutTimer = setTimeout( function() {
-      WorkInterval();
-      testloop();
-    },workIntervalTime * 1000);
-   }
+  function updateItemList(e) {
+    if (e.data != 'error') {
+        if (isReverse === true) { 
+          isReverse = false; 
+        } else {
+          isReverse = true;
+        }
+        ItemList = e.data;
+        UpdateListItem = ItemList;
+      }
+  }
 
   function testWorker() {
-    clearInterval(intervalTimer);  
-    intervalTimer = setInterval(() => {
-      WorkInterval();
-    }, workIntervalTime * 1000);      
-
+    workEvent = new Worker('ontuneTreeListMaker.js');
+    workEvent.onmessage = updateItemList;
+    loopEvent();    
   }
 
-  async function WorkInterval() {
-    if (isReverse === true) 
-    {
-        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
-        isReverse = false;
-    }
-    else
-    {
-        //ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${drawCount - i}`) 
-        ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`) 
-        isReverse = true;
-    }
-    await tick();
-  }
-
-  
+  function loopEvent() {
+    clearTimeout(timeOutTimer);
+    timeOutTimer = setTimeout( function() {
+      workEvent.postMessage(drawCount);
+      loopEvent();
+    },SetWorkIntervalTime * 1000);
+  }  
   
   function tabChange(e) {
       activeTab = e.detail;
@@ -90,18 +74,18 @@
 
   function ChangeWorkIntervalTime() {    
     if (workIntervalTime > 0) {
-      removeEventListener('click', testloop);
-      addEventListener('click', testloop);
-      // clearInterval(intervalTimer);  
-      // addEventListener('load', testWorker);
-      // intervalTimer = setInterval(() => {
-      //   WorkInterval();
-      // }, workIntervalTime * 1000);      
+      if(window.Worker) {
+        SetWorkIntervalTime = workIntervalTime;
+
+        console.log("possible worker");
+        testWorker();
+      }    
+  
       StartProcess();
     }
     else {
       console.log("0초니까 ");
-      clearInterval(intervalTimer); 
+      workEvent.terminate();
       clearInterval(alterWorkTimer);     
     }
   }
@@ -172,7 +156,7 @@
     inset: "0% 0% 0% 0%";
 
     width: 100%;
-    height: 96.5%;
+    height: 96.3%;
 
   }
   
@@ -202,6 +186,17 @@
         font: 800;
     }
 
+    :global(.svelte-tabs li.svelte-tabs__tab) {
+      color:white;
+    }
+
+    :global(.svelte-tabs li.svelte-tabs__selected){
+      color: #4F81E5;
+    }
+
+   
+   
+
 </style>
 
 <section id="tabsection">
@@ -220,7 +215,7 @@
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
     <br>
     <input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
-    <button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >동시변경개수변경</button>
+    <button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >Update개수변경</button>
     <br>
     <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
     <br>
@@ -229,7 +224,7 @@
   {/if}
 
   
-  <Tabs on:tabChange={tabChange} >
+  <Tabs on:tabChange={tabChange}  >
     <TabList>
       <Tab HtmlTag="host">host</Tab>
       <Tab HtmlTag="vmhost">VMHost</Tab>
@@ -240,7 +235,7 @@
         <div bind:this={contents} class="contents">
             
     <TabPanel>
-        <OntuneTreeTypeOne nodeItem={ItemList} isReverse={isReverse} />
+        <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
     </TabPanel>
     <TabPanel>
       <OntuneTreeTypeTwo isReverse={isReverse} />

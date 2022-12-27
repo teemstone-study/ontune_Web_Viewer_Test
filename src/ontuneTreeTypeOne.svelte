@@ -3,6 +3,7 @@
     import {Svrollbar, Svroller} from "svrollbar"    
 
     export let nodeItem;
+    export let updateCount;
     export let isReverse;
     let viewport;
     let contents;
@@ -37,15 +38,13 @@
         font: 800;
     } */
     
-    
 </style>
-
 
     <TreeView branchHoverColor="yellow" iconColor="black"  >
         <TreeBranch rootContent="Linux" >
             {#each nodeItem as item, i (item)}
             <TreeLeaf>
-              {#if (i % 2) === 0 && isReverse}
+              {#if (i % 2) === 0 && isReverse && i < updateCount}
                 <img src={onsrc} alt="onimage" />
               {:else}
                 <img src={offsrc} alt="offimage" />

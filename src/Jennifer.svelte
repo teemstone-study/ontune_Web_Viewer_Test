@@ -6,13 +6,13 @@
 	{#each startBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:red; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74); stroke-width:1" />
 		{:else if colorSet === 1}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:orange; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(253, 146, 0); stroke-width:1" />
 		{:else if colorSet === 2}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:yellow; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(63, 175, 119); stroke-width:1" />
 		{:else if colorSet === 3}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:green; stroke-width:1" />			
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(64, 120, 253); stroke-width:1" />			
 		{:else if colorSet === 4}
 			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
@@ -26,13 +26,13 @@
 	{#each endBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:red; stroke:red; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(255, 84, 74); stroke:rgba(255, 84, 74); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 1}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:orange; stroke:orange; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(253, 146, 0); stroke:rgba(253, 146, 0); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 2}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:yellow; stroke:yellow; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(63, 175, 119); stroke:rgba(63, 175, 119); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 3}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:green; stroke:green; stroke-width:1" />			
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(64, 120, 253); stroke:rgba(64, 120, 253); stroke-width:1; transition: 5s" />			
 		{:else if colorSet === 4}
 			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:blue; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
@@ -43,29 +43,30 @@
 	{/each}
 
 	<!-- 디스크 -->
+	<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length) * 6) - 6}px cy="40" rx="10" ry="20" style="fill:darkgray; stroke:darkgray; stroke-width:1;"  />
+
 	{#each diskMaker as disk, idx}
 		{#if disk === 1}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:red; stroke:red; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(255, 84, 74, 0.6); stroke:rgba(255, 84, 74, .6); stroke-width:1;"  />
 		{:else if disk == 2}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:orange; stroke:orange; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(253, 146, 0, 0.6); stroke:rgba(253, 146, 0, 0.6); stroke-width:1;"  />
 		{:else if disk == 3}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:yellow; stroke:yellow; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(63, 175, 119, 0.6); stroke:rgba(63, 175, 119, 0.6); stroke-width:1; "  />
 		{:else if disk == 4}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:green; stroke:green; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(64, 120, 253, 0.6); stroke:rgba(64, 120, 253, 0.6); stroke-width:1; "  />	
 		{/if}
 	{/each}
-
 	<!-- 총알 터지는 부분 -->
 	{#each circleBubble as item}	
 	{colorSet = item % 4}
 	{#if colorSet === 0}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:red; stroke:red; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(255, 84, 74, 0.8); stroke:rgba(255, 84, 74, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 1}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:orange; stroke:orange; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(253, 146, 0, 0.8); stroke:rgba(253, 146, 0, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 2}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:yellow; stroke:yellow; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(63, 175, 119, 0.8); stroke:rgba(63, 175, 119, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 3}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:green; stroke:green; stroke-width:1; transition: .5s" />			
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(64, 120, 253, 0.8); stroke:rgba(64, 120, 253, 0.8); stroke-width:1; transition: .5s" />			
 	{:else if colorSet === 4}
 		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:blue; stroke:blue; stroke-width:1; transition: .5s" />
 	{:else if colorSet === 5}

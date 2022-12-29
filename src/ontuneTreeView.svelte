@@ -244,7 +244,7 @@
         <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
     </TabPanel>
     <TabPanel>
-      <OntuneTreeTypeTwo isReverse={isReverse} />
+      <OntuneTreeTypeTwo isReverse={isReverse} updateCount={copyupdateCount} />
     </TabPanel>
     <TabPanel>
       <h1>또다른 그룹</h1>

@@ -65,19 +65,19 @@
 	{#each circleBubble as item}	
 	{colorSet = item % 4}
 	{#if colorSet === 0}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(255, 84, 74, 0.8); stroke:rgba(255, 84, 74, 0.8); stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(255, 84, 74, 0.8); stroke:rgba(255, 84, 74, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 1}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(253, 146, 0, 0.8); stroke:rgba(253, 146, 0, 0.8); stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(253, 146, 0, 0.8); stroke:rgba(253, 146, 0, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 2}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(63, 175, 119, 0.8); stroke:rgba(63, 175, 119, 0.8); stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(63, 175, 119, 0.8); stroke:rgba(63, 175, 119, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 3}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(64, 120, 253, 0.8); stroke:rgba(64, 120, 253, 0.8); stroke-width:1; transition: .5s" />			
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(64, 120, 253, 0.8); stroke:rgba(64, 120, 253, 0.8); stroke-width:1; transition: .5s" />			
 	{:else if colorSet === 4}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:blue; stroke:blue; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:blue; stroke:blue; stroke-width:1; transition: .5s" />
 	{:else if colorSet === 5}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:Indigo; stroke:Indigo; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:Indigo; stroke:Indigo; stroke-width:1; transition: .5s" />
 	{:else if colorSet === 6}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:purple; stroke:purple; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:purple; stroke:purple; stroke-width:1; transition: .5s" />
 	{/if}
 {/each}
 </svg>
@@ -216,7 +216,7 @@
 			width = -(shadowTime * (5));
 			shadowTime++;
 			inbulletshadow1[i].setAttribute("cy", height);
-			inbulletshadow1[i].setAttribute("cx", width.toString());
+			// inbulletshadow1[i].setAttribute("cx", (width - (shadowTime * 10)).toString());
 			let rectPosition = inbulletshadow1[i].getBoundingClientRect();
 			//console.log(((newTest.top)));
 			inbulletshadow1[i].animate(
@@ -234,8 +234,6 @@
 				}
 		);		
 		}
-		//bulletShadowkDraw();
-
 	}
 
 	function bulletDraw() {
@@ -318,7 +316,7 @@
 
 	function reDraw() {
 		bulletDraw();
-		bulletShadowkDraw();
+		//bulletShadowkDraw();
 	}
 
 	function start_Event() {

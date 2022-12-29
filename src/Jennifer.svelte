@@ -3,22 +3,27 @@
 <svg height="100%" width="100%">
 
 	<!-- 들어가는 부분 -->
+	<!-- <circle class="inBullet1" cx="0" cy=0 r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74, 1); stroke-width:1" />
+	<circle class="inBullet1" cx="0" cy=0 r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74, 0.8); stroke-width:1" />
+	<circle class="inBullet1" cx="0" cy=0 r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74, 0.6); stroke-width:1" />
+	<circle class="inBullet1" cx="0" cy=0 r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74, 0.4); stroke-width:1" />
+	<circle class="inBullet1" cx="0" cy=0 r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74, 0.2); stroke-width:1" /> -->
 	{#each startBulletMaker as item}	
 		{colorSet = item % 4}
-		{#if colorSet === 0}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:red; stroke-width:1" />
+		{#if colorSet === 0}			
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(255, 84, 74); stroke:rgba(255, 84, 74); stroke-width:1" />
 		{:else if colorSet === 1}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:orange; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(253, 146, 0); stroke:rgba(253, 146, 0); stroke-width:1" />
 		{:else if colorSet === 2}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:yellow; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(63, 175, 119); stroke:rgba(63, 175, 119); stroke-width:1" />
 		{:else if colorSet === 3}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:green; stroke-width:1" />			
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(64, 120, 253); stroke:rgba(64, 120, 253); stroke-width:1" />			
 		{:else if colorSet === 4}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:blue; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:Indigo; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:Indigo; stroke-width:1" />
 		{:else if colorSet === 6}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:purple; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:purple; stroke-width:1" />
 		{/if}
 	{/each}
 
@@ -26,13 +31,13 @@
 	{#each endBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:red; stroke:red; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(255, 84, 74); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 1}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:orange; stroke:orange; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(253, 146, 0); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 2}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:yellow; stroke:yellow; stroke-width:1" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(63, 175, 119); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 3}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:green; stroke:green; stroke-width:1" />			
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(64, 120, 253); stroke-width:1; transition: 5s" />			
 		{:else if colorSet === 4}
 			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:blue; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
@@ -43,40 +48,45 @@
 	{/each}
 
 	<!-- 디스크 -->
+	<ellipse class = "disk" cx={(sizeWidth * 0.24) + ((diskMaker.length) * 6) - 6}px cy="40" rx="20" ry="20" style="fill:whitesmoke; stroke:whitesomke; stroke-width:1;"  />
+	<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length) * 6) - 6}px cy="40" rx="10" ry="20" style="fill:whitesmoke; stroke:whitesmoke; stroke-width:1;"  />
+
 	{#each diskMaker as disk, idx}
 		{#if disk === 1}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:red; stroke:red; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(255, 84, 74, 0.6); stroke:rgba(255, 84, 74, .6); stroke-width:1;"  />
 		{:else if disk == 2}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:orange; stroke:orange; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(253, 146, 0, 0.6); stroke:rgba(253, 146, 0, 0.6); stroke-width:1;"  />
 		{:else if disk == 3}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:yellow; stroke:yellow; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(63, 175, 119, 0.6); stroke:rgba(63, 175, 119, 0.6); stroke-width:1; "  />
 		{:else if disk == 4}
-			<ellipse class = "disk" cx={(sizeWidth * 0.25) + (idx * 6)}px cy="40" rx="3" ry="20" style="fill:green; stroke:green; stroke-width:1"  />
+			<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length - idx) * 6)}px cy="40" rx="5" ry="20" style="fill:rgba(64, 120, 253, 0.6); stroke:rgba(64, 120, 253, 0.6); stroke-width:1; "  />	
 		{/if}
 	{/each}
-
 	<!-- 총알 터지는 부분 -->
 	{#each circleBubble as item}	
 	{colorSet = item % 4}
 	{#if colorSet === 0}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:red; stroke:red; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-4, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(255, 84, 74, 0.8); stroke:rgba(255, 84, 74, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 1}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:orange; stroke:orange; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(253, 146, 0, 0.8); stroke:rgba(253, 146, 0, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 2}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:yellow; stroke:yellow; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(63, 175, 119, 0.8); stroke:rgba(63, 175, 119, 0.8); stroke-width:1; transition: .5s" />
 	{:else if colorSet === 3}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:green; stroke:green; stroke-width:1; transition: .5s" />			
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:rgba(64, 120, 253, 0.8); stroke:rgba(64, 120, 253, 0.8); stroke-width:1; transition: .5s" />			
 	{:else if colorSet === 4}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:blue; stroke:blue; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:blue; stroke:blue; stroke-width:1; transition: .5s" />
 	{:else if colorSet === 5}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:Indigo; stroke:Indigo; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:Indigo; stroke:Indigo; stroke-width:1; transition: .5s" />
 	{:else if colorSet === 6}
-		<circle class="bubble" cx="{(sizeWidth * 0.25) - 10 + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:purple; stroke:purple; stroke-width:1; transition: .5s" />
+		<circle class="bubble" cx="{(sizeWidth * 0.25) - (sizeWidth * 0.01) + (getRandomInt(-2, 4))}" cy={40 + (getRandomInt(-4, 4))} r="10" style="fill:purple; stroke:purple; stroke-width:1; transition: .5s" />
 	{/if}
 {/each}
 </svg>
 
-
+<linearGradient id="gradient-bullet_1">
+	<stop offset="0%" stop-color="white"></stop>
+	<stop offset="100%" stop-color="rgba(255, 84, 74, 0.8)"></stop>
+  </linearGradient>
 <script>
 	import { tweened } from 'svelte/motion';
 	addEventListener('load', updateListener);
@@ -198,8 +208,33 @@
 		}, 300);
 	}
 
-	function diskDraw() {
-
+	function bulletShadowkDraw() {
+		let inbulletshadow1 = document.getElementsByClassName("inBullet1");
+		let shadowTime = 0;
+		let height = getStartHeight();
+		let width = 0;
+		for(let i =0; i < inbulletshadow1.length; i++) {
+			width = -(shadowTime * (5));
+			shadowTime++;
+			inbulletshadow1[i].setAttribute("cy", height);
+			// inbulletshadow1[i].setAttribute("cx", (width - (shadowTime * 10)).toString());
+			let rectPosition = inbulletshadow1[i].getBoundingClientRect();
+			//console.log(((newTest.top)));
+			inbulletshadow1[i].animate(
+				{ transform: ['translateX(0px)',
+							  'translateX(' + (sizeWidth * 0.07) +'px)' , 
+							  'translateX(' + (sizeWidth * 0.14) +'px)', 
+							  'translateX(' + (sizeWidth * 0.2) +'px) ', 
+							  'translate(' + (sizeWidth * 0.25) +'px, ' +(((sizeHeight / 2) - rectPosition.top - rectPosition.height + 2)) + 'px) ',
+							  'opacity=0' ] },   // 시작 값 // 종료 값
+				{
+					duration: 1000,       // 밀리초 지정 
+					fill: 'forwards',     // 종료 시 속성을 지님
+					easing: 'linear',       // 가속도 종류
+					iterations: 1  // 반복 횟수					
+				}
+		);		
+		}
 	}
 
 	function bulletDraw() {
@@ -211,6 +246,7 @@
 		
 		//DrawAnimation();
 		let inbulletclass = document.getElementsByClassName("inBullet");
+		
 		let outbulletclass = document.getElementsByClassName("outBullet");
 		let circleBubbleclass = document.getElementsByClassName("bubble");
 
@@ -222,10 +258,10 @@
 			//console.log(((newTest.top)));
 			inbulletclass[i].animate(
 				{ transform: ['translateX(0px)',
-							  'translateX(' + (sizeWidth * 0.07) +'px)', 
+							  'translateX(' + (sizeWidth * 0.07) +'px)' , 
 							  'translateX(' + (sizeWidth * 0.14) +'px)', 
-							  'translateX(' + (sizeWidth * 0.2) +'px)', 
-							  'translate(' + (sizeWidth * 0.25) +'px, ' +(((sizeHeight / 2) - rectPosition.top - rectPosition.height + 2)) + 'px)' ] },   // 시작 값 // 종료 값
+							  'translateX(' + (sizeWidth * 0.2) +'px) ', 
+							  'translate(' + (sizeWidth * 0.25) +'px, ' +(((sizeHeight / 2) - rectPosition.top - rectPosition.height + 2)) + 'px) ' ] },   // 시작 값 // 종료 값
 				{
 					duration: 1000 - (startTime * (20)),       // 밀리초 지정 
 					fill: 'forwards',     // 종료 시 속성을 지님
@@ -262,8 +298,7 @@
 			// scale: [ 1, 1.5], 
 			
 			circleBubbleclass[i].animate(
-				{ scale: [ 1, 1.08], 
-				  transform: ['translate(0px, 0px) translate(0px, 0px)'],
+				{ scale: [ 1, 1.08], 				  
 				  opacity: [1, 1, 0.8, 0.8, 0.8, 0.8, 0]
 				  },   // 시작 값 // 종료 값
 				{
@@ -282,6 +317,7 @@
 
 	function reDraw() {
 		bulletDraw();
+		//bulletShadowkDraw();
 	}
 
 	function start_Event() {

@@ -3,6 +3,7 @@
     
     export let nodeItem;
     export let isReverse;
+    export let updateCount;
 
     let intCount = 0;
     const matCount = 100;
@@ -168,7 +169,6 @@
             {label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},
             {label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},
             {label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"},{label : "linuxHost3"},{label : "linuxHost2"},{label : "linuxHost5"},{label : "linuxHost5"},{label : "linuxHost4"}
-            
         ]
     };
 
@@ -176,9 +176,9 @@
 <p/>
 
 {#if isReverse}
-    <TreeView tree = {atree} />
+    <TreeView tree = {atree} updateCount={updateCount} finalIcon="img/hostOS_icon_linux_un.png" isReverse={isReverse} />
     {:else}
-    <TreeView tree = {btree} />
+    <TreeView tree = {btree} updateCount={updateCount} finalIcon="img/hostOS_icon_linux_un.png" isReverse={isReverse} />
 {/if}
 
 <!-- {console.log(tree)} -->

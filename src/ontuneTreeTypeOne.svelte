@@ -12,46 +12,25 @@
 </script>
 
 <style>
-    /* .wrapper {
-      position: relative;
-      width:inherit;
+    .treeImage {
+      vertical-align: text-bottom;
     }
-  
-    .viewport {
-      position: relative;
-      height: inherit;
-      width:inherit;
-      right: 0px;
-      overflow: scroll;
-      border: 1px solid gray;
-      box-sizing: border-box;
-
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  
-    .viewport::-webkit-scrollbar {
-      display: none;
-    }
-
-    .contents {
-        font: 800;
-    } */
     
 </style>
 
     <TreeView branchHoverColor="yellow" iconColor="black"  >
-        <TreeBranch rootContent="Linux" >
-            {#each nodeItem as item, i (item)}
-            <TreeLeaf>
+      <TreeBranch rootContent="Linux" >
+        {#each nodeItem as item, i (item)}
+          <TreeLeaf>
               {#if (i % 2) === 0 && isReverse && i < updateCount}
-                <img src={onsrc} alt="onimage" />
+              <img class="treeImage" src={onsrc} alt="onimage"  />
               {:else}
-                <img src={offsrc} alt="offimage" />
+              <img class="treeImage" src={offsrc} alt="offimage" />
               {/if}
-                 linux {item}</TreeLeaf>
-            {/each}
-          </TreeBranch>
+              linux {item}
+          </TreeLeaf>
+        {/each}
+      </TreeBranch>
     </TreeView>
 
 

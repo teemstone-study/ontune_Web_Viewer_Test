@@ -25,8 +25,9 @@
   let isReverse = false;
   let ItemList;
   let visibleTestMode = false;
-  $: UpdateListItem = ItemList;
-  $: copyupdateCount = updateCount;
+  let updateDrawCount = 1000;
+  let UpdateListItem = ItemList;
+  let copyupdateCount = updateCount;
   
 
   $: dddd = visibleTestMode;
@@ -34,7 +35,8 @@
 
   function init() {
     console.log("init");
-    ItemList = Array.from({ length: drawCount }).map((_, i) => `item ${i}`);
+    ItemList = Array.from({ length: updateDrawCount }).map((_, i) => `item ${i}`);
+    UpdateListItem = ItemList;
   }
   
   const progress = tweened(0, {
@@ -48,7 +50,9 @@
         } else {
           isReverse = true;
         }
-        ItemList = listData;
+    
+    ItemList = listData;
+    UpdateListItem = ItemList;
   }
 
   function updateItemList(e) {
@@ -66,7 +70,7 @@
   function loopEvent() {
     clearTimeout(timeOutTimer);
     timeOutTimer = setTimeout( function() {
-      workEvent.postMessage(drawCount);
+      workEvent.postMessage(updateDrawCount);
       loopEvent();
     },SetWorkIntervalTime * 1000);
   }  
@@ -99,6 +103,7 @@
   }
 
     function ChangeNodeCount() {
+      updateDrawCount = drawCount;
       updateTreeList(ItemList);
     }
 
@@ -239,7 +244,7 @@
         <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
     </TabPanel>
     <TabPanel>
-      <OntuneTreeTypeTwo isReverse={isReverse} />
+      <OntuneTreeTypeTwo isReverse={isReverse} updateCount={copyupdateCount} />
     </TabPanel>
     <TabPanel>
       <h1>또다른 그룹</h1>

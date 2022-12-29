@@ -6,7 +6,12 @@
 </script>
 <script>
 //	import { slide } from 'svelte/transition'
+ 	const onsrc = "img/hostOS_icon_linux.png";
+    const offsrc = "img/hostOS_icon_linux_un.png";
+	export let updateCount;
 	export let tree
+	export let finalIcon;
+	export let isReverse;
 	const {label, children} = tree
 
 	let expanded = _expansionState[label] || false
@@ -24,13 +29,26 @@
 				{label}
 			</span>
 			{#if expanded}
-				{#each children as child}
-					<svelte:self tree={child} />
+				{#each children as child, idx}				
+					{#if idx < updateCount}
+						{#if isReverse === false} 
+							<svelte:self tree={child} finalIcon={offsrc} updateCount={updateCount} isReverse={isReverse} />
+						{:else}
+							{#if idx % 2 === 0}
+								<svelte:self tree={child} finalIcon={onsrc} updateCount={updateCount} isReverse={isReverse} />
+							{:else}
+								<svelte:self tree={child} finalIcon={offsrc} updateCount={updateCount} isReverse={isReverse} />
+							{/if}
+						{/if}
+					{:else}
+						<svelte:self tree={child} finalIcon={offsrc} updateCount={updateCount} isReverse={isReverse} />
+					{/if}
 				{/each}
 			{/if}
 		{:else}
 			<span>
-				<span class="no-arrow"/>
+				<span class="no-arrow"/>			
+				<img class="treeImage" src={finalIcon} alt="StatusImage"  />
 				{label}
 			</span>
 		{/if}
@@ -52,4 +70,7 @@
 		/* transition: transform 200ms; */
 	}
 	.arrowDown { transform: rotate(90deg); }
+	.treeImage {
+      vertical-align: text-bottom;
+    }
 </style>

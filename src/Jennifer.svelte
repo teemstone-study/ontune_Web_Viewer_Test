@@ -11,19 +11,19 @@
 	{#each startBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}			
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(255, 84, 74); stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(255, 84, 74); stroke:rgba(255, 84, 74); stroke-width:1" />
 		{:else if colorSet === 1}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(253, 146, 0); stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(253, 146, 0); stroke:rgba(253, 146, 0); stroke-width:1" />
 		{:else if colorSet === 2}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(63, 175, 119); stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(63, 175, 119); stroke:rgba(63, 175, 119); stroke-width:1" />
 		{:else if colorSet === 3}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:rgba(64, 120, 253); stroke-width:1" />			
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(64, 120, 253); stroke:rgba(64, 120, 253); stroke-width:1" />			
 		{:else if colorSet === 4}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:blue; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:Indigo; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:Indigo; stroke-width:1" />
 		{:else if colorSet === 6}
-			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:#dddddd; stroke:purple; stroke-width:1" />
+			<circle class="inBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:purple; stroke-width:1" />
 		{/if}
 	{/each}
 
@@ -31,13 +31,13 @@
 	{#each endBulletMaker as item}	
 		{colorSet = item % 4}
 		{#if colorSet === 0}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(255, 84, 74); stroke:rgba(255, 84, 74); stroke-width:1; transition: 5s" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(255, 84, 74); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 1}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(253, 146, 0); stroke:rgba(253, 146, 0); stroke-width:1; transition: 5s" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(253, 146, 0); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 2}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(63, 175, 119); stroke:rgba(63, 175, 119); stroke-width:1; transition: 5s" />
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(63, 175, 119); stroke-width:1; transition: 5s" />
 		{:else if colorSet === 3}
-			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:rgba(64, 120, 253); stroke:rgba(64, 120, 253); stroke-width:1; transition: 5s" />			
+			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:whitesmoke; stroke:rgba(64, 120, 253); stroke-width:1; transition: 5s" />			
 		{:else if colorSet === 4}
 			<circle class="outBullet" cx="0" cy={getStartHeight()} r="5" style="fill:blue; stroke:blue; stroke-width:1" />
 		{:else if colorSet === 5}
@@ -48,7 +48,8 @@
 	{/each}
 
 	<!-- 디스크 -->
-	<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length) * 6) - 6}px cy="40" rx="10" ry="20" style="fill:darkgray; stroke:darkgray; stroke-width:1;"  />
+	<ellipse class = "disk" cx={(sizeWidth * 0.24) + ((diskMaker.length) * 6) - 6}px cy="40" rx="20" ry="20" style="fill:whitesmoke; stroke:whitesomke; stroke-width:1;"  />
+	<ellipse class = "disk" cx={(sizeWidth * 0.25) + ((diskMaker.length) * 6) - 6}px cy="40" rx="10" ry="20" style="fill:whitesmoke; stroke:whitesmoke; stroke-width:1;"  />
 
 	{#each diskMaker as disk, idx}
 		{#if disk === 1}

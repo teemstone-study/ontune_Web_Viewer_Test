@@ -20,7 +20,6 @@
 	}
 	$: arrowDown = expanded
 </script>
-
 <ul><!-- transition:slide -->
 	<li>
 		{#if children}

@@ -1,18 +1,17 @@
 <script>
 	// import "./App.svelte";
 	// import { listen } from "svelte/internal";
-	import { Node } from "./Binary_tree";
-	// import { Binary_Tree } from "./Binary_tree";
+	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
   
-	export let bst;
-	export let idx;
-	export let node_text_idx;
-	export let arr;
+	const bst = new Binary_Tree();
+	let idx = 0;
+	let node_text_idx = 0;
+	let arr = [];
 
   let drag_node = null;                 // Null or Node
 	let drag_state = "N";                 // N / T / R / B / L
@@ -25,9 +24,6 @@
 		{ id: 2, text: "Bar Chart" },
 		{ id: 3, text: "Line Chart" }
 	];
-
-  let t_Timer;
-  let tmp_counter = 0;
 
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================

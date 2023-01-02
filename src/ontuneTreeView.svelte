@@ -258,7 +258,7 @@
     <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
-    <label>데이터 업데이트 주기</label>
+    데이터 업데이트 주기
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />

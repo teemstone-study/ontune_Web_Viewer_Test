@@ -1,13 +1,13 @@
 <script>
   // export let url = "";
 
-
   // import tree from './Tree.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
   
   import OntuneTreeView from './ontuneTreeView.svelte';
 
+  // Mosaic Main arr 생성(set / update / subscribe)
   // let mosaic_props = {
   //   bst : bst,
   //   idx : 0,

@@ -1,5 +1,6 @@
 <script>
 	import { scaleLinear } from 'd3';
+  import { onMount } from 'svelte';
 
   export let data = [
     { x: 0, y: 0 },
@@ -78,6 +79,11 @@ const default_data = [
 	let width = 500;
 	let height = 200;
 
+  onMount(()=>{
+    console.log('mmmm')
+  })
+
+  $:{data.length===0?data=default_data:null;}
   // console.log(data[0]);
   // if (data[0] = undefined) {
   //   data = [
@@ -94,10 +100,10 @@ const default_data = [
   //   ];
   // }
 
-  // if ((data == "undefined") || (data.length == 0)) {
-  if (data.length == 0) {
-    data = [...default_data];
-  }
+  // if ((!data) || (data.length == 0)) {
+  // // if (data.length == 0) {
+  //   data = [...default_data];
+  // }
 
 	$: xScale = scaleLinear()
 		.domain([minX, maxX])

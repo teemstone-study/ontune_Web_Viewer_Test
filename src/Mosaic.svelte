@@ -1,18 +1,22 @@
 <script>
 	// import "./App.svelte";
 	// import { listen } from "svelte/internal";
-	import { Node } from "./Binary_tree";
-	// import { Binary_Tree } from "./Binary_tree";
+  // import { Mosaic_Arr } from "./Store";
+  import { Mosaic_Arr } from './store.js';
+
+	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
   
-	export let bst;
-	export let idx;
-	export let node_text_idx;
-	export let arr;
+	const bst = new Binary_Tree();
+	let idx = 0;
+	let node_text_idx = 0;
+	// let arr = [];
+  // export let arr = [];
+  // let arr = [];
 
   let drag_node = null;                 // Null or Node
 	let drag_state = "N";                 // N / T / R / B / L
@@ -34,7 +38,7 @@
     // console.log('===========DIV 추가===========');
 
     // 0을 1|2로 Div 추가하기
-    const insert_result = bst.insert(arr[e.target.id], arr.length, node_text_idx);
+    const insert_result = bst.insert($Mosaic_Arr[e.target.id], $Mosaic_Arr.length, node_text_idx);
 
     if (insert_result) {
       //arr.push(insert_result[0]);
@@ -43,7 +47,9 @@
       node_text_idx = node_text_idx + 1;
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
-			arr = [...arr, insert_result[0], insert_result[1]];
+			// arr = [...arr, insert_result[0], insert_result[1]];
+      // arr = [...arr, insert_result[0], insert_result[1]];
+      $Mosaic_Arr = [...$Mosaic_Arr, insert_result[0], insert_result[1]];
     };
 
     //setArr([...arr]);
@@ -53,26 +59,29 @@
 
   // filter를 써서 새 배열 만들고 arr배열을 변경해줘야함.
   const Del_Div = (e) => {
-    if (arr[e.id].p_id === null){
+    if ($Mosaic_Arr[e.id].p_id === null){
       return false;
     }
 
     // console.log('===========DIV 삭제===========');
 
     // 기존 배열에서 inset 값을 변경 후 가져와야한다.
-    if (arr[arr[arr[e.id].p_id].p_id]) {
-      bst.remove(arr[arr[arr[e.id].p_id].p_id], arr[arr[e.id].p_id], arr[e.id]);
+    if ($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[e.id].p_id].p_id]) {
+      bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[e.id].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[e.id].p_id], $Mosaic_Arr[e.id]);
     } else {
-      bst.remove(null, arr[arr[e.id].p_id], arr[e.id]);
+      bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[e.id].p_id], $Mosaic_Arr[e.id]);
     } 
 
     // inset 재조정
-    bst.resize_div(arr);
+    bst.resize_div($Mosaic_Arr);
 
     // 배열 갱신
 
     // setArr([...arr]);
-		arr = [...arr];
+		// arr = [...arr];
+    // Mosaic_Arr.set([...arr]);
+    // Mosaic_Arr.update(a => [...a]);
+    $Mosaic_Arr = $Mosaic_Arr;
     // console.log(arr);
   };
 
@@ -99,9 +108,11 @@
 
     // 노드의 Random Data 생성 함수를 실행시킨다.
     // arr[e.target.id].arr_Data = [];
-    arr[e.target.id].arr_Data = [...bst.set_random_data(arr[e.target.id], 0)];
-    // console.log(arr);
-  };  
+    // arr[e.target.id].arr_Data = [...bst.set_random_data(arr[e.target.id], tmp_counter)];
+    $Mosaic_Arr[e.target.id].set_timer();
+    // console.log(tmp_counter);    
+    // Random_Timer(e);
+  };
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -142,7 +153,7 @@ const onMouseDown_bar_event = (e) => {
       // 배율 변경
       if (event.x > 0 || event.y > 0) {
         // 부모노드와 자식노드에 대한 내용을 변수에 받아온다.
-        let tmp_p = arr[parseInt(e.target.getAttribute('name'))];
+        let tmp_p = $Mosaic_Arr[parseInt(e.target.getAttribute('name'))];
         let tmp_l = tmp_p.left;
         let tmp_r = tmp_p.right;
 
@@ -170,13 +181,18 @@ const onMouseDown_bar_event = (e) => {
         }
         tmp_r.ratio = 100 - tmp_l.ratio;
 
+        // if(prevState!==currentState){
+
+        // }
         // inset 재조정
-        bst.resize_div(arr);
+        bst.resize_div($Mosaic_Arr);
 
         // 배열 갱신
         // setArr([...arr]);        
-				arr = [...arr];
-
+				// arr = [...arr];
+        // Mosaic_Arr.set([...arr]);
+        // Mosaic_Arr.update(a => [...a]);
+        $Mosaic_Arr = $Mosaic_Arr;
         // console.log("=============client 좌표");
         // console.log(event.clientX + " / " + event.clientY);
       };
@@ -213,7 +229,7 @@ const onMouseDown_bar_event = (e) => {
     // console.log(drag_node);
 
     // 마우스 Over 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
-    drag_node  = arr[parseInt(e.target.parentElement.getAttribute("name"))];
+    drag_node  = $Mosaic_Arr[parseInt(e.target.parentElement.getAttribute("name"))];
     drag_state = "N";
     drag_bleft = false;
     drop_id    = parseInt(e.target.parentElement.getAttribute("name"));
@@ -225,7 +241,7 @@ const onMouseDown_bar_event = (e) => {
     let tmp_el      = null;
 
     if (drag_node.p_id !== null) {
-      tmp_p_node = arr[drag_node.p_id];
+      tmp_p_node = $Mosaic_Arr[drag_node.p_id];
 
       // Drag Node가 L인지 R인지 체크
       if (tmp_p_node.left.id === drag_node.id) {
@@ -273,7 +289,7 @@ const onMouseDown_bar_event = (e) => {
     }
 
     // drag_node이면 제외하고 재계산 해줘야한다.
-    arr.forEach(tmp_node => {
+    $Mosaic_Arr.forEach(tmp_node => {
       // if (tmp_node.p_id !== tmp_p_node.id) {
       // if (tmp_node.p_id !== arr[drag_node.p_id].id) 
       {
@@ -308,7 +324,7 @@ const onMouseDown_bar_event = (e) => {
     // console.log(arr);
 
     let tmp_el = null;
-    arr.forEach(tmp_node => {
+    $Mosaic_Arr.forEach(tmp_node => {
       // 인자가 부모 노드이면(= 노드타입이 C인 경우, 화면에 출력
       if        (tmp_node.node_type === "C") {
         tmp_el = document.getElementsByName(tmp_node.id);
@@ -340,9 +356,9 @@ const onMouseDown_bar_event = (e) => {
     let tmp_node   = null;
 
     if (e.target.parentElement.getAttribute("name") === "root") {
-      tmp_node = arr[parseInt(e.target.id)];
+      tmp_node = $Mosaic_Arr[parseInt(e.target.id)];
     } else {
-      tmp_node = arr[parseInt(e.target.parentElement.getAttribute("name"))];
+      tmp_node = $Mosaic_Arr[parseInt(e.target.parentElement.getAttribute("name"))];
     }
     // console.log(tmp_node);    
 
@@ -433,26 +449,33 @@ const onMouseDown_bar_event = (e) => {
     //if (e.target.tagName !== "BUTTON") {
     if (drag_node.id !== drop_id) {
       // 위치에 따라, Col | Row   /   Left | Right 를 지정하여 Insert / remove 해줘야한다.
-      const change_result = bst.change(arr[drop_id], arr.length, drag_node, drag_state, drag_bleft);
+      const change_result = bst.change($Mosaic_Arr[drop_id], $Mosaic_Arr.length, drag_node, drag_state, drag_bleft);
 
       if (change_result) {
         idx = idx + 2;
         // node_text_idx = node_text_idx + 1;
 
-        arr.push(change_result[0]);
-        arr.push(change_result[1]);
+        // arr = [...arr];
+        // Mosaic_Arr.set([...arr]);
+
+        //arr.push(tmp_node);
+        // arr.push(change_result[0]);
+        // arr.push(change_result[1]);
+        // arr = arr;
+        // Mosaic_Arr.update(a => [...a, change_result[0], change_result[1]]);
+        $Mosaic_Arr = [...$Mosaic_Arr, change_result[0], change_result[1]];
         // setArr([...arr, change_result[0], change_result[1]]);
       };
 
       // 기존 배열에서 inset 값을 변경 후 가져와야한다.
-      if (arr[arr[arr[drag_node.id].p_id].p_id]) {
-        bst.remove(arr[arr[arr[drag_node.id].p_id].p_id], arr[arr[drag_node.id].p_id], arr[drag_node.id]);
+      if ($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[drag_node.id].p_id].p_id]) {
+        bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[drag_node.id].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[drag_node.id].p_id], $Mosaic_Arr[drag_node.id]);
       } else {
-        bst.remove(null, arr[arr[drag_node.id].p_id], arr[drag_node.id]);
+        bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[drag_node.id].p_id], $Mosaic_Arr[drag_node.id]);
       } 
       // drag_node = null;
       // inset 재조정
-      bst.resize_div(arr);
+      bst.resize_div($Mosaic_Arr);
 
       // console.log("==============Drop after Log=============");
       // console.log(drag_node);
@@ -462,7 +485,7 @@ const onMouseDown_bar_event = (e) => {
 
       // 배열 갱신
       // setArr([...arr]);
-			arr = [...arr];
+			$Mosaic_Arr = $Mosaic_Arr;
     }
     //}
     drag_node  = null;
@@ -475,14 +498,14 @@ const onMouseDown_bar_event = (e) => {
 		// console.log("===========Root 생성===========");
     // bst.root = new Node(idx, "N", "C", "windows " + (node_text_idx + 1), 0, 0, 0, 0, 100);
     bst.root = new Node(idx, "N", "C", "None", 0, 0, 0, 0, 100);
-    arr = [bst.root];
+    $Mosaic_Arr = [bst.root];
     // setArr([bst.root]);
 		//arr.push(bst.root);
     node_text_idx = node_text_idx + 1;
 
     // 기본 모자이크 생성 1
     // 0을 1|2로 Div 추가하기
-    const insert1_result = bst.insert(arr[0], arr.length, node_text_idx);
+    const insert1_result = bst.insert($Mosaic_Arr[0], $Mosaic_Arr.length, node_text_idx);
 
     if (insert1_result) {
       //arr.push(insert_result[0]);
@@ -494,12 +517,13 @@ const onMouseDown_bar_event = (e) => {
       insert1_result[1].node_text = "2";
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
-			arr = [...arr, insert1_result[0], insert1_result[1]];
+			// Mosaic_Arr.update(a => [...a, insert1_result[0], insert1_result[1]]);
+      $Mosaic_Arr = [...$Mosaic_Arr, insert1_result[0], insert1_result[1]];
     };
 
     // 기본 모자이크 생성 2
     // 0을 1|2로 Div 추가하기
-    const insert2_result = bst.insert(arr[1], arr.length, node_text_idx);
+    const insert2_result = bst.insert($Mosaic_Arr[1], $Mosaic_Arr.length, node_text_idx);
 
     if (insert2_result) {
       //arr.push(insert_result[0]);
@@ -511,37 +535,38 @@ const onMouseDown_bar_event = (e) => {
       // insert1_result[1].node_text = "4";
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
-			arr = [...arr, insert2_result[0], insert2_result[1]];
+			// Mosaic_Arr.update(a => [...a, insert2_result[0], insert2_result[1]]);
+      $Mosaic_Arr = [...$Mosaic_Arr, insert2_result[0], insert2_result[1]];
     };
 
     // 2 -> 3 자리 변경
     // 위치에 따라, Col | Row   /   Left | Right 를 지정하여 Insert / remove 해줘야한다.
-    const change_result = bst.change(arr[3], arr.length, arr[2], "R", false);
+    const change_result = bst.change($Mosaic_Arr[3], $Mosaic_Arr.length, $Mosaic_Arr[2], "R", false);
 
     if (change_result) {
       idx = idx + 2;
       // node_text_idx = node_text_idx + 1;
 
-      arr[4].node_text = "Grid";
+      $Mosaic_Arr[4].node_text = "Grid";
       change_result[0].node_text = "Bar Chart";
       change_result[1].node_text = "Line Chart";
 
-      arr.push(change_result[0]);
-      arr.push(change_result[1]);
+      $Mosaic_Arr.push(change_result[0]);
+      $Mosaic_Arr.push(change_result[1]);
       // setArr([...arr, change_result[0], change_result[1]]);
     };
 
     // 기존 배열에서 inset 값을 변경 후 가져와야한다.
-    if (arr[arr[arr[arr[2].id].p_id].p_id]) {
-      bst.remove(arr[arr[arr[2].p_id].p_id], arr[arr[2].p_id], arr[2]);
+    if ($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].id].p_id].p_id]) {
+      bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
     } else {
-      bst.remove(null, arr[arr[2].p_id], arr[2]);
+      bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
     } 
     // drag_node = null;
     // inset 재조정
-    bst.resize_div(arr);    
+    bst.resize_div($Mosaic_Arr);    
 
-    console.log(arr);
+    console.log($Mosaic_Arr);
 		// console.log('------------Mosaic.svelte');
 	};
 </script>
@@ -556,9 +581,10 @@ const onMouseDown_bar_event = (e) => {
 <!-- {console.log("반복문 진행")} -->
 <!-- {console.log(arr)} -->
 
-{#each arr as item, index}
+{#each $Mosaic_Arr as item, index}
 	<!-- {console.log(item)} -->
-	<!-- {console.log(index)} -->
+	{console.log(index)}
+  <!-- {arr[5].arr_Data} -->
 	
   <!-- <li>{i + 1} : {item.div_type}</li>  -->
 	<!-- Node_Type = P 이면, 부모 타입 이므로, 자식 노드에 관련된 노드를 느려야한다. -->
@@ -593,8 +619,9 @@ const onMouseDown_bar_event = (e) => {
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
           <!-- <select on:change="{() => item.left.node_text = this.options[this.selectedIndex].text}"> -->
           <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
+          <!-- <button style="width: 100px;" on:click={test(item.left.id)}>test</button> -->
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
-          <select bind:value={item.left.node_text} id={item.left.id} on:ratechange={Set_Random_Data}>
+          <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Random_Data}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -606,6 +633,7 @@ const onMouseDown_bar_event = (e) => {
           <!-- <button on:click={Changes}>변경</button> -->
 				</div>
         <div class="div_Body">
+          <!-- {item.left.node_text} -->
           {#if      (item.left.node_text == "Grid")}
             <Grid data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Bar Chart")}

@@ -1,23 +1,19 @@
 <script>
   // export let url = "";
 
-
   // import tree from './Tree.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
   
-	import { Node } from "./Binary_tree";
-	import { Binary_Tree } from "./Binary_tree";
   import OntuneTreeView from './ontuneTreeView.svelte';
 
-
-	const bst = new Binary_Tree();
-  const mosaic_props = {
-    bst : bst,
-    idx : 0,
-    node_text_idx: 0,
-    arr: []
-  };
+  // Mosaic Main arr 생성(set / update / subscribe)
+  // let mosaic_props = {
+  //   bst : bst,
+  //   idx : 0,
+  //   node_text_idx: 0,
+  //   arr: []
+  // };
 
 	// let idx = 0;
 	// let node_text_idx = 0;  
@@ -211,7 +207,8 @@
     <div id="div_mosaic_body">
       <div id="shadow" class="div_Shadow" draggable="true" on:dragover={onDrag_Over_shadow_event}></div>
       <!-- <div id="div_mosaic_body">Mosaic Area</div> -->
-      <Mosaic {...mosaic_props} />
+      <!-- <Mosaic {...mosaic_props} /> -->
+      <Mosaic />
     </div>    
   </div>
   <!-- <div id="div_grid_main">

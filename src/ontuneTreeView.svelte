@@ -121,9 +121,10 @@
     function StartProcess() {
       clearInterval(alterWorkTimer);   
       alterWorkTimer = setInterval(() => {
+        let findBar = document.getElementsByClassName(indeterminate-progress-bar);
         if (isSend === false) {
             isSend = true;
-            progress.set(1.0)            
+            progress.set(1.0);
         } else {
             isSend = false;
             progress.set(0.0)            
@@ -200,6 +201,48 @@
       color: #4F81E5;
     }
 
+
+    .indeterminate-progress-bar {
+    /* Color */
+    background-color: #d1d5db;
+
+    /* Rounded border */
+    border-radius: 9999px;
+
+    /* Size */
+    height: 0.5rem;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.indeterminate-progress-bar__progress {
+    /* Color */
+    background-color: #3b82f6;
+
+    /* Rounded border */
+    border-radius: 9999px;
+
+    /* Absolute position */
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 50%;
+
+    /* Move the bar infinitely */
+    animation-duration: 2s;
+    animation-iteration-count: 0;
+    animation-name: indeterminate-progress-bar;
+}
+
+@keyframes indeterminate-progress-bar {
+    from {
+        left: -50%;
+    }
+    to {
+        left: 100%;
+    }
+}
    
    
 
@@ -215,7 +258,7 @@
     <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
-    <label>데이터 업데이트 주기</label>
+    데이터 업데이트 주기
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
@@ -226,6 +269,9 @@
     <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
     <br>
     <progress value={$progress}></progress>
+    <!-- <div class="indeterminate-progress-bar">
+      <div class="indeterminate-progress-bar__progress"></div>
+    </div> -->
   </div>
   {/if}
 
@@ -244,7 +290,7 @@
         <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
     </TabPanel>
     <TabPanel>
-      <OntuneTreeTypeTwo isReverse={isReverse} updateCount={copyupdateCount} />
+      <OntuneTreeTypeTwo nodeCount={updateDrawCount} isReverse={isReverse} updateCount={copyupdateCount} />
     </TabPanel>
     <TabPanel>
       <h1>또다른 그룹</h1>

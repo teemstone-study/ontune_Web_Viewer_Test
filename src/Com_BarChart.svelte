@@ -43,13 +43,15 @@
 	let height = 200;
 
   // if (data.length == 0) {
-  if (data == undefined) {
-    data = [...default_data];
-  };  
+  // if (data == undefined) {
+  //   data = [...default_data];
+  // };  
 
 	function formatMobile(tick) {
 		return "'" + tick.toString().slice(-2);
 	}
+
+	$:{data.length === 0 ? data = default_data : null};	
 
 	$: xScale = scaleLinear()
 		.domain([0, xTicks.length])

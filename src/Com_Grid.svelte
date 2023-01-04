@@ -10,9 +10,11 @@
     { name: "", email: "", col1: "" , col2: "" , col3: "" , col4: "" , col5: "" , col6: "" , col7: "" , col8: "" , col9: "" , col10: ""}
   ];  
 
-  if (data.length == 0) {
-    data = [...default_data];
-  };
+  // if (data.length == 0) {
+  //   data = [...default_data];
+  // };
+
+	$:{data.length === 0 ? data = default_data : null};	  
 
   // const data = [
   //   { name: "John", email: "john@example.com", col1: "가", col2: "A", col3: "a", col4: "1", col5: arr1, col6: arr1[0], col7: arr1[1], col8: "1", col9: "1", col10: "1"},

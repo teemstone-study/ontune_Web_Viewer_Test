@@ -149,6 +149,10 @@ const onMouseDown_bar_event = (e) => {
       // console.log(event.dataTransfer.dragEffect)
       // event.dataTransfer.effectAllowed = "move";
       // console.log(this);
+    }
+
+    function onMouseDragend_bar_event(event) {
+      // console.log("==============Bar Up=============");
 
       // 배율 변경
       if (event.x > 0 || event.y > 0) {
@@ -196,10 +200,6 @@ const onMouseDown_bar_event = (e) => {
         // console.log("=============client 좌표");
         // console.log(event.clientX + " / " + event.clientY);
       };
-    }
-
-    function onMouseDragend_bar_event() {
-      // console.log("==============Bar Up=============");
 
       bar.removeEventListener('dragstart', onMouseDragstart_bar_event);
       bar.removeEventListener('drag',      onMouseDrag_bar_event);

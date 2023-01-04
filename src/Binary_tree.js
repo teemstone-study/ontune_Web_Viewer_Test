@@ -122,7 +122,7 @@
       } else {
         this.t_counter += 1;
       };
-      console.log(this.t_counter);
+      // console.log(this.t_counter);
 
       clearTimeout(this.t_timer);
       this.t_timer = setTimeout(() => {
@@ -142,7 +142,7 @@
     set_random_data(counter) {
       let tmp_arr = [];
 
-      console.log(this.node_text);
+      // console.log(this.node_text);
 
       if        (this.node_text == "Grid") {
         tmp_arr =  this.create_grid_data(counter);

@@ -103,7 +103,10 @@
     function onMouseDrag_Main_bar_event(event) {
       // console.log("===========Main Bar Drag===========");
       event.preventDefault();
+    }
 
+    function onMouseDragend_Main_bar_event(event) {
+      // console.log("============Main Bar Up===========");
       // 배율 변경
       if (event.x > 0 || event.y > 0) {
         let tmp_ratio = 0;
@@ -152,10 +155,6 @@
         // console.log("=============client 좌표");
         // console.log(event.clientX + " / " + event.clientY);
       };
-    }
-
-    function onMouseDragend_Main_bar_event() {
-      // console.log("============Main Bar Up===========");
 
       main_bar.removeEventListener('dragstart', onMouseDragstart_Main_bar_event);          
       main_bar.removeEventListener('drag',      onMouseDrag_Main_bar_event);

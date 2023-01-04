@@ -79,11 +79,7 @@ const default_data = [
 	let width = 500;
 	let height = 200;
 
-  onMount(()=>{
-    console.log('mmmm')
-  })
-
-  $:{data.length===0?data=default_data:null;}
+  $:{data.length === 0 ? data = default_data : null};
   // console.log(data[0]);
   // if (data[0] = undefined) {
   //   data = [

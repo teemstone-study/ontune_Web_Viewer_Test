@@ -3,13 +3,13 @@
 	// import { listen } from "svelte/internal";
   // import { Mosaic_Arr } from "./Store";
   import { Mosaic_Arr } from './store.js';
-
 	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
+  // import nice from 'd3-scale/src/nice.js';
   
 	const bst = new Binary_Tree();
 	let idx = 0;
@@ -29,6 +29,21 @@
 		{ id: 2, text: "Bar Chart" },
 		{ id: 3, text: "Line Chart" }
 	];
+
+  function find_target(el) {
+  let currentElement = el;
+  // console.log("========find_target========");
+
+  while (isNaN(parseInt(currentElement.getAttribute('name')))) {
+    currentElement = currentElement.parentElement;
+    if (currentElement.tagName == "BODY") {
+      return null;
+    }
+    // console.log(currentElement.name);
+    // console.log(currentElement.getAttribute('name'));    
+  }
+  return currentElement;
+}
 
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
@@ -275,9 +290,11 @@ const onMouseDown_bar_event = (e) => {
   }
 
   const onDragenter_div_event = (e) => {
+    let tmp_target = null;
+
     if (drag_node === null) {
       return false;
-    }
+    };
 
     // console.log("==============Div enter=============");  
     // e.preventDefault();
@@ -335,32 +352,47 @@ const onMouseDown_bar_event = (e) => {
       }
     });
 
+    tmp_target = find_target(e.target);
+    
     // 마우스 Over 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
-    if (e.target.parentElement.getAttribute("name") === "root") {
-      drop_id = parseInt(e.target.id);
+    if (tmp_target != null){
+      // console.log(tmp_target);
+      // console.log("현재 타깃 명 = " + tmp_target.getAttribute("name"));
+      drop_id = parseInt(tmp_target.getAttribute("name"));
     } else {
-      drop_id = parseInt(e.target.parentElement.getAttribute("name"));
-    }
-  }  
+      if (e.target.getAttribute("name") === "root") {
+        // console.log("현재 타깃 ID = " + e.target.id);
+        drop_id = parseInt(e.target.id);
+      };
+    };
+  };
 
-  const onDragOver_div_event = (e) => {  
+  const onDragOver_div_event = (e) => {
+    let shadow_div = document.getElementById("shadow");
+    let tmp_node   = null;
+    let tmp_target = null;
+    
     if (drag_node === null) {
       return false;
     }
 
+    // 마우스 Over 이벤트 발생 => 마우스의 움직임에 따라, onMouseMove 이벤트를 유지한다(onMouseUp이 될 때까지 or onMouseLeave)
     // console.log("==============Drag Over=============");
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
 
-    let shadow_div = document.getElementById("shadow");
-    let tmp_node   = null;
+    tmp_target = find_target(e.target);
+    // console.log("aaaa = " + tmp_target);
 
-    if (e.target.parentElement.getAttribute("name") === "root") {
-      tmp_node = $Mosaic_Arr[parseInt(e.target.id)];
+    if (tmp_target != null){
+      tmp_node = $Mosaic_Arr[parseInt(tmp_target.getAttribute("name"))];
     } else {
-      tmp_node = $Mosaic_Arr[parseInt(e.target.parentElement.getAttribute("name"))];
-    }
-    // console.log(tmp_node);    
+      if (e.target.getAttribute("name") === "root") {
+        tmp_node = $Mosaic_Arr[parseInt(e.target.id)];
+      };
+    };    
+    // console.log(tmp_node);
+    // console.log(`현재 타깃 = $tmp_target`);
 
     let tmp_tree   = document.getElementById("div_tree").offsetWidth;
     let tmp_title  = document.getElementById("div_mosaic_menubar").offsetHeight;
@@ -403,6 +435,8 @@ const onMouseDown_bar_event = (e) => {
     if ((tmp_position === "L") || (tmp_position === "T")){drag_bleft = true}
     else                                                 {drag_bleft = false}
     // console.log(drag_state);
+
+    // console.log("여기까지");
 
     // 현재 마우스의 X, Y 좌표에 따라, 어떤 구역에 속해있는지 확인해서 쉐도우 DIV를 뿌려준다.
     switch (drag_state) {
@@ -547,7 +581,7 @@ const onMouseDown_bar_event = (e) => {
       idx = idx + 2;
       // node_text_idx = node_text_idx + 1;
 
-      $Mosaic_Arr[4].node_text = "Grid";
+      $Mosaic_Arr[4].node_text   = "Grid";
       change_result[0].node_text = "Bar Chart";
       change_result[1].node_text = "Line Chart";
 
@@ -566,7 +600,7 @@ const onMouseDown_bar_event = (e) => {
     // inset 재조정
     bst.resize_div($Mosaic_Arr);    
 
-    console.log($Mosaic_Arr);
+    // console.log($Mosaic_Arr);
 		// console.log('------------Mosaic.svelte');
 	};
 </script>

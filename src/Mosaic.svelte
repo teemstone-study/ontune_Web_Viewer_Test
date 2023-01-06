@@ -7,7 +7,6 @@
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
-  import Grid2 from './Com_Grid2.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
   // import nice from 'd3-scale/src/nice.js';
@@ -65,7 +64,10 @@
       // setArr([...arr, insert_result[0], insert_result[1]]);
 			// arr = [...arr, insert_result[0], insert_result[1]];
       // arr = [...arr, insert_result[0], insert_result[1]];
-      $Mosaic_Arr = [...$Mosaic_Arr, insert_result[0], insert_result[1]];
+
+      $Mosaic_Arr.push(insert_result[0]);
+      $Mosaic_Arr.push(insert_result[1]);
+      $Mosaic_Arr = $Mosaic_Arr;
     };
 
     //setArr([...arr]);
@@ -496,9 +498,11 @@ const onMouseDown_bar_event = (e) => {
         //arr.push(tmp_node);
         // arr.push(change_result[0]);
         // arr.push(change_result[1]);
+        $Mosaic_Arr.push(change_result[0]);
+        $Mosaic_Arr.push(change_result[1]);
         // arr = arr;
         // Mosaic_Arr.update(a => [...a, change_result[0], change_result[1]]);
-        $Mosaic_Arr = [...$Mosaic_Arr, change_result[0], change_result[1]];
+        $Mosaic_Arr = $Mosaic_Arr;
         // setArr([...arr, change_result[0], change_result[1]]);
       };
 
@@ -553,7 +557,11 @@ const onMouseDown_bar_event = (e) => {
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
 			// Mosaic_Arr.update(a => [...a, insert1_result[0], insert1_result[1]]);
-      $Mosaic_Arr = [...$Mosaic_Arr, insert1_result[0], insert1_result[1]];
+
+      $Mosaic_Arr.push(insert1_result[0]);
+      $Mosaic_Arr.push(insert1_result[1]);
+
+      $Mosaic_Arr = $Mosaic_Arr;
     };
 
     // 기본 모자이크 생성 2
@@ -571,7 +579,9 @@ const onMouseDown_bar_event = (e) => {
 
       // setArr([...arr, insert_result[0], insert_result[1]]);
 			// Mosaic_Arr.update(a => [...a, insert2_result[0], insert2_result[1]]);
-      $Mosaic_Arr = [...$Mosaic_Arr, insert2_result[0], insert2_result[1]];
+      $Mosaic_Arr.push(insert2_result[0]);
+      $Mosaic_Arr.push(insert2_result[1]);
+      $Mosaic_Arr = $Mosaic_Arr;
     };
 
     // 2 -> 3 자리 변경
@@ -618,7 +628,6 @@ const onMouseDown_bar_event = (e) => {
 
 {#each $Mosaic_Arr as item, index}
 	<!-- {console.log(item)} -->
-	{console.log(index)}
   <!-- {arr[5].arr_Data} -->
 	
   <!-- <li>{i + 1} : {item.div_type}</li>  -->
@@ -670,7 +679,7 @@ const onMouseDown_bar_event = (e) => {
         <div class="div_Body">
           <!-- {item.left.node_text} -->
           {#if      (item.left.node_text == "Grid")}
-            <Grid2 data={item.left.arr_Data} />
+            <Grid data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Bar Chart")}
             <Bar_Chart data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
@@ -698,7 +707,7 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.right.node_text == "Grid")}
-            <Grid2 data={item.right.arr_Data} />
+            <Grid data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Bar Chart")}
             <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
@@ -708,7 +717,6 @@ const onMouseDown_bar_event = (e) => {
 			</div>
 		{/if}
 	{:else if (item.div_type === "N" && item.node_type !== "D" && item.p_id == null)}
-		<!-- {console.log("Root 출력")} -->
 		<div
 			class="div_Main_Background" name="root" id={item.id} on:dragover={onDragOver_div_event} on:dragend={onDragEnd_div_event} on:dragenter={onDragenter_div_event}
 			style={"inset: "+`0%`}>
@@ -731,7 +739,7 @@ const onMouseDown_bar_event = (e) => {
 			</div>
 			<div class="div_Body">
         {#if      (item.node_text == "Grid")}
-          <Grid2 data={item.arr_Data} />
+          <Grid data={item.arr_Data} />
         {:else if (item.node_text == "Bar Chart")}
           <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}

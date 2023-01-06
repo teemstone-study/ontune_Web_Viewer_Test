@@ -43,7 +43,7 @@
     create_grid_data(counter) {
       let tmp_data = [];
 
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 500; i++) {
         tmp_data.push(
           {
             name: "data_" + parseInt(i+counter),
@@ -129,7 +129,7 @@
         // this.arr_Data = [...this.set_random_data(this.t_counter)];
         this.arr_Data = this.set_random_data(this.t_counter);
 
-        Mosaic_Arr.update(arr => [...arr]);
+        Mosaic_Arr.update(arr => arr);
         // console.log(this.arr_Data);
         // $arr[this.id].arr_Data = 
 

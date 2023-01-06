@@ -158,6 +158,8 @@ button {
   vertical-align: middle;
   background-color: darkseagreen;
   user-select: none;
+  position: relative;
+  /* overflow: hidden; */
 }
 
 .div_Col {

@@ -7,6 +7,7 @@
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
+  import Grid2 from './Com_Grid2.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
   // import nice from 'd3-scale/src/nice.js';
@@ -669,7 +670,7 @@ const onMouseDown_bar_event = (e) => {
         <div class="div_Body">
           <!-- {item.left.node_text} -->
           {#if      (item.left.node_text == "Grid")}
-            <Grid data={item.left.arr_Data} />
+            <Grid2 data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Bar Chart")}
             <Bar_Chart data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
@@ -697,7 +698,7 @@ const onMouseDown_bar_event = (e) => {
 				</div>
         <div class="div_Body">
           {#if      (item.right.node_text == "Grid")}
-            <Grid data={item.right.arr_Data} />
+            <Grid2 data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Bar Chart")}
             <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
@@ -730,7 +731,7 @@ const onMouseDown_bar_event = (e) => {
 			</div>
 			<div class="div_Body">
         {#if      (item.node_text == "Grid")}
-          <Grid data={item.arr_Data} />
+          <Grid2 data={item.arr_Data} />
         {:else if (item.node_text == "Bar Chart")}
           <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}

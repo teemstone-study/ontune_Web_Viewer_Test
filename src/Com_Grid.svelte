@@ -1,17 +1,19 @@
 <script>
   export let data = [
-    { name: "", email: "", col1: "" , col2: "" , col3: "" , col4: "" , col5: "" , col6: "" , col7: "" , col8: "" , col9: "" , col10: "" }
+    { hostname: "-", email: "-", col1: 0, col2: 0, col3: "-" , col4: "-" , col5: "-" , col6: "-" , col7: "-" , col8: "-" , col9: "-" , col10: "-" }
   ];
 
   const default_data = [
-    { name: "", email: "", col1: "" , col2: "" , col3: "" , col4: "" , col5: "" , col6: "" , col7: "" , col8: "" , col9: "" , col10: ""}
+    { hostname: "-", email: "-", col1: 0, col2: 0, col3: "-" , col4: "-" , col5: "-" , col6: "-" , col7: "-" , col8: "-" , col9: "-" , col10: "-"}
   ];  
+  let tmp_width = 60;
 
   // if (data.length == 0) {
   //   data = [...default_data];
   // };
 
-	$:{data.length === 0 ? data = default_data : null};	  
+	$:{data.length === 0 ? data = default_data : null};
+  // $:{isNaN(document.getElementById("width_bar").offsetWidth) == false ? tmp_width = document.getElementById("width_bar").offsetWidth : 0};
 
   // const data = [
   //   { name: "John", email: "john@example.com", col1: "가", col2: "A", col3: "a", col4: "1", col5: arr1, col6: arr1[0], col7: arr1[1], col8: "1", col9: "1", col10: "1"},
@@ -45,9 +47,26 @@
   {#each data as item, index}
     <!-- {console.log(index)} -->
     <div class="row_div">
-      <div class="row_cell">{item.name}</div>
+      <div class="row_cell">{item.hostname}</div>
       <div class="row_cell">{item.email}</div>
-      <div class="row_cell">{item.col1}</div>
+      <div class="row_cell" id="width_bar">
+        <div style='width: 40px; height: 100%;'>{item.col1}%</div>
+
+        <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%;`}>
+          <div style='width: {item.col1}%; background-color: rgb(130, 164, 120); height: 100%;'></div>
+        </div>
+
+        <!-- {#if isNaN(document.getElementById("width_bar").offsetWidth) > 0 }
+          {tmp_width = document.getElementById("width_bar").offsetWidth}
+        style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}>
+          <div class="div_width_bar" style={"width: " + `${tmp_width}}'width: "{{tmp_width}}"; height: 100%;'>
+            
+          </div>
+        style={`left: calc(78% + ${hoverButton}%)`}
+
+          {/if} -->
+
+      </div>
       <div class="row_cell">{item.col2}</div>
       <div class="row_cell">{item.col3}</div>
       <div class="row_cell">{item.col4}</div>
@@ -94,20 +113,23 @@
     height: 30px;
     min-width: 150px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: deeppink;
-  }
 
-  .row_body {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    justify-content: left;
+    align-items: center;
+
+    font-family: sans-serif;
+    color: white;
+    font-weight: 600;
+    padding-left: 6px;
+    background-color: rgb(85, 84, 84);
+
+    border-color: white;
+    border-style: groove;
   }
 
   .row_div {
     position: relative;
-    background-color: darkmagenta;
+    background-color: black;
     display: flex;  
   }
 
@@ -116,11 +138,19 @@
     height: 30px;
     min-width: 150px;
 
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 
-    background-color: lightskyblue;
+    font-family: sans-serif;
+    color: white;
+    background-color: black;
+    padding-left: 12px;
+
     display: flex;
+  }
+
+  .div_width_bar {
+    width: calc(var(--tmp_width) - 40);
   }
 
 </style>

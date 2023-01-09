@@ -99,7 +99,7 @@ button {
   /* position: relative; */
   z-index: 10;
   /* touch-action: none; */
-  background-color: pink;
+  background-color: rgb(60, 80, 120);
 }
 
 .div_Shadow {
@@ -145,7 +145,10 @@ button {
   height: 40px;
   border: 0;
   text-align: right;
-  background-color: cornflowerblue;
+  background-color: white;
+  border-bottom: 3px;
+  border-bottom-color: #373737;
+
   cursor: move;
 }
 
@@ -156,8 +159,10 @@ button {
   width: 100%;
   text-align: center;  
   vertical-align: middle;
-  background-color: darkseagreen;
+  background-color: whitesmoke;
   user-select: none;
+  position: relative;
+  /* overflow: hidden; */
 }
 
 .div_Col {
@@ -170,7 +175,7 @@ button {
   position: absolute;
   z-index: 10;
   /* touch-action: none; */
-  background-color: pink;
+  background-color: rgb(132, 166, 230);
 }
 
 .div_Row {
@@ -183,5 +188,5 @@ button {
   position: absolute;
   z-index: 10;
   /* touch-action: none; */
-  background-color: pink;
+  background-color: rgb(132, 166, 230);
 }

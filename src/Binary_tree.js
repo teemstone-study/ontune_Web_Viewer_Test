@@ -43,21 +43,21 @@
     create_grid_data(counter) {
       let tmp_data = [];
 
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 500; i++) {
         tmp_data.push(
           {
-            name: "data_" + parseInt(i+counter),
+            hostname: "data_" + parseInt(i+counter),
             email: "data_" + parseInt(i+counter) + "@email.com",
-            col1: "A" + parseInt(i+counter),
-            col2: "B" + parseInt(i+counter),
-            col3: "C" + parseInt(i+counter),
-            col4: "D" + parseInt(i+counter),
-            col5: "E" + parseInt(i+counter),
-            col6: "F" + parseInt(i+counter),
-            col7: "G" + parseInt(i+counter),
-            col8: "H" + parseInt(i+counter),
-            col9: "I" + parseInt(i+counter),
-            col10: "J" + parseInt(i+counter),
+            col1: parseInt(i+counter),
+            col2: parseInt(i+counter),
+            col3: "A" + parseInt(i+counter),
+            col4: "B" + parseInt(i+counter),
+            col5: "C" + parseInt(i+counter),
+            col6: "D" + parseInt(i+counter),
+            col7: "E" + parseInt(i+counter),
+            col8: "F" + parseInt(i+counter),
+            col9: "G" + parseInt(i+counter),
+            col10: "H" + parseInt(i+counter),
           },
         );
       }
@@ -129,7 +129,7 @@
         // this.arr_Data = [...this.set_random_data(this.t_counter)];
         this.arr_Data = this.set_random_data(this.t_counter);
 
-        Mosaic_Arr.update(arr => [...arr]);
+        Mosaic_Arr.update(arr => arr);
         // console.log(this.arr_Data);
         // $arr[this.id].arr_Data = 
 

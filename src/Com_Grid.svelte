@@ -1,20 +1,19 @@
 <script>
-  import Grid from "gridjs-svelte"
-  import { dataset_dev } from "svelte/internal";
-
   export let data = [
-    { name: "", email: "", col1: "" , col2: "" , col3: "" , col4: "" , col5: "" , col6: "" , col7: "" , col8: "" , col9: "" , col10: "" }
+    { hostname: "-", email: "-", col1: 0, col2: 0, col3: "-" , col4: "-" , col5: "-" , col6: "-" , col7: "-" , col8: "-" , col9: "-" , col10: "-" }
   ];
 
   const default_data = [
-    { name: "", email: "", col1: "" , col2: "" , col3: "" , col4: "" , col5: "" , col6: "" , col7: "" , col8: "" , col9: "" , col10: ""}
+    { hostname: "-", email: "-", col1: 0, col2: 0, col3: "-" , col4: "-" , col5: "-" , col6: "-" , col7: "-" , col8: "-" , col9: "-" , col10: "-"}
   ];  
+  let tmp_width = 60;
 
   // if (data.length == 0) {
   //   data = [...default_data];
   // };
 
-	$:{data.length === 0 ? data = default_data : null};	  
+	$:{data.length === 0 ? data = default_data : null};
+  // $:{isNaN(document.getElementById("width_bar").offsetWidth) == false ? tmp_width = document.getElementById("width_bar").offsetWidth : 0};
 
   // const data = [
   //   { name: "John", email: "john@example.com", col1: "가", col2: "A", col3: "a", col4: "1", col5: arr1, col6: arr1[0], col7: arr1[1], col8: "1", col9: "1", col10: "1"},
@@ -27,238 +26,131 @@
   // ]
 </script>
 
-<Grid {data} />
+<!-- Grid -->
+<div class="div_Grid">
+  <!-- 헤더 -->
+  <div class="header_div">
+    <!-- Col 1 ~ n -->
+    <div class="header_cell">name</div>
+    <div class="header_cell">email</div>
+    <div class="header_cell">col1</div>
+    <div class="header_cell">col2</div>
+    <div class="header_cell">col3</div>
+    <div class="header_cell">col4</div>
+    <div class="header_cell">col5</div>
+    <div class="header_cell">col6</div>
+    <div class="header_cell">col7</div>
+    <div class="header_cell">col8</div>
+    <div class="header_cell">col9</div>
+    <div class="header_cell">col10</div>
+  </div>
+  {#each data as item, index}
+    <!-- {console.log(index)} -->
+    <div class="row_div">
+      <div class="row_cell">{item.hostname}</div>
+      <div class="row_cell">{item.email}</div>
+      <div class="row_cell" id="width_bar">
+        <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 
-<style global>
-  @import "https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css";
+        <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%;`}>
+          <div style='width: {item.col1}%; background-color: rgb(130, 164, 120); height: 100%;'></div>
+        </div>
 
-  /*
-  article {
-    height: inherit;
+        <!-- {#if isNaN(document.getElementById("width_bar").offsetWidth) > 0 }
+          {tmp_width = document.getElementById("width_bar").offsetWidth}
+        style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}>
+          <div class="div_width_bar" style={"width: " + `${tmp_width}}'width: "{{tmp_width}}"; height: 100%;'>
+            
+          </div>
+        style={`left: calc(78% + ${hoverButton}%)`}
 
-  .gridjs-footer button,.gridjs-head button{
-    background-color:transparent;
-    background-image:none;
-    border:none;
-    cursor:pointer;
-    margin:0;
-    outline:none;
-    padding:0
-  }
-  
-  .gridjs-temp{
-    position:relative
-  }
-  
-  .gridjs-head{
-    margin-bottom:5px;
-    padding:5px 1px;
-    width:100%
-  }
-  
-  .gridjs-head:after{
-    clear:both;content:"";display:block
-  }
-  
-  .gridjs-head:empty{
-    border:none;padding:0
-  }
-  
-  .gridjs-container{
-    color:#000;display:inline-block;overflow:hidden;padding:2px;position:relative;z-index:0
-  }
-  
-  .gridjs-footer{
-    background-color:#fff;border-bottom-width:1px;border-color:#e5e7eb;border-radius:0 0 8px 8px;border-top:1px solid #e5e7eb;box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.26);display:block;padding:12px 24px;position:relative;width:100%;z-index:5
-  }
-  
-  .gridjs-footer:empty{
-    border:none;padding:0
-  }
-  
-  input.gridjs-input{
-    -webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#fff;border:1px solid #d2d6dc;border-radius:5px;font-size:14px;line-height:1.45;outline:none;padding:10px 13px
-  }
-  
-  input.gridjs-input:focus{
-    border-color:#9bc2f7;box-shadow:0 0 0 3px rgba(149,189,243,.5)
-  }
-  
-  .gridjs-pagination{
-    color:#3d4044
-  }
-  
-  .gridjs-pagination:after{
-    clear:both;content:"";display:block
-  }
-  
-  .gridjs-pagination .gridjs-summary{
-    float:left;margin-top:5px
-  }
-  
-  .gridjs-pagination .gridjs-pages{
-    float:right
-  }
-  
-  .gridjs-pagination .gridjs-pages button{
-    background-color:#fff;border:1px solid #d2d6dc;border-right:none;outline:none;padding:5px 14px;-webkit-user-select:none;-moz-user-select:none;user-select:none
-  }
-  
-  .gridjs-pagination .gridjs-pages button:focus{
-    border-right:1px solid #d2d6dc;box-shadow:0 0 0 2px rgba(149,189,243,.5);margin-right:-1px;position:relative
-  }
-  
-  .gridjs-pagination .gridjs-pages button:hover{
-    background-color:#f7f7f7;color:#3c4257;outline:none
-  }
-  
-  .gridjs-pagination .gridjs-pages button:disabled,.gridjs-pagination .gridjs-pages button:hover:disabled,.gridjs-pagination .gridjs-pages button[disabled]{
-    background-color:#fff;color:#6b7280;cursor:default
-  }
-  
-  .gridjs-pagination .gridjs-pages button.gridjs-spread{
-    background-color:#fff;box-shadow:none;cursor:default
-  }
-  
-  .gridjs-pagination .gridjs-pages button.gridjs-currentPage{
-    background-color:#f7f7f7;font-weight:700
-  }
-  
-  .gridjs-pagination .gridjs-pages button:last-child{
-    border-bottom-right-radius:6px;border-right:1px solid #d2d6dc;border-top-right-radius:6px
-  }
-  
-  .gridjs-pagination .gridjs-pages button:first-child{
-    border-bottom-left-radius:6px;border-top-left-radius:6px
-  }
-  
-  .gridjs-pagination .gridjs-pages button:last-child:focus{
-    margin-right:0
-  }
-  
-  button.gridjs-sort{
-    background-color:transparent;background-position-x:center;background-repeat:no-repeat;background-size:contain;border:none;cursor:pointer;float:right;height:24px;margin:0;outline:none;padding:0;width:13px
-  }
-  
-  button.gridjs-sort-neutral{
-    background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDEuOTk4IiBoZWlnaHQ9IjQwMS45OTgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQwMS45OTggNDAxLjk5OCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZD0iTTczLjA5MiAxNjQuNDUyaDI1NS44MTNjNC45NDkgMCA5LjIzMy0xLjgwNyAxMi44NDgtNS40MjQgMy42MTMtMy42MTYgNS40MjctNy44OTggNS40MjctMTIuODQ3cy0xLjgxMy05LjIyOS01LjQyNy0xMi44NUwyMTMuODQ2IDUuNDI0QzIxMC4yMzIgMS44MTIgMjA1Ljk1MSAwIDIwMC45OTkgMHMtOS4yMzMgMS44MTItMTIuODUgNS40MjRMNjAuMjQyIDEzMy4zMzFjLTMuNjE3IDMuNjE3LTUuNDI0IDcuOTAxLTUuNDI0IDEyLjg1IDAgNC45NDggMS44MDcgOS4yMzEgNS40MjQgMTIuODQ3IDMuNjIxIDMuNjE3IDcuOTAyIDUuNDI0IDEyLjg1IDUuNDI0ek0zMjguOTA1IDIzNy41NDlINzMuMDkyYy00Ljk1MiAwLTkuMjMzIDEuODA4LTEyLjg1IDUuNDIxLTMuNjE3IDMuNjE3LTUuNDI0IDcuODk4LTUuNDI0IDEyLjg0N3MxLjgwNyA5LjIzMyA1LjQyNCAxMi44NDhMMTg4LjE0OSAzOTYuNTdjMy42MjEgMy42MTcgNy45MDIgNS40MjggMTIuODUgNS40MjhzOS4yMzMtMS44MTEgMTIuODQ3LTUuNDI4bDEyNy45MDctMTI3LjkwNmMzLjYxMy0zLjYxNCA1LjQyNy03Ljg5OCA1LjQyNy0xMi44NDggMC00Ljk0OC0xLjgxMy05LjIyOS01LjQyNy0xMi44NDctMy42MTQtMy42MTYtNy44OTktNS40Mi0xMi44NDgtNS40MnoiLz48L3N2Zz4=");background-position-y:center;opacity:.3
+          {/if} -->
+
+      </div>
+      <div class="row_cell">{item.col2}</div>
+      <div class="row_cell">{item.col3}</div>
+      <div class="row_cell">{item.col4}</div>
+      <div class="row_cell">{item.col5}</div>
+      <div class="row_cell">{item.col6}</div>
+      <div class="row_cell">{item.col7}</div>
+      <div class="row_cell">{item.col8}</div>
+      <div class="row_cell">{item.col9}</div>
+      <div class="row_cell">{item.col10}</div>
+    </div>
+  {/each}
+</div>
+<!-- Row -->
+  <!-- col 1 ~ n -->
+
+<style>
+  .div_Grid{
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+    overflow: auto;
+    /* overflow-y: hidden; */
+    /* transform: translateZ(0);*/
   }
 
-  button.gridjs-sort-asc{
-    background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOTIuMzYyIiBoZWlnaHQ9IjI5Mi4zNjEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5Mi4zNjIgMjkyLjM2MSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZD0iTTI4Ni45MzUgMTk3LjI4NyAxNTkuMDI4IDY5LjM4MWMtMy42MTMtMy42MTctNy44OTUtNS40MjQtMTIuODQ3LTUuNDI0cy05LjIzMyAxLjgwNy0xMi44NSA1LjQyNEw1LjQyNCAxOTcuMjg3QzEuODA3IDIwMC45MDQgMCAyMDUuMTg2IDAgMjEwLjEzNHMxLjgwNyA5LjIzMyA1LjQyNCAxMi44NDdjMy42MjEgMy42MTcgNy45MDIgNS40MjUgMTIuODUgNS40MjVoMjU1LjgxM2M0Ljk0OSAwIDkuMjMzLTEuODA4IDEyLjg0OC01LjQyNSAzLjYxMy0zLjYxMyA1LjQyNy03Ljg5OCA1LjQyNy0xMi44NDdzLTEuODE0LTkuMjMtNS40MjctMTIuODQ3eiIvPjwvc3ZnPg==");background-position-y:35%;background-size:10px
-  }
-  
-  button.gridjs-sort-desc{
-    background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOTIuMzYyIiBoZWlnaHQ9IjI5Mi4zNjIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5Mi4zNjIgMjkyLjM2MiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZD0iTTI4Ni45MzUgNjkuMzc3Yy0zLjYxNC0zLjYxNy03Ljg5OC01LjQyNC0xMi44NDgtNS40MjRIMTguMjc0Yy00Ljk1MiAwLTkuMjMzIDEuODA3LTEyLjg1IDUuNDI0QzEuODA3IDcyLjk5OCAwIDc3LjI3OSAwIDgyLjIyOGMwIDQuOTQ4IDEuODA3IDkuMjI5IDUuNDI0IDEyLjg0N2wxMjcuOTA3IDEyNy45MDdjMy42MjEgMy42MTcgNy45MDIgNS40MjggMTIuODUgNS40MjhzOS4yMzMtMS44MTEgMTIuODQ3LTUuNDI4TDI4Ni45MzUgOTUuMDc0YzMuNjEzLTMuNjE3IDUuNDI3LTcuODk4IDUuNDI3LTEyLjg0NyAwLTQuOTQ4LTEuODE0LTkuMjI5LTUuNDI3LTEyLjg1eiIvPjwvc3ZnPg==");background-position-y:65%;background-size:10px
-  }
-  
-  button.gridjs-sort:focus{
-    outline:none
-  }
-  
-  table.gridjs-table{
-    border-collapse:collapse;display:table;margin:0;max-width:100%;overflow:auto;padding:0;table-layout:fixed;text-align:left
-  }
-  
-  .gridjs-tbody,td.gridjs-td{
-    background-color:#fff
-  }
-  
-  td.gridjs-td{
-    border:1px solid #e5e7eb;box-sizing:content-box;padding:12px 24px
-  }
-  
-  td.gridjs-td:first-child{border-left:none}
+  .header_div {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 2;
 
-  td.gridjs-td:last-child{border-right:none}
+    /* justify-content: center; */
+    align-items: center;
 
-  td.gridjs-message{text-align:center}
+    background-color: midnightblue;
+    display: flex;
+    /* white-space: nowrap; */
+    /* overflow: auto; */
+  }
 
-  th.gridjs-th{
-    background-color:#f9fafb;border:1px solid #e5e7eb;border-top:none;box-sizing:border-box;color:#6b7280;outline:none;padding:14px 24px;position:relative;-webkit-user-select:none;-moz-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap
-  }
-  
-  th.gridjs-th .gridjs-th-content{
-    float:left;overflow:hidden;text-overflow:ellipsis;width:100%
-  }
-  
-  th.gridjs-th-sort{cursor:pointer}
-  
-  th.gridjs-th-sort .gridjs-th-content{width:calc(100% - 15px)}
-  
-  th.gridjs-th-sort:focus,th.gridjs-th-sort:hover{background-color:#e5e7eb}
-  
-  th.gridjs-th-fixed{box-shadow:0 1px 0 0 #e5e7eb;position:-webkit-sticky;position:sticky}
-  
-  @supports (-moz-appearance:none){
-    th.gridjs-th-fixed{box-shadow:0 0 0 1px #e5e7eb}
-  }
-  
-  th.gridjs-th:first-child{border-left:none}
-  
-  th.gridjs-th:last-child{border-right:none}
-  
-  .gridjs-tr{border:none}
-  
-  .gridjs-tr-selected td{background-color:#ebf5ff}
-  
-  .gridjs-tr:last-child td{border-bottom:0}
-  
-  .gridjs *,.gridjs :after,.gridjs :before{box-sizing:border-box}
+  .header_cell {
+    width: 150px;
+    height: 30px;
+    min-width: 150px;
+    display: flex;
 
-  .gridjs-wrapper{
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    border-color:#e5e7eb;
-    border-radius:8px 8px 0 0;
-    border-top-width:1px;
-    box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.26);
-    display:block;
-    overflow:auto;
-    position:relative;
-    width:100%;
-    z-index:1
+    justify-content: left;
+    align-items: center;
+
+    font-family: sans-serif;
+    color: white;
+    font-weight: 600;
+    padding-left: 6px;
+    background-color: rgb(85, 84, 84);
+
+    border-color: white;
+    border-style: groove;
   }
-  
-  .gridjs-wrapper:nth-last-of-type(2){border-bottom-width:1px;border-radius:8px}
-  
-  .gridjs-search{float:left}
-  
-  .gridjs-search-input{width:250px}
-  
-  .gridjs-loading-bar{background-color:#fff;opacity:.5;z-index:10}
-  
-  .gridjs-loading-bar,.gridjs-loading-bar:after{bottom:0;left:0;position:absolute;right:0;top:0}
-  
-  .gridjs-loading-bar:after{
-    -webkit-animation:shimmer 2s infinite;
-    animation:shimmer 2s infinite;
-    background-image:linear-gradient(90deg,hsla(0,0%,80%,0),hsla(0,0%,80%,.2) 20%,hsla(0,0%,80%,.5) 60%,hsla(0,0%,80%,0));
-    content:"";
-    transform:translateX(-100%)
+
+  .row_div {
+    position: relative;
+    background-color: black;
+    display: flex;  
   }
-  
-  @-webkit-keyframes shimmer{to{transform:translateX(100%)}}
-  
-  @keyframes shimmer{to{transform:translateX(100%)}}
-  
-  .gridjs-td .gridjs-checkbox{
-    cursor:pointer;
-    display:block;
-    margin:auto
+
+  .row_cell {
+    width: 150px;
+    height: 30px;
+    min-width: 150px;
+
+    justify-content: left;
+    align-items: center;
+
+    font-family: sans-serif;
+    color: white;
+    background-color: black;
+    padding-left: 12px;
+
+    display: flex;
   }
-  
-  .gridjs-resizable{
-    position:absolute;
-    bottom:0;
-    right:0;
-    top:0;
-    width:5px
+
+  .div_width_bar {
+    width: calc(var(--tmp_width) - 40);
   }
-  
-  .gridjs-resizable:hover{
-    background-color:#9bc2f7;
-    cursor:ew-resize
-  }   */
-  
+
 </style>

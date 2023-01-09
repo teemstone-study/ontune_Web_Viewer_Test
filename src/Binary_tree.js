@@ -74,14 +74,16 @@
           tmp_data.push(
             {
               host: (i),
-              value: 0,
+              value1: 0,
+              value2: 0
             },
           );
         } else {
           tmp_data.push(
             {
               host: (i),
-              value: (i*10)+counter,
+              value1: (i*5)+counter,
+              value2: (i*10)+counter,
             },
           );
         }

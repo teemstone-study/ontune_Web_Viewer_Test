@@ -52,8 +52,8 @@
       <div class="row_cell" id="width_bar">
         <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 
-        <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%;`}>
-          <div style='width: {item.col1}%; background-color: rgb(130, 164, 120); height: 100%;'></div>
+        <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
+          <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%;'></div>
         </div>
 
         <!-- {#if isNaN(document.getElementById("width_bar").offsetWidth) > 0 }
@@ -147,10 +147,6 @@
     padding-left: 12px;
 
     display: flex;
-  }
-
-  .div_width_bar {
-    width: calc(var(--tmp_width) - 40);
   }
 
 </style>

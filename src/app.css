@@ -99,7 +99,7 @@ button {
   /* position: relative; */
   z-index: 10;
   /* touch-action: none; */
-  background-color: rgb(60, 80, 120);
+  background-color: rgb(32, 33, 36);
 }
 
 .div_Shadow {
@@ -175,7 +175,7 @@ button {
   position: absolute;
   z-index: 10;
   /* touch-action: none; */
-  background-color: rgb(132, 166, 230);
+  background-color: rgb(76, 79, 85);
 }
 
 .div_Row {
@@ -188,5 +188,5 @@ button {
   position: absolute;
   z-index: 10;
   /* touch-action: none; */
-  background-color: rgb(132, 166, 230);
+  background-color: rgb(76, 79, 85);
 }

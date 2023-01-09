@@ -155,13 +155,13 @@
 	} */
 
 	.value1 {
-		fill: #a11;
+		fill: rgb(17, 40, 170);
 		stroke: none;
 		opacity: 0.8;
 	}
 
 	.value2 {
-		fill: rgb(17, 40, 170);
+		fill: rgb(247, 121, 4);
 		stroke: none;
 		opacity: 0.8;
 	}	

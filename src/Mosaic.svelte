@@ -716,8 +716,8 @@ const onMouseDown_bar_event = (e) => {
             <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
             <Line_Chart data={item.right.arr_Data} />
-          {:else if (item.left.node_text == "Pie Chart")}
-            <Pie_Chart  data={item.left.arr_Data} />
+          {:else if (item.right.node_text == "Pie Chart")}
+            <Pie_Chart  data={item.right.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -750,8 +750,8 @@ const onMouseDown_bar_event = (e) => {
           <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}
           <Line_Chart data={item.arr_Data} />
-        {:else if (item.left.node_text == "Pie Chart")}
-          <Pie_Chart  data={item.left.arr_Data} />
+        {:else if (item.node_text == "Pie Chart")}
+          <Pie_Chart  data={item.arr_Data} />
         {/if}
       </div>
 		</div>

@@ -9,6 +9,7 @@
   import Grid from './Com_Grid.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
+  import Pie_Chart from './Com_Pie.svelte';
   // import nice from 'd3-scale/src/nice.js';
   
 	const bst = new Binary_Tree();
@@ -27,7 +28,8 @@
 		{ id: 0, text: "None" },
 		{ id: 1, text: "Grid" },
 		{ id: 2, text: "Bar Chart" },
-		{ id: 3, text: "Line Chart" }
+		{ id: 3, text: "Line Chart" },
+    { id: 4, text: "Pie Chart" }
 	];
 
   function find_target(el) {
@@ -684,6 +686,8 @@ const onMouseDown_bar_event = (e) => {
             <Bar_Chart data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
             <Line_Chart data={item.left.arr_Data} />
+          {:else if (item.left.node_text == "Pie Chart")}
+            <Pie_Chart  data={item.left.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -712,6 +716,8 @@ const onMouseDown_bar_event = (e) => {
             <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
             <Line_Chart data={item.right.arr_Data} />
+          {:else if (item.left.node_text == "Pie Chart")}
+            <Pie_Chart  data={item.left.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -744,6 +750,8 @@ const onMouseDown_bar_event = (e) => {
           <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}
           <Line_Chart data={item.arr_Data} />
+        {:else if (item.left.node_text == "Pie Chart")}
+          <Pie_Chart  data={item.left.arr_Data} />
         {/if}
       </div>
 		</div>

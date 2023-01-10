@@ -136,7 +136,17 @@
       }
       // console.log(tmp_data);
       return tmp_data;
-    }                
+    }        
+
+    GetRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+    }
+    
+    create_pie_data(counter) {
+        return [this.GetRandomInt(0, 100), this.GetRandomInt(0, 100)];
+    }
 
     set_timer() {
       if (this.t_counter >= 9) {
@@ -172,6 +182,8 @@
         tmp_arr = this.create_bar_data(counter);
       } else if (this.node_text == "Line Chart") {
         tmp_arr = this.create_line_data(counter);
+      } else if (this.node_text == "Pie Chart") {
+        tmp_arr = this.create_pie_data(counter);
       } else {
         tmp_arr = [];
       }

@@ -665,7 +665,7 @@ const onMouseDown_bar_event = (e) => {
           <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
           <!-- <button style="width: 100px;" on:click={test(item.left.id)}>test</button> -->
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
-          <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Random_Data}>
+          <select bind:value={item.left.node_text} id={item.left.id} on:ratechange={Set_Random_Data}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}

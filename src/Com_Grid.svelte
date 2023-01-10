@@ -14,7 +14,6 @@
     col21: "-" , col22: "-" , col23: "-" , col24: "-" , col25: "-" , col26: "-" , col27: "-" , col28: "-" , col29: "-" , col30: "-"  
   }
   ];  
-  let tmp_width = 60;
 
   // if (data.length == 0) {
   //   data = [...default_data];
@@ -81,7 +80,7 @@
         <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 
         <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
-          <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%;'></div>
+          <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%; max-width: 100%'></div>
         </div>
       </div>
       <div class="row_cell">{item.col2}</div>
@@ -135,9 +134,6 @@
     top: 0;
     width: 100%;
     z-index: 2;
-
-    /* justify-content: center; */
-    align-items: center;
 
     background-color: midnightblue;
     display: flex;

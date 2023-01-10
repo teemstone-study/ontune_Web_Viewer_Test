@@ -64,47 +64,48 @@
 	$: innerWidth = width - (padding.left + padding.right);
 	$: barWidth = innerWidth / xTicks.length;
 </script>
+{#if (data.length > 0)}
+	<div class="chart" bind:clientWidth={width} bind:clientHeight={height}>
+		<svg>
+			<!-- y axis -->
+			<g class="axis y-axis">
+				{#each yTicks as tick}
+					<g class="tick tick-{tick}" transform="translate(0, {yScale(tick)})">
+						<line x2="100%"></line>
+						<text y="-4">{tick} {tick === 20 ? '' : ''}</text>
+					</g>
+				{/each}
+			</g>
 
-<div class="chart" bind:clientWidth={width} bind:clientHeight={height}>
-	<svg>
-		<!-- y axis -->
-		<g class="axis y-axis">
-			{#each yTicks as tick}
-				<g class="tick tick-{tick}" transform="translate(0, {yScale(tick)})">
-					<line x2="100%"></line>
-					<text y="-4">{tick} {tick === 20 ? '' : ''}</text>
-				</g>
-			{/each}
-		</g>
+			<!-- x axis -->
+			<g class="axis x-axis">
+				{#each data as point, i}
+					<g class="tick" transform="translate({xScale(i)},{height})">
+						<text x="{barWidth/2}" y="-4">{width > 380 ? point.host : formatMobile(point.host)}</text>
+					</g>
+				{/each}
+			</g>
 
-		<!-- x axis -->
-		<g class="axis x-axis">
-			{#each data as point, i}
-				<g class="tick" transform="translate({xScale(i)},{height})">
-					<text x="{barWidth/2}" y="-4">{width > 380 ? point.host : formatMobile(point.host)}</text>
-				</g>
-			{/each}
-		</g>
+			<g class='bars'>
+				{#each data as point, i}
+					<rect class="value1"
+						x="{xScale(i) + 4}"
+						y="{yScale(point.value1)}"
+						width="{(barWidth / 2) - 4}"
+						height="{yScale(0) - yScale(point.value1)}"
+					></rect>
 
-		<g class='bars'>
-			{#each data as point, i}
-				<rect class="value1"
-					x="{xScale(i) + 4}"
-					y="{yScale(point.value1)}"
-					width="{(barWidth / 2) - 4}"
-					height="{yScale(0) - yScale(point.value1)}"
-				></rect>
-
-				<rect class="value2"
-					x="{(xScale(i) + 4) + ((barWidth / 2) - 4)}"
-					y="{yScale(point.value2)}"
-					width="{(barWidth / 2) - 4}"
-					height="{yScale(0) - yScale(point.value2)}"
-				></rect>				
-			{/each}
-		</g>
-	</svg>
-</div>
+					<rect class="value2"
+						x="{(xScale(i) + 4) + ((barWidth / 2) - 4)}"
+						y="{yScale(point.value2)}"
+						width="{(barWidth / 2) - 4}"
+						height="{yScale(0) - yScale(point.value2)}"
+					></rect>				
+				{/each}
+			</g>
+		</svg>
+	</div>
+{/if}
 
 <style>
 	/* h2 {

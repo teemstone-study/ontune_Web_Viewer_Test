@@ -182,4 +182,81 @@
     display: flex;
   }
 
+  /* Grid Scroll */
+  .div_Grid::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  .div_Grid::-webkit-scrollbar-thumb {
+    background-color: #404247;
+    border-radius: 10px;
+  }
+
+  .div_Grid::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
+  .div_Grid::-webkit-scrollbar-button{
+    background-color: white;
+    width: 16px;
+    height: 16px;
+    /* display: block; */
+    /* border-style: solid; */
+  }
+
+  /* 스크롤 버튼 */
+  /* Up */
+  .div_Grid::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url("img/grid_scroll/scroll_up_N.png");
+  }
+  .div_Grid::-webkit-scrollbar-button:vertical:decrement:hover {
+    background-image: url("img/grid_scroll/scroll_up_H.png");
+  }
+
+  /* Down */
+  .div_Grid::-webkit-scrollbar-button:vertical:increment {
+    background-image: url("img/grid_scroll/scroll_down_N.png");
+  }  
+  .div_Grid::-webkit-scrollbar-button:vertical:increment:hover {
+    background-image: url("img/grid_scroll/scroll_down_H.png");
+  }  
+
+  /* Left */
+  .div_Grid::-webkit-scrollbar-button:horizontal:decrement {
+    background-image: url("img/grid_scroll/scroll_left_N.png");
+  }
+  .div_Grid::-webkit-scrollbar-button:horizontal:decrement:hover {
+    background-image: url("img/grid_scroll/scroll_left_H.png");
+  }
+
+  /* Right */
+  .div_Grid::-webkit-scrollbar-button:horizontal:increment {
+    background-image: url("img/grid_scroll/scroll_right_N.png");
+  }  
+  .div_Grid::-webkit-scrollbar-button:horizontal:increment:hover {
+    background-image: url("img/grid_scroll/scroll_right_H.png");
+  }  
+
+
+
+  /* Left */
+  /* .div_Grid::-webkit-scrollbar-button::decrement {
+    border-width: 0 8px 8px 8px;
+    border-color: transparent transparent #404247 transparent;
+  } */
+  /* .div_Grid::-webkit-scrollbar-button:horizontal:decrement:hover {
+    border-color: transparent transparent #777777 transparent;
+  } */
+
+  /* Right */
+  /* .div_Grid:-webkit-scrollbar-button:horizontal:increment {
+    border-width: 8px 8px 0 8px;
+    border-color: #404247 transparent transparent transparent;
+  } */
+  /* .div_Grid::-webkit-scrollbar-button:horizontal:increment:hover {
+    border-color: #777777 transparent transparent transparent;
+  }     */
 </style>

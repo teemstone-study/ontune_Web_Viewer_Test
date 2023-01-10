@@ -93,7 +93,7 @@
         testWorker();
       }    
   
-      StartProcess();
+      //StartProcess();
     }
     else {
       console.log("0초니까 ");
@@ -118,20 +118,20 @@
 
     }
 
-    function StartProcess() {
-      clearInterval(alterWorkTimer);   
-      alterWorkTimer = setInterval(() => {
-        let findBar = document.getElementsByClassName(indeterminate-progress-bar);
-        if (isSend === false) {
-            isSend = true;
-            progress.set(1.0);
-        } else {
-            isSend = false;
-            progress.set(0.0)            
-        }
+    // function StartProcess() {
+    //   clearInterval(alterWorkTimer);   
+    //   alterWorkTimer = setInterval(() => {
+    //     let findBar = document.getElementsByClassName(indeterminate-progress-bar);
+    //     if (isSend === false) {
+    //         isSend = true;
+    //         progress.set(1.0);
+    //     } else {
+    //         isSend = false;
+    //         progress.set(0.0)            
+    //     }
 
-      }, 1000);   
-    }
+    //   }, 1000);   
+    // }
 
     let viewport;
     let contents;

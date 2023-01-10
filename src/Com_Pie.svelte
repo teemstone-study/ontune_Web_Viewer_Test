@@ -1,5 +1,6 @@
 <script>
-import { tweened } from "svelte/motion";
+    import { tweened } from "svelte/motion";
+    import ArcGauge from "./arc_Gauge.svelte";
 
 
     export let size = 200;
@@ -30,27 +31,14 @@ import { tweened } from "svelte/motion";
   
 <div id="PieChartDiv" bind:clientWidth={arcWidth} bind:clientHeight={arcHeight}>
     <div class="Data" id="Value1" >
-        <svg width={size} height={size} {viewBox}>
-            <circle r={radius - 8} cx={radius} cy={radius} stroke="gray" stroke-width="4" fill="none" />
-            <path d="M80 100 A {radius - 8} {radius - 8} 0 1 1 111 197"  stroke="aquamarine" stroke-width="4" fill="none" />
-            <!-- <circle
-            r={radius / 2}
-            cx={radius}
-            cy={radius}
-            fill={bgColor}
-            stroke={fgColor}
-            stroke-width={radius}
-            stroke-dasharray={dash1Array}
-            /> -->
-            <text y="50%" x="50%"> {data[0]}%</text>
-        </svg>
-        <!-- {data[0]} -->
+        <ArcGauge bindData={data[0]} sizeData={size} />
     </div>
 
         
     
     <div class="Data" id="Value2" >
-        <svg width={size} height={size} {viewBox} >
+        <ArcGauge bindData={data[1]} sizeData={size} />
+        <!-- <svg width={size} height={size} {viewBox} >
             <circle r={radius} cx={radius} cy={radius} fill={bgColor} />
             <circle
             r={radius / 2}
@@ -62,7 +50,7 @@ import { tweened } from "svelte/motion";
             stroke-dasharray={dash2Array}
             />
             <text y="50%" x="50%" >{data[1]}%</text>
-        </svg>
+        </svg> -->
     </div>
 </div>
 

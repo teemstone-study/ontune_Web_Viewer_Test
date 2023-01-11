@@ -73,7 +73,6 @@
 </script>
 
 <svg {width} {height}>
-    {console.log(sizeData +" + " + innerRadius)}
     <circle r={(innerRadius + outerRadius) / 2} cx={width/2} cy={height/2} fill="none" stroke="gray" stroke-width="2"/>
 	<path d={trackArc()} transform="translate({width/2}, {height/2})" class="track" bind:this={trackArcEl} />
 	<path d={arc()} transform="translate({width/2}, {height/2})" />

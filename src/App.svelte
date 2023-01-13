@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { Mosaic_Arr, Data_Infos } from './store.js';
+  import WebsocketWorker from './websocketWorker.svelte';
 
   // import tree from './Tree.svelte';
   import OntuneTreeView from './ontuneTreeView.svelte';
@@ -200,7 +201,9 @@
 
   onMount(() => {
     // Data_Info 초기화
-    // Data_Infos_Clear;
+    Data_Infos_Clear;
+    console.log("Data_Infos Clear ===========================================");
+    console.log($Data_Infos);
 
     // console.log($Data_Infos);
   });
@@ -308,7 +311,7 @@
 }  
 </script>
 
-
+<WebsocketWorker />
 <!-- HTML -->
 <div id="div_tree">
   <OntuneTreeView />  

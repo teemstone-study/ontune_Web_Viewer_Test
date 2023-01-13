@@ -11,3 +11,5 @@ export const Data_Infos = writable({
   NET_CODE:null,
   DISK_CODE:null
 });
+export const ReceivedCode = writable();
+export const ReceivedData = writable();

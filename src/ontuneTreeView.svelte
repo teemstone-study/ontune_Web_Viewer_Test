@@ -8,6 +8,8 @@
   import { tweened } from 'svelte/motion';
   import { expoInOut } from 'svelte/easing';
   import {onMount, tick} from 'svelte';
+  import  {WebReceiveData} from './store.js';
+  import { get } from 'svelte/store';
   
 
   import {Svrollbar, Svroller} from "svrollbar"    
@@ -27,15 +29,25 @@
   let visibleTestMode = false;
   let updateDrawCount = 1000;
   let UpdateListItem = ItemList;
+  let StoreUpdateList;
   let copyupdateCount = updateCount;
-  
 
-  $: dddd = visibleTestMode;
+  WebReceiveData.subscribe(value => {
+      StoreUpdateList = String(value.data).split(",");
+      if (isReverse === true) { 
+          isReverse = false; 
+        } else {
+          isReverse = true;
+        }
+
+      UpdateListItem = StoreUpdateList;
+      console.log(isReverse);
+  })
+
   init();
 
   function init() {
-    console.log("init");
-    ItemList = Array.from({ length: updateDrawCount }).map((_, i) => `item ${i}`);
+    ItemList = Array.from({ length: 0 }).map((_, i) => `item ${i}`);    
     UpdateListItem = ItemList;
   }
   

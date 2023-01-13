@@ -1,5 +1,5 @@
 <script>
-    import { ReceivedCode, ReceivedData, Mosaic_Arr, Data_Infos} from './store.js';
+    import { WebReceiveData, Mosaic_Arr, Data_Infos} from './store.js';
     import { writable, get } from 'svelte/store';
   import { onMount } from 'svelte';
 
@@ -7,7 +7,7 @@
     onMount(() => {
         console.log('workerInit');
         console.log('Add worker');
-        Socket = new WebSocket('ws://127.0.0.1:3001/ws');
+        Socket = new WebSocket('ws://192.168.0.24:3001/ws');
 
         Socket.addEventListener('open', () => {
             console.log("It's open");
@@ -35,6 +35,7 @@
             //         sendDataKey(2);
             //     }  
             // }
+            sendDataKey(2);
             
         });
         Socket.addEventListener('message', function (event) {
@@ -45,8 +46,12 @@
             // console.log($Data_Infos);
             
             // Parsedata.
-            // ReceivedCode.set(Parsedata.code);
-            // ReceivedData.set(Parsedata.data);
+
+            switch(Parsedata.code) {
+                case 2:
+                    WebReceiveData.set({code : Parsedata.code, data : Parsedata.data});
+            }
+
 
 	    });
         console.log('UpdateEnd worker');

@@ -13,3 +13,4 @@ export const Data_Infos = writable({
 });
 export const ReceivedCode = writable();
 export const ReceivedData = writable();
+export const WebReceiveData = writable({code:null, data:null});

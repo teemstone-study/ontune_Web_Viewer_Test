@@ -16,7 +16,8 @@
       p_id = null,
       left = null,
       right = null,
-      arr_Data = []
+      arr_Data = [],
+      host_List = []
     ) {
       this.id = id;
       this.div_type = div_type;
@@ -33,6 +34,7 @@
       this.left = left;
       this.right = right;
       this.arr_Data = arr_Data;
+      this.host_List = host_List;
 
       this.t_timer;
       this.t_counter = 0;
@@ -268,6 +270,7 @@
         // 기존 old도 값을 바꿔주고
         old_node.node_type = "P";
         old_node.node_text = "";
+        old_node.host_List = [];
   
         // Left node에 대한 내용 채워주고
         // left_node.node_type = "C";
@@ -278,6 +281,9 @@
         // Left | right 입력
         // old_node.left_id  = left_node.id;
         // old_node.right_id = right_node.id;
+        left_node.host_List = [1,2,3,4,5,6,7,8,9,10];
+        right_node.host_List = [1,2,3,4,5,6,7,8,9,10];
+
         old_node.left  = left_node;
         old_node.right = right_node;
   
@@ -299,9 +305,15 @@
       if (bLeft === true) {
         left_node.node_text  = change_node.node_text;
         right_node.node_text = old_node.node_text;
+
+        left_node.host_List  = change_node.host_List;
+        right_node.host_List = old_node.host_List;
       } else {
         left_node.node_text  = old_node.node_text;
         right_node.node_text = change_node.node_text;
+
+        left_node.host_List  = old_node.host_List;
+        right_node.host_List = change_node.host_List;
       }
   
       // target 노드를 찾아왔으니, Left Right 값을 입력한다.
@@ -314,6 +326,7 @@
         }
         old_node.node_type = "P";
         old_node.node_text = "";
+        old_node.host_List = [];
   
         // Left | right 입력
         old_node.left  = left_node;

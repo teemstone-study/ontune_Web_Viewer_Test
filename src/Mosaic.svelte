@@ -2,7 +2,8 @@
 	// import "./App.svelte";
 	// import { listen } from "svelte/internal";
   // import { Mosaic_Arr } from "./Store";
-  import { Mosaic_Arr } from './store.js';
+  // import { Data_Infos_Clear, Data_Infos_Refresh } from './App.svelte';
+  import { Mosaic_Arr, Data_Infos } from './store.js';
 	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
@@ -133,6 +134,19 @@
     // console.log(tmp_counter);    
     // Random_Timer(e);
   };
+
+  function Set_Data_Info(item) {
+    console.log('----Set Data Info Change-----');
+
+    // Data_Infos_Clear;
+    // Data_Infos_Refresh();
+  };
+    // console.log(item.node_text);
+    
+    // $Mosaic_Arr[e.target.id].
+    // Data_Info에 기존 값 변경하고 .
+    // $Mosaic_Arr[e.target.id].set_timer();
+  // };  
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -598,6 +612,10 @@ const onMouseDown_bar_event = (e) => {
       change_result[0].node_text = "Bar Chart";
       change_result[1].node_text = "Line Chart";
 
+      $Mosaic_Arr[4].host_List   = [1,2,3,4,5,6,7,8,9,10];
+      change_result[0].host_List   = [1,2,3,4,5,6,7,8,9,10];
+      change_result[1].host_List   = [1,2,3,4,5,6,7,8,9,10];
+
       $Mosaic_Arr.push(change_result[0]);
       $Mosaic_Arr.push(change_result[1]);
       // setArr([...arr, change_result[0], change_result[1]]);
@@ -608,11 +626,10 @@ const onMouseDown_bar_event = (e) => {
       bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
     } else {
       bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
-    } 
+    };
     // drag_node = null;
     // inset 재조정
-    bst.resize_div($Mosaic_Arr);    
-
+    bst.resize_div($Mosaic_Arr);
     // console.log($Mosaic_Arr);
 		// console.log('------------Mosaic.svelte');
 	};
@@ -667,7 +684,7 @@ const onMouseDown_bar_event = (e) => {
           <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
           <!-- <button style="width: 100px;" on:click={test(item.left.id)}>test</button> -->
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
-          <select bind:value={item.left.node_text} id={item.left.id} on:ratechange={Set_Random_Data}>
+          <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Data_Info(item.left)}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -699,7 +716,7 @@ const onMouseDown_bar_event = (e) => {
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.right.id}>자동변경 시작</button>
-          <select bind:value={item.right.node_text} id={item.right.id} on:ratechange={Set_Random_Data}>
+          <select bind:value={item.right.node_text} id={item.right.id} on:change={Set_Data_Info(item.right)}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -733,7 +750,7 @@ const onMouseDown_bar_event = (e) => {
 		>
 			<div class="div_Title" style={"cursor: " + 'default'}>
         <button style="width: 100px;" on:click={Set_Random_Data} id={item.id}>자동변경 시작</button>
-        <select bind:value={item.node_text} id={item.id} on:ratechange={Set_Random_Data}>
+        <select bind:value={item.node_text} id={item.id} on:change={Set_Data_Info(item)}>
           {#each component_type as type}
             <option value={type.text}>
               {type.text}

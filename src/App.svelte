@@ -1,80 +1,209 @@
 <script>
-  // export let url = "";
+  import { onMount } from 'svelte';
+  import { Mosaic_Arr, Data_Infos } from './store.js';
 
   // import tree from './Tree.svelte';
+  import OntuneTreeView from './ontuneTreeView.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
-  
-  import OntuneTreeView from './ontuneTreeView.svelte';
 
-  // Mosaic Main arr 생성(set / update / subscribe)
-  // let mosaic_props = {
-  //   bst : bst,
-  //   idx : 0,
-  //   node_text_idx: 0,
-  //   arr: []
-  // };
+  export class Node_Item {
+    constructor(
+      Node_ID = -1,
+      Host_List = []
+    ) {
+      this.Node_ID = Node_ID;
+      this.Host_List = Host_List;
+    };
 
-	// let idx = 0;
-	// let node_text_idx = 0;  
-	// let arr = [];
-  // let a = new Node;  
-  // arr.push(a);
+    exist_HostId(id){
+      // for (let i = 0; i < this.Host_List.length; i++) {
+      //   if (this.Host_List[i]) {
 
-  // console.log("----------- App.svelte");  
-  // console.log(mosaic_props.arr);
-
-
-  // function change_arr (e) {
-      // 	// TODO inset 계산
-      // 	console.log('===========DB Arr 버튼 클릭===========');
-      // 	// console.log(e.target.name);
-      // 	// // 0을 1|2로 Div 추가하기
-      // 	// const insert_result = bst.insert(arr[e.target.id], arr.length, node_text_idx);
-      // 	// e.preventDefault();
-
-      // 	let tmp_index = 0;
-      // 	let tmp_button = null;
-
-      // 	// Init Button Style
-      // 	for (let index = 0; index <= 4; index++) {
-      // 		// tmp_button = document.getElementsByName('P' + (index).toString)[0];
-      // 		tmp_button = document.getElementsByName('P' + String(index + 1))[0];
-      // 		tmp_button.style = 'background-color: buttonface; color: buttontext; font-weight: normal';
-      // 	}
-
-      // 	// Set Button Style
-      // 	tmp_button = document.getElementsByName(e.target.name)[0];
-      // 	tmp_button.style = 'background-color: darksalmon; color: blue; font-weight: bold';
-
-      // 	switch (e.target.name) {
-      // 		case "P1":
-      // 			tmp_index = 0;
-      // 			break;
-      // 		case "P2":
-      // 			tmp_index = 1;
-      // 			break;
-      // 		case "P3":
-      // 			tmp_index = 2;
-      // 			break;
-      // 		case "P4":
-      // 			tmp_index = 3;
-      // 			break;
-      // 		case "P5":
-      // 			tmp_index = 4;
-      // 			break;
-      // 	}
-
-      // 	// App - arr 배열을 선택한 배열로 Copy 해주고 랜더링~
-      // 	console.log(tmp_index);
-      // 	// App(arr[tmp_index]);
+      //   };
       // };
+      return this.Host_List.find(id) ? true:false;
+    };
+  };
 
-      // function save_arr (e) {
-      // 	// TODO inset 계산
-      // 	console.log('===========Save 버튼 클릭===========');
-      // 	alert('저장이 완료되었습니다!(미구현)');
-      // }
+  export class Info_Item {
+    constructor(
+      Code = 0,
+      Flag_YN = false,
+      Node_List = []
+    ) {
+      this.Code = Code;
+      this.Flag_YN = Flag_YN;
+      this.Node_List = Node_List;
+    };
+
+    update_Node(Node_ID, Host_List){
+      let index = this.Node_List.indexOf(Node_ID);
+
+      // this의 Node_List에 Node ID에 대한 데이터 추가 or 갱신
+      if (index == -1) {
+        // 찾는 Node ID가 없으므로, 추가한다.
+        let item = new Node_Item(Node_ID, Host_List);
+
+        this.Flag_YN = true;
+        this.Node_List.push(item);
+
+        return true;
+      } else {
+        this.Node_List[index].Host_List = Host_List;
+
+        return true;
+      };
+      
+      // return false;
+    };
+
+    delete_Node(Node_ID){
+      let index = this.Node_List.indexOf(Node_ID);
+
+      // this의 Node_List에 Node ID에 대한 데이터 삭제
+      if (index > -1) {
+        // 찾는 Node ID가 있으므로, 삭제한다.
+        this.Node_List = this.Node_List.filter(Node_Item => Node_Item.Node_ID != Node_ID);
+
+        this.Flag_YN = this.Node_List.length > 0 ? true:false;
+        return true;
+      };
+      return false;
+    };
+
+    // exist_HostId(id){
+    //   for (let i = 0; i < this.Node_Host_List.length; i++) {
+    //     if (this.Node_Host_List[i]) {
+
+    //     };
+    //   };
+    //   return this.Host_List.find(id) ? true:false;
+    // };
+  };
+
+  export function Data_Infos_Clear() {
+    for (let i = 0; i < 7; i++) {
+      let Item = new Info_Item(0, false, []);  
+
+      switch (i) {
+        case 0:
+          Item.Code = 2;
+          $Data_Infos.HOST_CODE = Item;
+          break;
+        case 1:
+          Item.Code = 4;
+          $Data_Infos.LASTPERF_CODE = Item;
+          break;
+        case 2:
+          Item.Code = 8;
+          $Data_Infos.BASIC_CODE = Item;
+          break;
+        case 3:
+          Item.Code = 16;
+          $Data_Infos.CPU_CODE = Item;
+          break;
+        case 4:
+          Item.Code = 32;
+          $Data_Infos.MEM_CODE = Item;
+          break;
+        case 5:
+          Item.Code = 64;
+          $Data_Infos.NET_CODE = Item;
+          break;
+        case 6:
+          Item.Code = 128;
+          $Data_Infos.DISK_CODE = Item;
+          break;                                        
+        // default:
+        //   alert( "어떤 값인지 파악이 되지 않습니다." );
+      };
+    };
+  };
+
+  export function Data_Infos_Refresh() {
+    // console.log("123123123");
+    Data_Infos_Clear;
+
+    // $Data_Info를 다시 셋팅한다.(arr[] 기준으로 다시...)
+    for (let i = 0; i < $Mosaic_Arr.length; i++) {
+      // 노드의 상태와 (node_text = Chart_Type)에 따라, List를 다시 꾸며야한다.
+      if ($Mosaic_Arr[i].node_type === "P") {
+        if ($Mosaic_Arr[i].left.node_type === "C"){
+          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
+          switch ($Mosaic_Arr[i].left.node_text) {
+            case "None":
+              break;
+            case "Grid":
+              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
+              break;
+            case "Bar Chart":
+              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
+              break;
+            case "Line Chart":
+              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
+              break;
+            case "Pie Chart":
+            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
+              break;
+            // default:
+            //   alert( "어떤 값인지 파악이 되지 않습니다." );
+          };
+        };
+
+        if ($Mosaic_Arr[i].right.node_type === "C"){
+          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
+          switch ($Mosaic_Arr[i].right.node_text) {
+            case "None":
+              break;
+            case "Grid":
+              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
+              break;
+            case "Bar Chart":
+              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
+              break;
+            case "Line Chart":
+              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
+              break;
+            case "Pie Chart":
+            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
+              break;
+            // default:
+            //   alert( "어떤 값인지 파악이 되지 않습니다." );
+          };
+        };
+      } else if ($Mosaic_Arr[i].div_type === "N" && $Mosaic_Arr[i].node_type !== "D" && $Mosaic_Arr[i].p_id == null) {
+        if ($Mosaic_Arr[i].node_type === "C"){
+          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
+          switch ($Mosaic_Arr[i].node_text) {
+            case "None":
+              break;
+            case "Grid":
+              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
+              break;
+            case "Bar Chart":
+              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
+              break;
+            case "Line Chart":
+              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
+              break;
+            case "Pie Chart":
+            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
+              break;
+            // default:
+            //   alert( "어떤 값인지 파악이 되지 않습니다." );
+          };
+        };
+      };
+    };
+  };
+
+  onMount(() => {
+    // Data_Info 초기화
+    // Data_Infos_Clear;
+
+    // console.log($Data_Infos);
+  });
 
   function onMouseDown_Main_bar_event(e) {
     // drag_node = null;

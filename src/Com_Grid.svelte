@@ -1,6 +1,9 @@
 <script>
+  import { WebReceiveGridData } from "./store";
+
+
   export let data = [
-    { hostname: "-", email: "-", 
+    { hostname: "-", 
       col1: 0,     col2: 0,     col3: "-" ,  col4: "-" ,  col5: "-" ,  col6: "-" ,  col7: "-" ,  col8: "-" ,  col9: "-" ,  col10: "-", 
       col11: "-" , col12: "-" , col13: "-" , col14: "-" , col15: "-" , col16: "-" , col17: "-" , col18: "-" , col19: "-" , col20: "-" , 
       col21: "-" , col22: "-" , col23: "-" , col24: "-" , col25: "-" , col26: "-" , col27: "-" , col28: "-" , col29: "-" , col30: "-"  
@@ -8,7 +11,7 @@
   ];
 
   const default_data = [
-  { hostname: "-", email: "-", 
+  { hostname: "-", 
     col1: 0,     col2: 0,     col3: "-" ,  col4: "-" ,  col5: "-" ,  col6: "-" ,  col7: "-" ,  col8: "-" ,  col9: "-" ,  col10: "-", 
     col11: "-" , col12: "-" , col13: "-" , col14: "-" , col15: "-" , col16: "-" , col17: "-" , col18: "-" , col19: "-" , col20: "-" , 
     col21: "-" , col22: "-" , col23: "-" , col24: "-" , col25: "-" , col26: "-" , col27: "-" , col28: "-" , col29: "-" , col30: "-"  
@@ -21,6 +24,24 @@
 
 	$:{data.length === 0 ? data = default_data : null};
   // $:{isNaN(document.getElementById("width_bar").offsetWidth) == false ? tmp_width = document.getElementById("width_bar").offsetWidth : 0};
+
+  WebReceiveGridData.subscribe((Item) => {
+    let tmp_Main = Item;
+    let tmp_Sub = [];
+    let tmp_Data = [];
+
+    for (let i = 0; i < tmp_Main.length; i++) {
+      tmp_Sub = tmp_Main[i];
+      tmp_Data.push({
+        hostname: tmp_Sub[0], 
+        col1: parseInt(tmp_Sub[3]), col2: parseInt(tmp_Sub[4]), col3: tmp_Sub[5],  col4: tmp_Sub[6],  col5: tmp_Sub[10],  col6: tmp_Sub[11],  col7: tmp_Sub[12],  col8: tmp_Sub[13],  col9: tmp_Sub[14],  col10: tmp_Sub[17], 
+        col11: tmp_Sub[18], col12: tmp_Sub[21], col13: tmp_Sub[22], col14: tmp_Sub[23], col15: tmp_Sub[24], col16: tmp_Sub[25], col17: tmp_Sub[26], col18: tmp_Sub[27], col19: tmp_Sub[28], col20: tmp_Sub[29], 
+        col21: tmp_Sub[30], col22: tmp_Sub[31], col23: tmp_Sub[32], col24: tmp_Sub[33], col25: tmp_Sub[34], col26: tmp_Sub[35], col27: tmp_Sub[36], col28: tmp_Sub[37], col29: tmp_Sub[38], col30: tmp_Sub[39]  
+      });
+    };
+    
+    data = tmp_Data;
+  });  
 
   // const data = [
   //   { name: "John", email: "john@example.com", col1: "가", col2: "A", col3: "a", col4: "1", col5: arr1, col6: arr1[0], col7: arr1[1], col8: "1", col9: "1", col10: "1"},
@@ -38,8 +59,7 @@
   <!-- 헤더 -->
   <div class="header_div">
     <!-- Col 1 ~ n -->
-    <div class="header_cell">name</div>
-    <div class="header_cell">email</div>
+    <div class="header_cell">hostname</div>
     <div class="header_cell">col1</div>
     <div class="header_cell">col2</div>
     <div class="header_cell">col3</div>
@@ -75,7 +95,6 @@
     <!-- {console.log(index)} -->
     <div class="row_div">
       <div class="row_cell">{item.hostname}</div>
-      <div class="row_cell">{item.email}</div>
       <div class="row_cell" id="width_bar">
         <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 

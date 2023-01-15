@@ -1,17 +1,18 @@
 <script>
 	import { scaleLinear } from 'd3';
+  import { WebReceiveBarData } from './store';
 
   export let data = [
-    { host: 0, value: 0, value2: 0},
-    { host: 1, value: 0, value2: 0},
-    { host: 2, value: 0, value2: 0},
-    { host: 3, value: 0, value2: 0},
-    { host: 4, value: 0, value2: 0},
-    { host: 5, value: 0, value2: 0},
-    { host: 6, value: 0, value2: 0},
-    { host: 7, value: 0, value2: 0},
-    { host: 8, value: 0, value2: 0},
-    { host: 9, value: 0, value2: 0}
+    { hostname: 0, value1: 0, value2: 0},
+    { hostname: 1, value1: 0, value2: 0},
+    { hostname: 2, value1: 0, value2: 0},
+    { hostname: 3, value1: 0, value2: 0},
+    { hostname: 4, value1: 0, value2: 0},
+    { hostname: 5, value1: 0, value2: 0},
+    { hostname: 6, value1: 0, value2: 0},
+    { hostname: 7, value1: 0, value2: 0},
+    { hostname: 8, value1: 0, value2: 0},
+    { hostname: 9, value1: 0, value2: 0}
   ];  
 	// const data = [
 	// 	{ year: 1990, birthrate: 16.7 },
@@ -23,19 +24,19 @@
 	// ];
   
   const default_data = [
-    { host: 0, value1: 0, value2: 0},
-    { host: 1, value1: 0, value2: 0},
-    { host: 2, value1: 0, value2: 0},
-    { host: 3, value1: 0, value2: 0},
-    { host: 4, value1: 0, value2: 0},
-    { host: 5, value1: 0, value2: 0},
-    { host: 6, value1: 0, value2: 0},
-    { host: 7, value1: 0, value2: 0},
-    { host: 8, value1: 0, value2: 0},
-    { host: 9, value1: 0, value2: 0}
+    { hostname: 0, value1: 0, value2: 0},
+    { hostname: 1, value1: 0, value2: 0},
+    { hostname: 2, value1: 0, value2: 0},
+    { hostname: 3, value1: 0, value2: 0},
+    { hostname: 4, value1: 0, value2: 0},
+    { hostname: 5, value1: 0, value2: 0},
+    { hostname: 6, value1: 0, value2: 0},
+    { hostname: 7, value1: 0, value2: 0},
+    { hostname: 8, value1: 0, value2: 0},
+    { hostname: 9, value1: 0, value2: 0}
   ];  
 
-	const xTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	let xTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const yTicks = [0, 50, 100];//, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
 	const padding  = { top: 20, right: 15, bottom: 20, left: 25 };
 
@@ -50,7 +51,6 @@
 	function formatMobile(tick) {
 		return "'" + tick.toString().slice(-2);
 	}
-
 	$:{data.length === 0 ? data = default_data : null};	
 
 	$: xScale = scaleLinear()
@@ -63,6 +63,40 @@
 
 	$: innerWidth = width - (padding.left + padding.right);
 	$: barWidth = innerWidth / xTicks.length;
+
+
+  WebReceiveBarData.subscribe((Item) => {
+		console.log("Bar Data Recv and Set");
+		console.log(Item);
+		
+		let tmp_Main = Item;
+    let tmp_Sub = [];
+    let tmp_Data = [];
+		let tmp_Tick = [];
+
+    for (let i = 0; i < tmp_Main.length; i++) {
+      tmp_Sub = tmp_Main[i];
+      tmp_Data.push({
+        hostname: tmp_Sub[0], 
+				value1: parseInt(tmp_Sub[3]), 
+				value2: parseInt(tmp_Sub[4])
+      });
+
+			tmp_Tick.push(parseInt(tmp_Sub[0]));
+    };
+
+		if (tmp_Tick.length > 0) {
+			xTicks = tmp_Tick;
+		} else {
+			xTicks = [0,1,2,3,4,5,6,7,8,9];
+		};
+		
+		if (tmp_Data.length > 0) {
+    	data = tmp_Data;
+		};
+
+		console.log(xTicks);
+  });	
 </script>
 {#if (data.length > 0)}
 	<div class="chart" bind:clientWidth={width} bind:clientHeight={height}>
@@ -81,7 +115,7 @@
 			<g class="axis x-axis">
 				{#each data as point, i}
 					<g class="tick" transform="translate({xScale(i)},{height})">
-						<text x="{barWidth/2}" y="-4">{width > 380 ? point.host : formatMobile(point.host)}</text>
+						<text x="{barWidth/2}" y="-4">{width > 380 ? point.hostname : formatMobile(point.hostname)}</text>
 					</g>
 				{/each}
 			</g>

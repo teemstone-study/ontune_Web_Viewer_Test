@@ -49,7 +49,6 @@
         tmp_data.push(
           {
             hostname: "data_" + parseInt(i+counter),
-            email: "data_" + parseInt(i+counter) + "@email.com",
             col1: parseInt(i+counter),
             col2: parseInt(i+counter),
             col3: "A" + parseInt(i+counter),
@@ -95,7 +94,7 @@
         if (((i*10)+counter) == 0) {
           tmp_data.push(
             {
-              host: (i),
+              hostname: (i),
               value1: 0,
               value2: 0
             },
@@ -103,7 +102,7 @@
         } else {
           tmp_data.push(
             {
-              host: (i),
+              hostname: (i),
               value1: (i*5)+counter,
               value2: (i*10)+counter,
             },

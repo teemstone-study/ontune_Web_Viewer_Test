@@ -635,6 +635,8 @@ const onMouseDown_bar_event = (e) => {
     bst.resize_div($Mosaic_Arr);
     // console.log($Mosaic_Arr);
 		// console.log('------------Mosaic.svelte');
+    
+    Data_Infos_Refresh();
 	};
 </script>
 

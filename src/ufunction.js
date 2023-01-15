@@ -85,4 +85,4 @@ export function PercentToLength(aDefd_Length, aPer_1, aPer_2) {
       let CC = calc_Triangle(p1, p2, mp);
   
       return (NN === AA + BB + CC);
-  }
+  }  

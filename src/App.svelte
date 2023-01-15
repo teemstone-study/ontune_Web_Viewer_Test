@@ -1,211 +1,22 @@
 <script>
   import { onMount } from 'svelte';
   import { Mosaic_Arr, Data_Infos } from './store.js';
+  // import { get } from 'svelte/store';  
+  import { Data_Infos_Clear } from './uStore_Function.js';
   import WebsocketWorker from './websocketWorker.svelte';
 
   // import tree from './Tree.svelte';
   import OntuneTreeView from './ontuneTreeView.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
-
-  export class Node_Item {
-    constructor(
-      Node_ID = -1,
-      Host_List = []
-    ) {
-      this.Node_ID = Node_ID;
-      this.Host_List = Host_List;
-    };
-
-    exist_HostId(id){
-      // for (let i = 0; i < this.Host_List.length; i++) {
-      //   if (this.Host_List[i]) {
-
-      //   };
-      // };
-      return this.Host_List.find(id) ? true:false;
-    };
-  };
-
-  export class Info_Item {
-    constructor(
-      Code = 0,
-      Flag_YN = false,
-      Node_List = []
-    ) {
-      this.Code = Code;
-      this.Flag_YN = Flag_YN;
-      this.Node_List = Node_List;
-    };
-
-    update_Node(Node_ID, Host_List){
-      let index = this.Node_List.indexOf(Node_ID);
-
-      // this의 Node_List에 Node ID에 대한 데이터 추가 or 갱신
-      if (index == -1) {
-        // 찾는 Node ID가 없으므로, 추가한다.
-        let item = new Node_Item(Node_ID, Host_List);
-
-        this.Flag_YN = true;
-        this.Node_List.push(item);
-
-        return true;
-      } else {
-        this.Node_List[index].Host_List = Host_List;
-
-        return true;
-      };
-      
-      // return false;
-    };
-
-    delete_Node(Node_ID){
-      let index = this.Node_List.indexOf(Node_ID);
-
-      // this의 Node_List에 Node ID에 대한 데이터 삭제
-      if (index > -1) {
-        // 찾는 Node ID가 있으므로, 삭제한다.
-        this.Node_List = this.Node_List.filter(Node_Item => Node_Item.Node_ID != Node_ID);
-
-        this.Flag_YN = this.Node_List.length > 0 ? true:false;
-        return true;
-      };
-      return false;
-    };
-
-    // exist_HostId(id){
-    //   for (let i = 0; i < this.Node_Host_List.length; i++) {
-    //     if (this.Node_Host_List[i]) {
-
-    //     };
-    //   };
-    //   return this.Host_List.find(id) ? true:false;
-    // };
-  };
-
-  export function Data_Infos_Clear() {
-    for (let i = 0; i < 7; i++) {
-      let Item = new Info_Item(0, false, []);  
-
-      switch (i) {
-        case 0:
-          Item.Code = 2;
-          $Data_Infos.HOST_CODE = Item;
-          break;
-        case 1:
-          Item.Code = 4;
-          $Data_Infos.LASTPERF_CODE = Item;
-          break;
-        case 2:
-          Item.Code = 8;
-          $Data_Infos.BASIC_CODE = Item;
-          break;
-        case 3:
-          Item.Code = 16;
-          $Data_Infos.CPU_CODE = Item;
-          break;
-        case 4:
-          Item.Code = 32;
-          $Data_Infos.MEM_CODE = Item;
-          break;
-        case 5:
-          Item.Code = 64;
-          $Data_Infos.NET_CODE = Item;
-          break;
-        case 6:
-          Item.Code = 128;
-          $Data_Infos.DISK_CODE = Item;
-          break;                                        
-        // default:
-        //   alert( "어떤 값인지 파악이 되지 않습니다." );
-      };
-    };
-  };
-
-  export function Data_Infos_Refresh() {
-    // console.log("123123123");
-    Data_Infos_Clear;
-
-    // $Data_Info를 다시 셋팅한다.(arr[] 기준으로 다시...)
-    for (let i = 0; i < $Mosaic_Arr.length; i++) {
-      // 노드의 상태와 (node_text = Chart_Type)에 따라, List를 다시 꾸며야한다.
-      if ($Mosaic_Arr[i].node_type === "P") {
-        if ($Mosaic_Arr[i].left.node_type === "C"){
-          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
-          switch ($Mosaic_Arr[i].left.node_text) {
-            case "None":
-              break;
-            case "Grid":
-              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
-              break;
-            case "Bar Chart":
-              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
-              break;
-            case "Line Chart":
-              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
-              break;
-            case "Pie Chart":
-            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].left.id, $Mosaic_Arr[i].left.host_List);
-              break;
-            // default:
-            //   alert( "어떤 값인지 파악이 되지 않습니다." );
-          };
-        };
-
-        if ($Mosaic_Arr[i].right.node_type === "C"){
-          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
-          switch ($Mosaic_Arr[i].right.node_text) {
-            case "None":
-              break;
-            case "Grid":
-              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
-              break;
-            case "Bar Chart":
-              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
-              break;
-            case "Line Chart":
-              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
-              break;
-            case "Pie Chart":
-            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].right.id, $Mosaic_Arr[i].right.host_List);
-              break;
-            // default:
-            //   alert( "어떤 값인지 파악이 되지 않습니다." );
-          };
-        };
-      } else if ($Mosaic_Arr[i].div_type === "N" && $Mosaic_Arr[i].node_type !== "D" && $Mosaic_Arr[i].p_id == null) {
-        if ($Mosaic_Arr[i].node_type === "C"){
-          // node_text를 보고 Chart의 성격별로 Item을 생성하여 넣어준다.
-          switch ($Mosaic_Arr[i].node_text) {
-            case "None":
-              break;
-            case "Grid":
-              $Data_Infos.LASTPERF_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
-              break;
-            case "Bar Chart":
-              $Data_Infos.BASIC_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
-              break;
-            case "Line Chart":
-              $Data_Infos.CPU_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
-              break;
-            case "Pie Chart":
-            $Data_Infos.MEM_CODE.update_Node($Mosaic_Arr[i].id, $Mosaic_Arr[i].host_List);
-              break;
-            // default:
-            //   alert( "어떤 값인지 파악이 되지 않습니다." );
-          };
-        };
-      };
-    };
-  };
-
+  
   onMount(() => {
     // Data_Info 초기화
-    Data_Infos_Clear;
-    console.log("Data_Infos Clear ===========================================");
-    console.log($Data_Infos);
+    Data_Infos_Clear();
+    // console.log("Data_Infos Clear ===========================================");
+    // console.log(get(Data_Infos));
 
-    // console.log($Data_Infos);
+    // console.log(Data_Infos);
   });
 
   function onMouseDown_Main_bar_event(e) {

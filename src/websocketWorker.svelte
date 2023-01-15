@@ -1,7 +1,8 @@
 <script>
-    import { WebReceiveData, Mosaic_Arr, Data_Infos} from './store.js';
-    import { writable, get } from 'svelte/store';
-  import { onMount } from 'svelte';
+  import { WebReceiveData, Mosaic_Arr, Data_Infos} from './store.js';
+  import { writable, get } from 'svelte/store';
+  import { onDestroy, onMount } from 'svelte';
+  import { load_Key_Flag } from './uStore_Function.js';
 
   let Socket;
     onMount(() => {
@@ -44,15 +45,17 @@
             // console.log("================================");
             // console.log($Mosaic_Arr);
             // console.log($Data_Infos);
-            
-            // Parsedata.
 
+            // Web Socket으로 수신 받은 데이터의 분기 처리
             switch(Parsedata.code) {
                 case 2:
                     WebReceiveData.set({code : Parsedata.code, data : Parsedata.data});
-            }
+                    break;
+                case 4:
+                    WebReceiveData.set({code : Parsedata.code, data : Parsedata.data});
+                    break;                    
 
-
+        }
 	    });
         console.log('UpdateEnd worker');
     })
@@ -100,4 +103,35 @@
     //     this.navigator.serviceWorker.register('./dataRecever.js');
     // }
 
+    const ss_DataInfos = Data_Infos.subscribe((Item) => {
+        console.log("items ~~~~~~~~~~~");
+        console.log(Item);
+        // console.log(get(Data_Infos));
+
+        if (Item.BASIC_CODE != null) {
+            console.log("=============load Key Flag S ============");
+
+            let tmp_Flag = 2;
+
+            console.log(Item.LASTPERF_CODE.Flag_YN);
+            console.log(Item.LASTPERF_CODE.Code);
+
+            tmp_Flag += Item.LASTPERF_CODE.Flag_YN === true ? Item.LASTPERF_CODE.Code:0;
+            tmp_Flag += Item.BASIC_CODE.Flag_YN    === true ? Item.BASIC_CODE.Code:0;
+            tmp_Flag += Item.CPU_CODE.Flag_YN      === true ? Item.CPU_CODE.Code:0;
+            tmp_Flag += Item.MEM_CODE.Flag_YN      === true ? Item.MEM_CODE.Code:0;
+            tmp_Flag += Item.NET_CODE.Flag_YN      === true ? Item.NET_CODE.Code:0;
+            tmp_Flag += Item.DISK_CODE.Flag_YN     === true ? Item.DISK_CODE.Code:0;
+
+            console.log(tmp_Flag);
+            console.log("=============load Key Flag E ============");
+
+            // console.log("==============Flag Change and Send Data===========");
+            if (tmp_Flag > 2) {
+                sendDataKey(tmp_Flag);
+            };
+        };
+    });
+
+    onDestroy(ss_DataInfos);
 </script>

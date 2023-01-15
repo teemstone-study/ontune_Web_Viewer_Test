@@ -2,7 +2,7 @@
 	// import "./App.svelte";
 	// import { listen } from "svelte/internal";
   // import { Mosaic_Arr } from "./Store";
-  // import { Data_Infos_Clear, Data_Infos_Refresh } from './App.svelte';
+  import { Data_Infos_Clear, Data_Infos_Refresh } from './uStore_Function.js';
   import { Mosaic_Arr, Data_Infos } from './store.js';
 	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
@@ -34,19 +34,19 @@
 	];
 
   function find_target(el) {
-  let currentElement = el;
-  // console.log("========find_target========");
+    let currentElement = el;
+    // console.log("========find_target========");
 
-  while (isNaN(parseInt(currentElement.getAttribute('name')))) {
-    currentElement = currentElement.parentElement;
-    if (currentElement.tagName == "BODY") {
-      return null;
+    while (isNaN(parseInt(currentElement.getAttribute('name')))) {
+      currentElement = currentElement.parentElement;
+      if (currentElement.tagName == "BODY") {
+        return null;
+      }
+      // console.log(currentElement.name);
+      // console.log(currentElement.getAttribute('name'));    
     }
-    // console.log(currentElement.name);
-    // console.log(currentElement.getAttribute('name'));    
-  }
-  return currentElement;
-}
+    return currentElement;
+  };
 
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
@@ -71,6 +71,8 @@
       $Mosaic_Arr.push(insert_result[0]);
       $Mosaic_Arr.push(insert_result[1]);
       $Mosaic_Arr = $Mosaic_Arr;
+
+      Data_Infos_Refresh();
     };
 
     //setArr([...arr]);
@@ -104,6 +106,7 @@
     // Mosaic_Arr.update(a => [...a]);
     $Mosaic_Arr = $Mosaic_Arr;
     // console.log(arr);
+    Data_Infos_Refresh();
   };
 
   // const Changes = () => {
@@ -138,8 +141,8 @@
   function Set_Data_Info(item) {
     console.log('----Set Data Info Change-----');
 
-    // Data_Infos_Clear;
-    // Data_Infos_Refresh();
+    // Data_Infos_Clear();
+    Data_Infos_Refresh();
   };
     // console.log(item.node_text);
     

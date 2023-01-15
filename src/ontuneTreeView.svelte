@@ -41,7 +41,6 @@
         }
 
       UpdateListItem = StoreUpdateList;
-      console.log(isReverse);
   })
 
   init();
@@ -267,20 +266,20 @@
   <br>
   {#if visibleTestMode}
   <div class="centered" display=none>
-    <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
+    <!-- <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
     데이터 업데이트 주기
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
-    <br>
+    <br> -->
     <input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
     <button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >Update개수변경</button>
     <br>
-    <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
+    <!-- <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
     <br>
-    <progress value={$progress}></progress>
+    <progress value={$progress}></progress> -->
     <!-- <div class="indeterminate-progress-bar">
       <div class="indeterminate-progress-bar__progress"></div>
     </div> -->

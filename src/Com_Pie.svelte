@@ -1,7 +1,7 @@
 <script>
     import { tweened } from "svelte/motion";
     import ArcGauge from "./arc_Gauge.svelte";
-
+    import { WebReceivePieData } from './store.js';
 
     export let size = 200;
     export let bgColor = 'cornflowerblue';
@@ -14,6 +14,11 @@
     const bindData2 = tweened(0, {duration:500});
 
     $:{data.length === 0 ? data = [0,0] : null};	
+
+    WebReceivePieData.subscribe((value) => {
+        data = [value.value1, value.value2];
+    });
+
     $: bindData1.set(data[0]);
     $: bindData2.set(data[1]);
     

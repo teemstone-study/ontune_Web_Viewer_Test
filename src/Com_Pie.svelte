@@ -6,7 +6,7 @@
     export let size = 200;
     export let bgColor = 'cornflowerblue';
     export let fgColor = 'orange';
-    export let data = [];
+    let data = [];
     data = [0, 0];
     let arcWidth = 0, arcHeight = 0; 
     
@@ -16,7 +16,10 @@
     $:{data.length === 0 ? data = [0,0] : null};	
 
     WebReceivePieData.subscribe((value) => {
-        data = [value.value1, value.value2];
+        if(Number.isNaN(value.value1) == false && Number.isNaN(value.value2) == false)
+        {
+            data = [value.value1, value.value2];
+        }
     });
 
     $: bindData1.set(data[0]);

@@ -66,23 +66,26 @@
 
 
   WebReceiveBarData.subscribe((Item) => {
-		console.log("Bar Data Recv and Set");
-		console.log(Item);
 		
-		let tmp_Main = Item;
+	let tmp_Main = Item;
     let tmp_Sub = [];
     let tmp_Data = [];
-		let tmp_Tick = [];
+	let tmp_Tick = [];
+	let tmp_Counter = 0;
 
     for (let i = 0; i < tmp_Main.length; i++) {
-      tmp_Sub = tmp_Main[i];
-      tmp_Data.push({
-        hostname: tmp_Sub[0], 
-				value1: parseInt(tmp_Sub[3]), 
-				value2: parseInt(tmp_Sub[4])
-      });
+		if (tmp_Counter < 20) {
+				tmp_Counter += 1;
 
-			tmp_Tick.push(parseInt(tmp_Sub[0]));
+				tmp_Sub = tmp_Main[i];
+				tmp_Data.push({
+					hostname: tmp_Sub[0], 
+					value1: parseInt(tmp_Sub[3]), 
+					value2: parseInt(tmp_Sub[4])
+				});
+
+				tmp_Tick.push(parseInt(tmp_Sub[0]));
+			} else {break};
     };
 
 		if (tmp_Tick.length > 0) {
@@ -94,8 +97,6 @@
 		if (tmp_Data.length > 0) {
     	data = tmp_Data;
 		};
-
-		console.log(xTicks);
   });	
 </script>
 {#if (data.length > 0)}

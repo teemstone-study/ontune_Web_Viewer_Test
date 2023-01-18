@@ -97,9 +97,7 @@
         DISK_CODE:     Disk_Item
       }
     );
-    console.log("------------Data_Infos---------------");
-    console.log(Data_Infos);
-    console.log(get(Data_Infos));
+
   };
 
   export function Data_Infos_Refresh() {
@@ -138,7 +136,7 @@
               tmp_Data.CPU_CODE.update_Node(tmp_arr[i].left.id, tmp_arr[i].left.host_List);
               break;
             case "Pie Chart":
-              tmp_Data.MEM_CODE.update_Node(tmp_arr[i].left.id, tmp_arr[i].left.host_List);
+              tmp_Data.NET_CODE.update_Node(tmp_arr[i].left.id, tmp_arr[i].left.host_List);
               break;
             // default:
             //   alert( "어떤 값인지 파악이 되지 않습니다." );
@@ -160,7 +158,7 @@
               tmp_Data.CPU_CODE.update_Node(tmp_arr[i].right.id, tmp_arr[i].right.host_List);
               break;
             case "Pie Chart":
-              tmp_Data.MEM_CODE.update_Node(tmp_arr[i].right.id, tmp_arr[i].right.host_List);
+              tmp_Data.NET_CODE.update_Node(tmp_arr[i].right.id, tmp_arr[i].right.host_List);
               break;
             // default:
             //   alert( "어떤 값인지 파악이 되지 않습니다." );
@@ -182,7 +180,7 @@
               tmp_Data.CPU_CODE.update_Node(tmp_arr[i].id, tmp_arr[i].host_List);
               break;
             case "Pie Chart":
-              tmp_Data.MEM_CODE.update_Node(tmp_arr[i].id, tmp_arr[i].host_List);
+              tmp_Data.NET_CODE.update_Node(tmp_arr[i].id, tmp_arr[i].host_List);
               break;
             // default:
             //   alert( "어떤 값인지 파악이 되지 않습니다." );
@@ -191,14 +189,10 @@
       };
     };
     
-    console.log("=============Data Info Refresh S ============");
-    console.log(tmp_Data);
     Data_Infos.set(tmp_Data);
-    console.log("=============Data Info Refresh E ============");
   };
 
   export function load_Key_Flag() {
-    console.log("=============load Key Flag S ============");
 
     let tmp_Flag = 2;
     let tmp_Data = get(Data_Infos);
@@ -210,8 +204,6 @@
     if (tmp_Data.NET_CODE.Flag_YN == true)      {tmp_Flag += tmp_Data.NET_CODE.Code};
     if (tmp_Data.DISK_CODE.Flag_YN == true)     {tmp_Flag += tmp_Data.DISK_CODE.Code};
 
-    console.log(tmp_Flag);
-    console.log("=============load Key Flag E ============");
 
     return tmp_Flag;
   };

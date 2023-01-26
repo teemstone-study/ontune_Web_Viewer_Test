@@ -1,7 +1,7 @@
 let Socket;
 
 console.log('workerInit');
-	Socket = new WebSocket('ws://192.168.0.24:3001/ws');
+	Socket = new WebSocket('ws://192.168.0.188:3001/ws');
 	Socket.addEventListener('open', function (event) {
 		console.log("It's open");
 		sendDataKey(2);
@@ -10,6 +10,12 @@ console.log('workerInit');
 	Socket.addEventListener('message', function (event) {
 		postMessage(event.data);
 	});
+	Socket.addEventListener('error', function (event) {
+		console.log("wsError :");
+		console.log(event);
+		Socket = new WebSocket('ws://192.168.0.188:3001/ws');
+		console.log("retry");
+	});	
 	self.onmessage = function(e) {
 		sendDataKey(e.data);
 	};

@@ -70,11 +70,11 @@
 	let tmp_Main = Item;
     let tmp_Sub = [];
     let tmp_Data = [];
-	let tmp_Tick = [];
-	let tmp_Counter = 0;
+		let tmp_Tick = [];
+		let tmp_Counter = 0;
 
     for (let i = 0; i < tmp_Main.length; i++) {
-		if (tmp_Counter < 20) {
+			if (tmp_Counter < 20) {
 				tmp_Counter += 1;
 
 				tmp_Sub = tmp_Main[i];

@@ -1,6 +1,7 @@
 <script>
-  import { WebReceiveGridData } from "./store";
-
+  import { Mosaic_Arr, WebReceiveGridData } from "./store";
+  // import VirtualList from '@sveltejs/svelte-virtual-list';
+  import VirtualList from './onTuneScroll.svelte';
 
   export let data = [
     { hostname: "-", 
@@ -30,6 +31,12 @@
     let tmp_Sub = [];
     let tmp_Data = [];
 
+
+    // let my_Node = $Mosaic_Arr[my_ID];
+    // // my_Hieght = 402.5 div 30 => 14 x 3
+    // let my_Hieght = my_Node.inset_bottom - my_Node.inset_bottom;
+
+    // 현재 스크롤의 위치와 Hieght를 받아와서 얼마만큼 데이터를 뽑아다가 컴포넌트에 던져줄지 결정해서 추출한다.
     for (let i = 0; i < tmp_Main.length; i++) {
       tmp_Sub = tmp_Main[i];
       tmp_Data.push({
@@ -39,8 +46,11 @@
         col21: tmp_Sub[30], col22: tmp_Sub[31], col23: tmp_Sub[32], col24: tmp_Sub[33], col25: tmp_Sub[34], col26: tmp_Sub[35], col27: tmp_Sub[36], col28: tmp_Sub[37], col29: tmp_Sub[38], col30: tmp_Sub[39]  
       });
     };
-    
+
     data = tmp_Data;
+
+    // Top | Bottom Div의 padding 변경
+    // ???
   });  
 
   // const data = [
@@ -91,48 +101,51 @@
     <div class="header_cell">col29</div>
     <div class="header_cell">col30</div>
   </div>
-  {#each data as item, index}
-    <!-- {console.log(index)} -->
-    <div class="row_div">
-      <div class="row_cell">{item.hostname}</div>
-      <div class="row_cell" id="width_bar">
-        <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 
-        <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
-          <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%; max-width: 100%'></div>
+  <VirtualList items={data} let:item>
+    <!-- {#each data as item, index} -->
+      <!-- {console.log(index)} -->
+      <div class="row_div">
+        <div class="row_cell">{item.hostname}</div>
+        <div class="row_cell" id="width_bar">
+          <div style='width: 40px; height: 100%;'>{item.col1}%</div>
+
+          <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
+            <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%; max-width: 100%'></div>
+          </div>
         </div>
+        <div class="row_cell">{item.col2}</div>
+        <div class="row_cell">{item.col3}</div>
+        <div class="row_cell">{item.col4}</div>
+        <div class="row_cell">{item.col5}</div>
+        <div class="row_cell">{item.col6}</div>
+        <div class="row_cell">{item.col7}</div>
+        <div class="row_cell">{item.col8}</div>
+        <div class="row_cell">{item.col9}</div>
+        <div class="row_cell">{item.col10}</div>
+        <div class="row_cell">{item.col11}</div>
+        <div class="row_cell">{item.col12}</div>
+        <div class="row_cell">{item.col13}</div>
+        <div class="row_cell">{item.col14}</div>
+        <div class="row_cell">{item.col15}</div>
+        <div class="row_cell">{item.col16}</div>
+        <div class="row_cell">{item.col17}</div>
+        <div class="row_cell">{item.col18}</div>
+        <div class="row_cell">{item.col19}</div>
+        <div class="row_cell">{item.col20}</div>
+        <div class="row_cell">{item.col21}</div>
+        <div class="row_cell">{item.col22}</div>
+        <div class="row_cell">{item.col23}</div>
+        <div class="row_cell">{item.col24}</div>
+        <div class="row_cell">{item.col25}</div>
+        <div class="row_cell">{item.col26}</div>
+        <div class="row_cell">{item.col27}</div>
+        <div class="row_cell">{item.col28}</div>
+        <div class="row_cell">{item.col29}</div>
+        <div class="row_cell">{item.col30}</div>      
       </div>
-      <div class="row_cell">{item.col2}</div>
-      <div class="row_cell">{item.col3}</div>
-      <div class="row_cell">{item.col4}</div>
-      <div class="row_cell">{item.col5}</div>
-      <div class="row_cell">{item.col6}</div>
-      <div class="row_cell">{item.col7}</div>
-      <div class="row_cell">{item.col8}</div>
-      <div class="row_cell">{item.col9}</div>
-      <div class="row_cell">{item.col10}</div>
-      <div class="row_cell">{item.col11}</div>
-      <div class="row_cell">{item.col12}</div>
-      <div class="row_cell">{item.col13}</div>
-      <div class="row_cell">{item.col14}</div>
-      <div class="row_cell">{item.col15}</div>
-      <div class="row_cell">{item.col16}</div>
-      <div class="row_cell">{item.col17}</div>
-      <div class="row_cell">{item.col18}</div>
-      <div class="row_cell">{item.col19}</div>
-      <div class="row_cell">{item.col20}</div>
-      <div class="row_cell">{item.col21}</div>
-      <div class="row_cell">{item.col22}</div>
-      <div class="row_cell">{item.col23}</div>
-      <div class="row_cell">{item.col24}</div>
-      <div class="row_cell">{item.col25}</div>
-      <div class="row_cell">{item.col26}</div>
-      <div class="row_cell">{item.col27}</div>
-      <div class="row_cell">{item.col28}</div>
-      <div class="row_cell">{item.col29}</div>
-      <div class="row_cell">{item.col30}</div>      
-    </div>
-  {/each}
+    <!-- {/each} -->
+  </VirtualList>
 </div>
 <!-- Row -->
   <!-- col 1 ~ n -->
@@ -143,9 +156,7 @@
     height: 100%;
 
     position: relative;
-    overflow: auto;
-    /* overflow-y: hidden; */
-    /* transform: translateZ(0);*/
+    /* overflow: auto; */
   }
 
   .header_div {

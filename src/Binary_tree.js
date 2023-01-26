@@ -45,7 +45,7 @@
     create_grid_data(counter) {
       let tmp_data = [];
 
-      for (let i = 0; i < 500; i++) {
+      for (let i = 0; i < 5000; i++) {
         tmp_data.push(
           {
             hostname: "data_" + parseInt(i+counter),

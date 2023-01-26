@@ -1,6 +1,7 @@
 <script>
     import {TreeView, TreeBranch, TreeLeaf} from "svelte-tree-view-component"
     import {Svrollbar, Svroller} from "svrollbar"    
+    import VirtualList from './onTuneScroll.svelte';    
 
     export let nodeItem;
     export let updateCount;
@@ -20,16 +21,20 @@
 
     <TreeView branchHoverColor="yellow" iconColor="black"  >
       <TreeBranch rootContent="Linux" >
-        {#each nodeItem as item, i (item)}
+        <VirtualList items={nodeItem} let:item>
+          <!-- {#each nodeItem as item, index} -->
+          <!-- {#each nodeItem as item, i (item)} -->
           <TreeLeaf>
-              {#if (i % 2) === 0 && isReverse && i < updateCount}
+            <img class="treeImage" src={onsrc} alt="onimage"  />
+              <!-- {#if (i % 2) === 0 && isReverse && i < updateCount}
               <img class="treeImage" src={onsrc} alt="onimage"  />
               {:else}
               <img class="treeImage" src={offsrc} alt="offimage" />
-              {/if}
+              {/if} -->
               linux {item}
           </TreeLeaf>
-        {/each}
+        <!-- {/each} -->
+        </VirtualList>
       </TreeBranch>
     </TreeView>
 

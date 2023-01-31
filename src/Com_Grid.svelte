@@ -67,8 +67,7 @@
 <!-- Grid -->
 <div class="div_Grid">
   <!-- 헤더 -->
-  <div class="header_div">
-    <!-- Col 1 ~ n -->
+  <!-- <div class="header_div" style="height: 36px;">
     <div class="header_cell">hostname</div>
     <div class="header_cell">col1</div>
     <div class="header_cell">col2</div>
@@ -100,52 +99,56 @@
     <div class="header_cell">col28</div>
     <div class="header_cell">col29</div>
     <div class="header_cell">col30</div>
-  </div>
+  </div> -->
 
-  <VirtualList items={data} let:item>
-    <!-- {#each data as item, index} -->
-      <!-- {console.log(index)} -->
-      <div class="row_div">
-        <div class="row_cell">{item.hostname}</div>
-        <div class="row_cell" id="width_bar">
-          <div style='width: 40px; height: 100%;'>{item.col1}%</div>
+  <!-- {console.log(data)} -->
+  <!-- <div class="data_div" style={`height: calc(100% - 36px)`}> -->
+  <div class="data_div">
+    <VirtualList items={data} let:item>
+      <!-- {#each data as item, index} -->
+        <!-- {console.log(index)} -->
+        <div class="row_div">
+          <div class="row_cell">{item.hostname}</div>
+          <div class="row_cell" id="width_bar">
+            <div style='width: 40px; height: 100%;'>{item.col1}%</div>
 
-          <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
-            <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%; max-width: 100%'></div>
+            <div class="div_width_bar" style={`width: calc(100% - 40px); height: 100%; border-color: white; border-width: 1px; border-style: double;`}>
+              <div style='width: {item.col1}%; background-color: rgb(112, 118, 194); height: 100%; max-width: 100%'></div>
+            </div>
           </div>
+          <div class="row_cell">{item.col2}</div>
+          <div class="row_cell">{item.col3}</div>
+          <div class="row_cell">{item.col4}</div>
+          <div class="row_cell">{item.col5}</div>
+          <div class="row_cell">{item.col6}</div>
+          <div class="row_cell">{item.col7}</div>
+          <div class="row_cell">{item.col8}</div>
+          <div class="row_cell">{item.col9}</div>
+          <div class="row_cell">{item.col10}</div>
+          <div class="row_cell">{item.col11}</div>
+          <div class="row_cell">{item.col12}</div>
+          <div class="row_cell">{item.col13}</div>
+          <div class="row_cell">{item.col14}</div>
+          <div class="row_cell">{item.col15}</div>
+          <div class="row_cell">{item.col16}</div>
+          <div class="row_cell">{item.col17}</div>
+          <div class="row_cell">{item.col18}</div>
+          <div class="row_cell">{item.col19}</div>
+          <div class="row_cell">{item.col20}</div>
+          <div class="row_cell">{item.col21}</div>
+          <div class="row_cell">{item.col22}</div>
+          <div class="row_cell">{item.col23}</div>
+          <div class="row_cell">{item.col24}</div>
+          <div class="row_cell">{item.col25}</div>
+          <div class="row_cell">{item.col26}</div>
+          <div class="row_cell">{item.col27}</div>
+          <div class="row_cell">{item.col28}</div>
+          <div class="row_cell">{item.col29}</div>
+          <div class="row_cell">{item.col30}</div>      
         </div>
-        <div class="row_cell">{item.col2}</div>
-        <div class="row_cell">{item.col3}</div>
-        <div class="row_cell">{item.col4}</div>
-        <div class="row_cell">{item.col5}</div>
-        <div class="row_cell">{item.col6}</div>
-        <div class="row_cell">{item.col7}</div>
-        <div class="row_cell">{item.col8}</div>
-        <div class="row_cell">{item.col9}</div>
-        <div class="row_cell">{item.col10}</div>
-        <div class="row_cell">{item.col11}</div>
-        <div class="row_cell">{item.col12}</div>
-        <div class="row_cell">{item.col13}</div>
-        <div class="row_cell">{item.col14}</div>
-        <div class="row_cell">{item.col15}</div>
-        <div class="row_cell">{item.col16}</div>
-        <div class="row_cell">{item.col17}</div>
-        <div class="row_cell">{item.col18}</div>
-        <div class="row_cell">{item.col19}</div>
-        <div class="row_cell">{item.col20}</div>
-        <div class="row_cell">{item.col21}</div>
-        <div class="row_cell">{item.col22}</div>
-        <div class="row_cell">{item.col23}</div>
-        <div class="row_cell">{item.col24}</div>
-        <div class="row_cell">{item.col25}</div>
-        <div class="row_cell">{item.col26}</div>
-        <div class="row_cell">{item.col27}</div>
-        <div class="row_cell">{item.col28}</div>
-        <div class="row_cell">{item.col29}</div>
-        <div class="row_cell">{item.col30}</div>      
-      </div>
-    <!-- {/each} -->
-  </VirtualList>
+      <!-- {/each} -->
+    </VirtualList>
+  </div>
 </div>
 <!-- Row -->
   <!-- col 1 ~ n -->
@@ -156,9 +159,8 @@
     height: 100%;
 
     position: relative;
-    /* overflow: auto; */
   }
-
+/* 
   .header_div {
     position: sticky;
     top: 0;
@@ -167,8 +169,6 @@
 
     background-color: midnightblue;
     display: flex;
-    /* white-space: nowrap; */
-    /* overflow: auto; */
   }
 
   .header_cell {
@@ -188,6 +188,13 @@
 
     border-color: white;
     border-style: groove;
+  } 
+*/
+  .data_div {
+    position: relative;
+    background-color: black;
+    height: 100%;
+    display: flex;  
   }
 
   .row_div {

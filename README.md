@@ -1,4 +1,4 @@
-Test Pages : https://teemstone-lab.github.io/ontune_Web_Viewer_Test/
+Test Pages : https://teemstone-study.github.io/ontune_Web_Viewer_Test/
 # Svelte + Vite
 
 This template should help get you started developing with Svelte in Vite.

@@ -126,8 +126,8 @@ const default_data = [
 	};
 
   WebReceiveLineData.subscribe((Item) => {
-    console.log("==============Line Data================");
-    console.log(Item);
+    // console.log("==============Line Data================");
+    // console.log(Item);
 
 		let tmp_Main = Item;
     let tmp_Sub = [];

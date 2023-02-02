@@ -247,6 +247,7 @@ const default_data = [
 	}
 
 	.path-area {
-		fill: rgba(231, 19, 167, 0.2);
+		fill: rgba(81, 83, 221, 0.2);
+    transition: 0.5s;    
 	}
 </style>

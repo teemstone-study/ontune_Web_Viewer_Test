@@ -1,7 +1,7 @@
 let Socket;
 
 console.log('workerInit');
-	Socket = new WebSocket('ws://192.168.0.188:3001/ws');
+	Socket = new WebSocket('ws://ontune.iptime.org:3001/ws');
 	Socket.addEventListener('open', function (event) {
 		console.log("It's open");
 		sendDataKey(2);

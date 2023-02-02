@@ -13,7 +13,7 @@ console.log('workerInit');
 	Socket.addEventListener('error', function (event) {
 		console.log("wsError :");
 		console.log(event);
-		Socket = new WebSocket('ws://192.168.0.188:3001/ws');
+		Socket = new WebSocket('ws://ontune.iptime.org:3001/ws');
 		console.log("retry");
 	});	
 	self.onmessage = function(e) {

@@ -1,28 +1,67 @@
 <script>
-    import {TreeView, TreeBranch, TreeLeaf} from "svelte-tree-view-component";
-    import {Svrollbar, Svroller} from "svrollbar";    
-    import VirtualList from './onTuneScroll.svelte';    
+  import {TreeView, TreeBranch, TreeLeaf} from "svelte-tree-view-component";
+  // import {Svrollbar, Svroller} from "svrollbar";    
+  import VirtualList from './onTuneScroll_Tree.svelte';    
 
-    export let nodeItem;
-    export let updateCount;
-    export let isReverse;
-    let viewport;
-    let contents;
-    let onsrc = "img/hostOS_icon_linux.png";
-    let offsrc = "img/hostOS_icon_linux_un.png";
+  export let nodeItem;
+  export let updateCount;
+  export let isReverse;
+  let viewport;
+  let contents;
+  let onsrc = "img/hostOS_icon_linux.png";
+  let offsrc = "img/hostOS_icon_linux_un.png";
+
+  // $: {
+  //   console.log(nodeItem);
+  // }
 </script>
 
 <style>
-    .treeImage {
-      vertical-align: text-bottom;
-    }
+  .treeImage {
+    vertical-align: text-bottom;
+  }
     
 </style>
 
-    <TreeView branchHoverColor="yellow" iconColor="black"  >
+<!-- {console.log(nodeItem)}; -->
+<!-- <div class="asdasds" style="height: 10000px;">
+  <div on:click>[]</div>
+  <VirtualList items={nodeItem} let:item>
+    <li>
+      <img class="treeImage" src={onsrc} alt="onimage"  />      
+      linux {item.hostname}
+    </li>
+  </VirtualList>
+</div> 
+-->
+
+
+  <TreeView branchHoverColor="yellow" iconColor="black"  >
+    <TreeBranch rootContent="Linux" >
+      <!-- {#each nodeItem as item, i (item)}
+        <TreeLeaf>
+            linux {item}
+        </TreeLeaf>
+      {/each} -->
+      <!-- <div style={`width: 200px; height: ${nodeItem.length * 36}px;`}> -->
+        <div style="border-left:solid 2px white; margin-left:-8px">
+          <div style={`width: 150px; height: ${nodeItem.length * 36}px;`}>
+            <VirtualList items={nodeItem} let:item>
+              <TreeLeaf>
+                linux {item.hostname}
+              </TreeLeaf>
+            </VirtualList>
+          </div>
+        </div>
+        </TreeBranch>
+  </TreeView>  
+
+
+
+
+
+    <!-- <TreeView branchHoverColor="yellow" iconColor="black"  >
       <TreeBranch rootContent="Linux" >
-        <!-- <VirtualList items={nodeItem} let:item> -->
-        <!-- {#each nodeItem as item, index} -->
         {#each nodeItem as item, i (item)}
           <TreeLeaf>
               {#if (i % 2) === 0 && isReverse && i < updateCount}
@@ -33,9 +72,9 @@
               linux {item}
           </TreeLeaf>
         {/each}
-        <!-- </VirtualList> -->
       </TreeBranch>
-    </TreeView>
+    </TreeView>  
+  -->
 
 
 

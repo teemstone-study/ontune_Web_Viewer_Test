@@ -33,14 +33,32 @@
   let copyupdateCount = updateCount;
 
   WebReceiveData.subscribe(value => {
-      StoreUpdateList = String(value.data).split(",");
-      if (isReverse === true) { 
-          isReverse = false; 
-        } else {
-          isReverse = true;
-        }
+    // StoreUpdateList = String(value.data).split(",");
+    // if (isReverse === true) { 
+    //     isReverse = false; 
+    //   } else {
+    //     isReverse = true;
+    // }
 
-      UpdateListItem = StoreUpdateList;
+    // UpdateListItem = StoreUpdateList;
+
+    
+    StoreUpdateList = String(value.data).split(",");
+    let tmp_Data = [];
+
+    // 현재 스크롤의 위치와 Hieght를 받아와서 얼마만큼 데이터를 뽑아다가 컴포넌트에 던져줄지 결정해서 추출한다.
+    for (let i = 0; i < StoreUpdateList.length; i++) {
+      tmp_Data.push({hostname: StoreUpdateList[i]});
+    };
+
+    if (isReverse === true) { 
+        isReverse = false; 
+      } else {
+        isReverse = true;
+    };
+
+    UpdateListItem = tmp_Data;   
+    // console.log(tmp_Data); 
   })
 
   init();
@@ -293,20 +311,20 @@
       <Tab HtmlTag="vmhost">VMHost</Tab>
       <Tab HtmlTag="group">group</Tab>
     </TabList>
-  <div class="wrapper">
-    <div bind:this={viewport} class="viewport">
-        <div bind:this={contents} class="contents">
-            
-    <TabPanel>
-        <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
-    </TabPanel>
-    <TabPanel>
-      <OntuneTreeTypeTwo nodeCount={updateDrawCount} isReverse={isReverse} updateCount={copyupdateCount} />
-    </TabPanel>
-    <TabPanel>
-      <h1>또다른 그룹</h1>
-    </TabPanel>
-  </div>
+    <div class="wrapper">
+      <div bind:this={viewport} class="viewport">
+          <div bind:this={contents} class="contents">
+              
+      <TabPanel>
+          <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
+      </TabPanel>
+      <TabPanel>
+        <!-- <OntuneTreeTypeTwo nodeCount={updateDrawCount} isReverse={isReverse} updateCount={copyupdateCount} /> -->
+      </TabPanel>
+      <TabPanel>
+        <!-- <h1>또다른 그룹</h1> -->
+      </TabPanel>
+    </div>
   </div>
   <Svrollbar {viewport} {contents} alwaysVisible={true} />
   </div>

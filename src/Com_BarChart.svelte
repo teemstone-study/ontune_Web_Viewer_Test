@@ -194,12 +194,14 @@
 		fill: rgb(17, 40, 170);
 		stroke: none;
 		opacity: 0.8;
+		transition: 0.5s;
 	}
 
 	.value2 {
 		fill: rgb(247, 121, 4);
 		stroke: none;
 		opacity: 0.8;
+		transition: 0.5s;
 	}	
 
 </style>

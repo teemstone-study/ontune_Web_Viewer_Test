@@ -243,6 +243,7 @@ const default_data = [
 		stroke-linejoin: round;
 		stroke-linecap: round;
 		stroke-width: 2;
+    transition: 0.5s;
 	}
 
 	.path-area {

@@ -10,7 +10,6 @@
   let contents;
   let onsrc = "img/hostOS_icon_linux.png";
   let offsrc = "img/hostOS_icon_linux_un.png";
-  let index = 0;
 
   // $: {
   //   console.log(nodeItem);
@@ -50,17 +49,16 @@
     <!-- <div style={`width: 200px; height: ${nodeItem.length * 36}px;`}> -->
     <div style="border-left:solid 2px white; margin-left:-8px">
       <div style={`width: 150px; height: ${nodeItem.length * 36}px;`}>
-        <!-- {index = 0} -->
         <VirtualList items={nodeItem} let:item>
           <TreeLeaf>
-            {#if (index % 2) === 0 && isReverse && index < updateCount}
-            <img class="treeImage" src={onsrc} alt="onimage"  />
+            <!-- {#if (index % 2) === 0 && isReverse && index < updateCount} -->
+            {#if (isReverse)}
+              <img class="treeImage" src={onsrc} alt="onimage"  />
             {:else}
-            <img class="treeImage" src={offsrc} alt="offimage" />
+              <img class="treeImage" src={offsrc} alt="offimage" />
             {/if}            
             linux {item.hostname}
           </TreeLeaf>
-          <!-- {index += 1}           -->
         </VirtualList>
       </div>
     </div>

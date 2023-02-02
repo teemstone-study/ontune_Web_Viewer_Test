@@ -1,80 +1,23 @@
 <script>
-  // export let url = "";
+  import { onMount } from 'svelte';
+  import { Mosaic_Arr, Data_Infos } from './store.js';
+  // import { get } from 'svelte/store';  
+  import { Data_Infos_Clear } from './uStore_Function.js';
+  import WebsocketWorker from './websocketWorker.svelte';
 
   // import tree from './Tree.svelte';
+  import OntuneTreeView from './ontuneTreeView.svelte';
   import Jennifer from './Jennifer.svelte';
   import Mosaic from './Mosaic.svelte';
   
-  import OntuneTreeView from './ontuneTreeView.svelte';
+  onMount(() => {
+    // Data_Info 초기화
+    Data_Infos_Clear();
+    // console.log("Data_Infos Clear ===========================================");
+    // console.log(get(Data_Infos));
 
-  // Mosaic Main arr 생성(set / update / subscribe)
-  // let mosaic_props = {
-  //   bst : bst,
-  //   idx : 0,
-  //   node_text_idx: 0,
-  //   arr: []
-  // };
-
-	// let idx = 0;
-	// let node_text_idx = 0;  
-	// let arr = [];
-  // let a = new Node;  
-  // arr.push(a);
-
-  // console.log("----------- App.svelte");  
-  // console.log(mosaic_props.arr);
-
-
-  // function change_arr (e) {
-      // 	// TODO inset 계산
-      // 	console.log('===========DB Arr 버튼 클릭===========');
-      // 	// console.log(e.target.name);
-      // 	// // 0을 1|2로 Div 추가하기
-      // 	// const insert_result = bst.insert(arr[e.target.id], arr.length, node_text_idx);
-      // 	// e.preventDefault();
-
-      // 	let tmp_index = 0;
-      // 	let tmp_button = null;
-
-      // 	// Init Button Style
-      // 	for (let index = 0; index <= 4; index++) {
-      // 		// tmp_button = document.getElementsByName('P' + (index).toString)[0];
-      // 		tmp_button = document.getElementsByName('P' + String(index + 1))[0];
-      // 		tmp_button.style = 'background-color: buttonface; color: buttontext; font-weight: normal';
-      // 	}
-
-      // 	// Set Button Style
-      // 	tmp_button = document.getElementsByName(e.target.name)[0];
-      // 	tmp_button.style = 'background-color: darksalmon; color: blue; font-weight: bold';
-
-      // 	switch (e.target.name) {
-      // 		case "P1":
-      // 			tmp_index = 0;
-      // 			break;
-      // 		case "P2":
-      // 			tmp_index = 1;
-      // 			break;
-      // 		case "P3":
-      // 			tmp_index = 2;
-      // 			break;
-      // 		case "P4":
-      // 			tmp_index = 3;
-      // 			break;
-      // 		case "P5":
-      // 			tmp_index = 4;
-      // 			break;
-      // 	}
-
-      // 	// App - arr 배열을 선택한 배열로 Copy 해주고 랜더링~
-      // 	console.log(tmp_index);
-      // 	// App(arr[tmp_index]);
-      // };
-
-      // function save_arr (e) {
-      // 	// TODO inset 계산
-      // 	console.log('===========Save 버튼 클릭===========');
-      // 	alert('저장이 완료되었습니다!(미구현)');
-      // }
+    // console.log(Data_Infos);
+  });
 
   function onMouseDown_Main_bar_event(e) {
     // drag_node = null;
@@ -179,7 +122,7 @@
 }  
 </script>
 
-
+<WebsocketWorker />
 <!-- HTML -->
 <div id="div_tree">
   <OntuneTreeView />  

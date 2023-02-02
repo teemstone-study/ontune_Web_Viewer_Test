@@ -8,6 +8,8 @@
   import { tweened } from 'svelte/motion';
   import { expoInOut } from 'svelte/easing';
   import {onMount, tick} from 'svelte';
+  import  {WebReceiveData} from './store.js';
+  import { get } from 'svelte/store';
   
 
   import {Svrollbar, Svroller} from "svrollbar"    
@@ -27,15 +29,42 @@
   let visibleTestMode = false;
   let updateDrawCount = 1000;
   let UpdateListItem = ItemList;
+  let StoreUpdateList;
   let copyupdateCount = updateCount;
-  
 
-  $: dddd = visibleTestMode;
+  WebReceiveData.subscribe(value => {
+    // StoreUpdateList = String(value.data).split(",");
+    // if (isReverse === true) { 
+    //     isReverse = false; 
+    //   } else {
+    //     isReverse = true;
+    // }
+
+    // UpdateListItem = StoreUpdateList;
+
+    
+    StoreUpdateList = String(value.data).split(",");
+    let tmp_Data = [];
+
+    // 현재 스크롤의 위치와 Hieght를 받아와서 얼마만큼 데이터를 뽑아다가 컴포넌트에 던져줄지 결정해서 추출한다.
+    for (let i = 0; i < StoreUpdateList.length; i++) {
+      tmp_Data.push({hostname: StoreUpdateList[i]});
+    };
+
+    if (isReverse === true) { 
+        isReverse = false; 
+      } else {
+        isReverse = true;
+    };
+
+    UpdateListItem = tmp_Data;   
+    // console.log(tmp_Data); 
+  })
+
   init();
 
   function init() {
-    console.log("init");
-    ItemList = Array.from({ length: updateDrawCount }).map((_, i) => `item ${i}`);
+    ItemList = Array.from({ length: 0 }).map((_, i) => `item ${i}`);    
     UpdateListItem = ItemList;
   }
   
@@ -93,7 +122,7 @@
         testWorker();
       }    
   
-      StartProcess();
+      //StartProcess();
     }
     else {
       console.log("0초니까 ");
@@ -118,20 +147,20 @@
 
     }
 
-    function StartProcess() {
-      clearInterval(alterWorkTimer);   
-      alterWorkTimer = setInterval(() => {
-        let findBar = document.getElementsByClassName(indeterminate-progress-bar);
-        if (isSend === false) {
-            isSend = true;
-            progress.set(1.0);
-        } else {
-            isSend = false;
-            progress.set(0.0)            
-        }
+    // function StartProcess() {
+    //   clearInterval(alterWorkTimer);   
+    //   alterWorkTimer = setInterval(() => {
+    //     let findBar = document.getElementsByClassName(indeterminate-progress-bar);
+    //     if (isSend === false) {
+    //         isSend = true;
+    //         progress.set(1.0);
+    //     } else {
+    //         isSend = false;
+    //         progress.set(0.0)            
+    //     }
 
-      }, 1000);   
-    }
+    //   }, 1000);   
+    // }
 
     let viewport;
     let contents;
@@ -255,20 +284,20 @@
   <br>
   {#if visibleTestMode}
   <div class="centered" display=none>
-    <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
+    <!-- <input type="text" id="txt_showCount" class="inputtext"  bind:value={drawCount} on:keydown={EnterWork}/>
     <button id="btn_showCount" class="inputbutton" on:click={ChangeNodeCount} >표시할 host 개수</button>
     <br>
     데이터 업데이트 주기
     <br>
     <input type="number" id="txt_updateTime" class="inputtext"  bind:value={workIntervalTime} on:keydown={(e) => {if (e.key === "Enter") {ChangeWorkIntervalTime();}}} />
     <input type="range" bind:value={workIntervalTime} min = 0 max = 60 />
-    <br>
+    <br> -->
     <input type="text" id="txt_updateCount" class="inputtext" bind:value={updateCount} on:keydown={(e) => {if (e.key === "Enter") {ChangeChangeCount();}}} />
     <button id="btn_updateCount" class="inputbutton" on:click={ChangeChangeCount} >Update개수변경</button>
     <br>
-    <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
+    <!-- <button id="btn_updateTime" class="inputbutton" on:click={ChangeWorkIntervalTime}>자동변경 타이머 시작</button>
     <br>
-    <progress value={$progress}></progress>
+    <progress value={$progress}></progress> -->
     <!-- <div class="indeterminate-progress-bar">
       <div class="indeterminate-progress-bar__progress"></div>
     </div> -->
@@ -282,20 +311,20 @@
       <Tab HtmlTag="vmhost">VMHost</Tab>
       <Tab HtmlTag="group">group</Tab>
     </TabList>
-  <div class="wrapper">
-    <div bind:this={viewport} class="viewport">
-        <div bind:this={contents} class="contents">
-            
-    <TabPanel>
-        <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
-    </TabPanel>
-    <TabPanel>
-      <OntuneTreeTypeTwo nodeCount={updateDrawCount} isReverse={isReverse} updateCount={copyupdateCount} />
-    </TabPanel>
-    <TabPanel>
-      <h1>또다른 그룹</h1>
-    </TabPanel>
-  </div>
+    <div class="wrapper">
+      <div bind:this={viewport} class="viewport">
+          <div bind:this={contents} class="contents">
+              
+      <TabPanel>
+          <OntuneTreeTypeOne nodeItem={UpdateListItem} isReverse={isReverse} updateCount={copyupdateCount}  />
+      </TabPanel>
+      <TabPanel>
+        <!-- <OntuneTreeTypeTwo nodeCount={updateDrawCount} isReverse={isReverse} updateCount={copyupdateCount} /> -->
+      </TabPanel>
+      <TabPanel>
+        <!-- <h1>또다른 그룹</h1> -->
+      </TabPanel>
+    </div>
   </div>
   <Svrollbar {viewport} {contents} alwaysVisible={true} />
   </div>

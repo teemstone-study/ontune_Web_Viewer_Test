@@ -16,7 +16,8 @@
       p_id = null,
       left = null,
       right = null,
-      arr_Data = []
+      arr_Data = [],
+      host_List = []
     ) {
       this.id = id;
       this.div_type = div_type;
@@ -33,6 +34,7 @@
       this.left = left;
       this.right = right;
       this.arr_Data = arr_Data;
+      this.host_List = host_List;
 
       this.t_timer;
       this.t_counter = 0;
@@ -43,11 +45,10 @@
     create_grid_data(counter) {
       let tmp_data = [];
 
-      for (let i = 0; i < 500; i++) {
+      for (let i = 0; i < 5000; i++) {
         tmp_data.push(
           {
             hostname: "data_" + parseInt(i+counter),
-            email: "data_" + parseInt(i+counter) + "@email.com",
             col1: parseInt(i+counter),
             col2: parseInt(i+counter),
             col3: "A" + parseInt(i+counter),
@@ -58,6 +59,26 @@
             col8: "F" + parseInt(i+counter),
             col9: "G" + parseInt(i+counter),
             col10: "H" + parseInt(i+counter),
+            col11: "I" + parseInt(i+counter),
+            col12: "J" + parseInt(i+counter),
+            col13: "K" + parseInt(i+counter),
+            col14: "L" + parseInt(i+counter),
+            col15: "M" + parseInt(i+counter),
+            col16: "N" + parseInt(i+counter),
+            col17: "O" + parseInt(i+counter),
+            col18: "P" + parseInt(i+counter),
+            col19: "Q" + parseInt(i+counter),
+            col20: "R" + parseInt(i+counter),
+            col21: "S" + parseInt(i+counter),
+            col22: "T" + parseInt(i+counter),
+            col23: "U" + parseInt(i+counter),
+            col24: "V" + parseInt(i+counter),
+            col25: "W" + parseInt(i+counter),
+            col26: "X" + parseInt(i+counter),
+            col27: "Y" + parseInt(i+counter),
+            col28: "Z" + parseInt(i+counter),
+            col29: "a" + parseInt(i+counter),
+            col30: "b" + parseInt(i+counter)
           },
         );
       }
@@ -73,15 +94,17 @@
         if (((i*10)+counter) == 0) {
           tmp_data.push(
             {
-              host: (i),
-              value: 0,
+              hostname: (i),
+              value1: 0,
+              value2: 0
             },
           );
         } else {
           tmp_data.push(
             {
-              host: (i),
-              value: (i*10)+counter,
+              hostname: (i),
+              value1: (i*5)+counter,
+              value2: (i*10)+counter,
             },
           );
         }
@@ -114,7 +137,17 @@
       }
       // console.log(tmp_data);
       return tmp_data;
-    }                
+    }        
+
+    GetRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+    }
+    
+    create_pie_data(counter) {
+        return [this.GetRandomInt(0, 100), this.GetRandomInt(0, 100)];
+    }
 
     set_timer() {
       if (this.t_counter >= 9) {
@@ -150,6 +183,8 @@
         tmp_arr = this.create_bar_data(counter);
       } else if (this.node_text == "Line Chart") {
         tmp_arr = this.create_line_data(counter);
+      } else if (this.node_text == "Pie Chart") {
+        tmp_arr = this.create_pie_data(counter);
       } else {
         tmp_arr = [];
       }
@@ -234,6 +269,7 @@
         // 기존 old도 값을 바꿔주고
         old_node.node_type = "P";
         old_node.node_text = "";
+        old_node.host_List = [];
   
         // Left node에 대한 내용 채워주고
         // left_node.node_type = "C";
@@ -244,6 +280,9 @@
         // Left | right 입력
         // old_node.left_id  = left_node.id;
         // old_node.right_id = right_node.id;
+        left_node.host_List = [1,2,3,4,5,6,7,8,9,10];
+        right_node.host_List = [1,2,3,4,5,6,7,8,9,10];
+
         old_node.left  = left_node;
         old_node.right = right_node;
   
@@ -265,9 +304,15 @@
       if (bLeft === true) {
         left_node.node_text  = change_node.node_text;
         right_node.node_text = old_node.node_text;
+
+        left_node.host_List  = change_node.host_List;
+        right_node.host_List = old_node.host_List;
       } else {
         left_node.node_text  = old_node.node_text;
         right_node.node_text = change_node.node_text;
+
+        left_node.host_List  = old_node.host_List;
+        right_node.host_List = change_node.host_List;
       }
   
       // target 노드를 찾아왔으니, Left Right 값을 입력한다.
@@ -280,6 +325,7 @@
         }
         old_node.node_type = "P";
         old_node.node_text = "";
+        old_node.host_List = [];
   
         // Left | right 입력
         old_node.left  = left_node;

@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear } from 'd3';
   import { onMount } from 'svelte';
+  import { WebReceiveLineData } from './store';
 
   export let data = [
     { x: 0, y: 0 },
@@ -72,7 +73,7 @@ const default_data = [
     { x: 9, y: 0 },
   ];  
 
-	const xTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	let xTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const yTicks = [0, 50, 100];
 	const padding = { top: 20, right: 15, bottom: 20, left: 25 };
 
@@ -122,7 +123,41 @@ const default_data = [
 
 	function formatMobile (tick) {
 		return "'" + tick.toString().slice(-2);
-	}
+	};
+
+  WebReceiveLineData.subscribe((Item) => {
+    console.log("==============Line Data================");
+    console.log(Item);
+
+		let tmp_Main = Item;
+    let tmp_Sub = [];
+    let tmp_Data = [];
+		let tmp_Tick = [];
+
+    for (let i = 0; i < tmp_Main.length; i++) {
+      tmp_Sub = tmp_Main[i];
+      tmp_Data.push({
+        // x: parseInt(tmp_Sub[0]),
+        x: i,
+				y: parseInt(tmp_Sub[4])
+      });
+
+			// tmp_Tick.push(parseInt(tmp_Sub[0]));
+      tmp_Tick.push(i);
+    };
+
+		if (tmp_Tick.length > 0) {
+			xTicks = tmp_Tick;
+		} else {
+			xTicks = [0,1,2,3,4,5,6,7,8,9];
+		};
+		
+		if (tmp_Data.length > 0) {
+    	data = tmp_Data;
+		};
+
+		// console.log(xTicks);
+  });	
 </script>
 
 <!-- {#if ((data == "undefined") || (data.length == 0))} -->

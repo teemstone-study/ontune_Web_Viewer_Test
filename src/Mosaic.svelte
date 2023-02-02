@@ -2,13 +2,15 @@
 	// import "./App.svelte";
 	// import { listen } from "svelte/internal";
   // import { Mosaic_Arr } from "./Store";
-  import { Mosaic_Arr } from './store.js';
+  import { Data_Infos_Clear, Data_Infos_Refresh } from './uStore_Function.js';
+  import { Mosaic_Arr, Data_Infos, WebReceiveGridData } from './store.js';
 	import { Binary_Tree, Node } from "./Binary_tree";
 	import { PercentToLength, PercentToPx, Position_Check, Position_Fix } from "./ufunction";
 
   import Grid from './Com_Grid.svelte';
   import Bar_Chart from './Com_BarChart.svelte';
   import Line_Chart from './Com_LineChart.svelte';
+  import Pie_Chart from './Com_Pie.svelte';
   // import nice from 'd3-scale/src/nice.js';
   
 	const bst = new Binary_Tree();
@@ -27,23 +29,52 @@
 		{ id: 0, text: "None" },
 		{ id: 1, text: "Grid" },
 		{ id: 2, text: "Bar Chart" },
-		{ id: 3, text: "Line Chart" }
+		{ id: 3, text: "Line Chart" },
+    { id: 4, text: "Pie Chart" }
 	];
 
   function find_target(el) {
-  let currentElement = el;
-  // console.log("========find_target========");
+    let currentElement = el;
+    // console.log("========find_target========");
 
-  while (isNaN(parseInt(currentElement.getAttribute('name')))) {
-    currentElement = currentElement.parentElement;
-    if (currentElement.tagName == "BODY") {
-      return null;
+    while (isNaN(parseInt(currentElement.getAttribute('name')))) {
+      currentElement = currentElement.parentElement;
+      if (currentElement.tagName == "BODY") {
+        return null;
+      }
+      // console.log(currentElement.name);
+      // console.log(currentElement.getAttribute('name'));    
     }
-    // console.log(currentElement.name);
-    // console.log(currentElement.getAttribute('name'));    
-  }
-  return currentElement;
-}
+    return currentElement;
+  };
+
+  // Grid Data Input
+  WebReceiveGridData.subscribe((Item) => {
+    let tmp_Main = Item;
+    let tmp_Sub = [];
+    let tmp_Data = [];
+
+
+    // let my_Node = $Mosaic_Arr[my_ID];
+    // // my_Hieght = 402.5 div 30 => 14 x 3
+    // let my_Hieght = my_Node.inset_bottom - my_Node.inset_bottom;
+
+    // 현재 스크롤의 위치와 Hieght를 받아와서 얼마만큼 데이터를 뽑아다가 컴포넌트에 던져줄지 결정해서 추출한다.
+    // for (let i = 0; i < tmp_Main.length; i++) {
+    //   tmp_Sub = tmp_Main[i];
+    //   tmp_Data.push({
+    //     hostname: tmp_Sub[0], 
+    //     col1: parseInt(tmp_Sub[3]), col2: parseInt(tmp_Sub[4]), col3: tmp_Sub[5],  col4: tmp_Sub[6],  col5: tmp_Sub[10],  col6: tmp_Sub[11],  col7: tmp_Sub[12],  col8: tmp_Sub[13],  col9: tmp_Sub[14],  col10: tmp_Sub[17], 
+    //     col11: tmp_Sub[18], col12: tmp_Sub[21], col13: tmp_Sub[22], col14: tmp_Sub[23], col15: tmp_Sub[24], col16: tmp_Sub[25], col17: tmp_Sub[26], col18: tmp_Sub[27], col19: tmp_Sub[28], col20: tmp_Sub[29], 
+    //     col21: tmp_Sub[30], col22: tmp_Sub[31], col23: tmp_Sub[32], col24: tmp_Sub[33], col25: tmp_Sub[34], col26: tmp_Sub[35], col27: tmp_Sub[36], col28: tmp_Sub[37], col29: tmp_Sub[38], col30: tmp_Sub[39]  
+    //   });
+    // };
+
+    // data = tmp_Data;
+
+    // Top | Bottom Div의 padding 변경
+    // ???
+  });    
 
 // ==================================================================================================================================================
 // =================================================================== Button Event =================================================================
@@ -68,6 +99,8 @@
       $Mosaic_Arr.push(insert_result[0]);
       $Mosaic_Arr.push(insert_result[1]);
       $Mosaic_Arr = $Mosaic_Arr;
+
+      Data_Infos_Refresh();
     };
 
     //setArr([...arr]);
@@ -101,6 +134,7 @@
     // Mosaic_Arr.update(a => [...a]);
     $Mosaic_Arr = $Mosaic_Arr;
     // console.log(arr);
+    Data_Infos_Refresh();
   };
 
   // const Changes = () => {
@@ -131,6 +165,19 @@
     // console.log(tmp_counter);    
     // Random_Timer(e);
   };
+
+  function Set_Data_Info(item) {
+    console.log('----Set Data Info Change-----');
+
+    // Data_Infos_Clear();
+    Data_Infos_Refresh();
+  };
+    // console.log(item.node_text);
+    
+    // $Mosaic_Arr[e.target.id].
+    // Data_Info에 기존 값 변경하고 .
+    // $Mosaic_Arr[e.target.id].set_timer();
+  // };  
 
 // ==================================================================================================================================================
 // =================================================================== Bar Event ====================================================================
@@ -542,77 +589,82 @@ const onMouseDown_bar_event = (e) => {
 		//arr.push(bst.root);
     node_text_idx = node_text_idx + 1;
 
-    // 기본 모자이크 생성 1
-    // 0을 1|2로 Div 추가하기
-    const insert1_result = bst.insert($Mosaic_Arr[0], $Mosaic_Arr.length, node_text_idx);
+    // // 기본 모자이크 생성 1
+    // // 0을 1|2로 Div 추가하기
+    // const insert1_result = bst.insert($Mosaic_Arr[0], $Mosaic_Arr.length, node_text_idx);
 
-    if (insert1_result) {
-      //arr.push(insert_result[0]);
-      //arr.push(insert_result[1]);
-      idx = idx + 2;
-      node_text_idx = node_text_idx + 1;
+    // if (insert1_result) {
+    //   //arr.push(insert_result[0]);
+    //   //arr.push(insert_result[1]);
+    //   idx = idx + 2;
+    //   node_text_idx = node_text_idx + 1;
 
-      insert1_result[0].node_text = "Bar Chart";
-      insert1_result[1].node_text = "2";
+    //   insert1_result[0].node_text = "Bar Chart";
+    //   insert1_result[1].node_text = "2";
 
-      // setArr([...arr, insert_result[0], insert_result[1]]);
-			// Mosaic_Arr.update(a => [...a, insert1_result[0], insert1_result[1]]);
+    //   // setArr([...arr, insert_result[0], insert_result[1]]);
+		// 	// Mosaic_Arr.update(a => [...a, insert1_result[0], insert1_result[1]]);
 
-      $Mosaic_Arr.push(insert1_result[0]);
-      $Mosaic_Arr.push(insert1_result[1]);
+    //   $Mosaic_Arr.push(insert1_result[0]);
+    //   $Mosaic_Arr.push(insert1_result[1]);
 
-      $Mosaic_Arr = $Mosaic_Arr;
-    };
+    //   $Mosaic_Arr = $Mosaic_Arr;
+    // };
 
-    // 기본 모자이크 생성 2
-    // 0을 1|2로 Div 추가하기
-    const insert2_result = bst.insert($Mosaic_Arr[1], $Mosaic_Arr.length, node_text_idx);
+    // // 기본 모자이크 생성 2
+    // // 0을 1|2로 Div 추가하기
+    // const insert2_result = bst.insert($Mosaic_Arr[1], $Mosaic_Arr.length, node_text_idx);
 
-    if (insert2_result) {
-      //arr.push(insert_result[0]);
-      //arr.push(insert_result[1]);
-      idx = idx + 2;
-      node_text_idx = node_text_idx + 1;
+    // if (insert2_result) {
+    //   //arr.push(insert_result[0]);
+    //   //arr.push(insert_result[1]);
+    //   idx = idx + 2;
+    //   node_text_idx = node_text_idx + 1;
 
-      // insert1_result[0].node_text = "3";
-      // insert1_result[1].node_text = "4";
+    //   // insert1_result[0].node_text = "3";
+    //   // insert1_result[1].node_text = "4";
 
-      // setArr([...arr, insert_result[0], insert_result[1]]);
-			// Mosaic_Arr.update(a => [...a, insert2_result[0], insert2_result[1]]);
-      $Mosaic_Arr.push(insert2_result[0]);
-      $Mosaic_Arr.push(insert2_result[1]);
-      $Mosaic_Arr = $Mosaic_Arr;
-    };
+    //   // setArr([...arr, insert_result[0], insert_result[1]]);
+		// 	// Mosaic_Arr.update(a => [...a, insert2_result[0], insert2_result[1]]);
+    //   $Mosaic_Arr.push(insert2_result[0]);
+    //   $Mosaic_Arr.push(insert2_result[1]);
+    //   $Mosaic_Arr = $Mosaic_Arr;
+    // };
 
-    // 2 -> 3 자리 변경
-    // 위치에 따라, Col | Row   /   Left | Right 를 지정하여 Insert / remove 해줘야한다.
-    const change_result = bst.change($Mosaic_Arr[3], $Mosaic_Arr.length, $Mosaic_Arr[2], "R", false);
+    // // 2 -> 3 자리 변경
+    // // 위치에 따라, Col | Row   /   Left | Right 를 지정하여 Insert / remove 해줘야한다.
+    // const change_result = bst.change($Mosaic_Arr[3], $Mosaic_Arr.length, $Mosaic_Arr[2], "R", false);
 
-    if (change_result) {
-      idx = idx + 2;
-      // node_text_idx = node_text_idx + 1;
+    // if (change_result) {
+    //   idx = idx + 2;
+    //   // node_text_idx = node_text_idx + 1;
 
-      $Mosaic_Arr[4].node_text   = "Grid";
-      change_result[0].node_text = "Bar Chart";
-      change_result[1].node_text = "Line Chart";
+    //   $Mosaic_Arr[4].node_text   = "Grid";
+    //   change_result[0].node_text = "Bar Chart";
+    //   change_result[1].node_text = "Line Chart";
 
-      $Mosaic_Arr.push(change_result[0]);
-      $Mosaic_Arr.push(change_result[1]);
-      // setArr([...arr, change_result[0], change_result[1]]);
-    };
+    //   $Mosaic_Arr[4].host_List   = [1,2,3,4,5,6,7,8,9,10];
+    //   change_result[0].host_List   = [1,2,3,4,5,6,7,8,9,10];
+    //   change_result[1].host_List   = [1,2,3,4,5,6,7,8,9,10];
 
-    // 기존 배열에서 inset 값을 변경 후 가져와야한다.
-    if ($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].id].p_id].p_id]) {
-      bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
-    } else {
-      bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
-    } 
-    // drag_node = null;
-    // inset 재조정
-    bst.resize_div($Mosaic_Arr);    
+    //   $Mosaic_Arr.push(change_result[0]);
+    //   $Mosaic_Arr.push(change_result[1]);
+    //   // setArr([...arr, change_result[0], change_result[1]]);
+    // };
 
-    // console.log($Mosaic_Arr);
-		// console.log('------------Mosaic.svelte');
+    // // 기존 배열에서 inset 값을 변경 후 가져와야한다.
+    // if ($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].id].p_id].p_id]) {
+    //   bst.remove($Mosaic_Arr[$Mosaic_Arr[$Mosaic_Arr[2].p_id].p_id], $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
+    // } else {
+    //   bst.remove(null, $Mosaic_Arr[$Mosaic_Arr[2].p_id], $Mosaic_Arr[2]);
+    // };
+    // // drag_node = null;
+    // // inset 재조정
+    // bst.resize_div($Mosaic_Arr);
+    // // console.log($Mosaic_Arr);
+		// // console.log('------------Mosaic.svelte');
+    
+    // Data_Infos_Refresh();
 	};
 </script>
 
@@ -665,7 +717,7 @@ const onMouseDown_bar_event = (e) => {
           <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
           <!-- <button style="width: 100px;" on:click={test(item.left.id)}>test</button> -->
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
-          <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Random_Data}>
+          <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Data_Info(item.left)}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -684,6 +736,8 @@ const onMouseDown_bar_event = (e) => {
             <Bar_Chart data={item.left.arr_Data} />
           {:else if (item.left.node_text == "Line Chart")}
             <Line_Chart data={item.left.arr_Data} />
+          {:else if (item.left.node_text == "Pie Chart")}
+            <Pie_Chart  data={item.left.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -695,7 +749,7 @@ const onMouseDown_bar_event = (e) => {
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
           <button style="width: 100px;" on:click={Set_Random_Data} id={item.right.id}>자동변경 시작</button>
-          <select bind:value={item.right.node_text} id={item.right.id} on:ratechange={Set_Random_Data}>
+          <select bind:value={item.right.node_text} id={item.right.id} on:change={Set_Data_Info(item.right)}>
             {#each component_type as type}
               <option value={type.text}>
                 {type.text}
@@ -712,6 +766,8 @@ const onMouseDown_bar_event = (e) => {
             <Bar_Chart data={item.right.arr_Data} />
           {:else if (item.right.node_text == "Line Chart")}
             <Line_Chart data={item.right.arr_Data} />
+          {:else if (item.right.node_text == "Pie Chart")}
+            <Pie_Chart  data={item.right.arr_Data} />
           {/if}
         </div>
 			</div>
@@ -727,7 +783,7 @@ const onMouseDown_bar_event = (e) => {
 		>
 			<div class="div_Title" style={"cursor: " + 'default'}>
         <button style="width: 100px;" on:click={Set_Random_Data} id={item.id}>자동변경 시작</button>
-        <select bind:value={item.node_text} id={item.id} on:ratechange={Set_Random_Data}>
+        <select bind:value={item.node_text} id={item.id} on:change={Set_Data_Info(item)}>
           {#each component_type as type}
             <option value={type.text}>
               {type.text}
@@ -744,6 +800,8 @@ const onMouseDown_bar_event = (e) => {
           <Bar_Chart data={item.arr_Data} />
         {:else if (item.node_text == "Line Chart")}
           <Line_Chart data={item.arr_Data} />
+        {:else if (item.node_text == "Pie Chart")}
+          <Pie_Chart  data={item.arr_Data} />
         {/if}
       </div>
 		</div>

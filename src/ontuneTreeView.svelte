@@ -162,6 +162,9 @@
     //   }, 1000);   
     // }
 
+	
+    document.write( ip() );
+
     let viewport;
     let contents;
 

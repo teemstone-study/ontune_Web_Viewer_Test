@@ -12,7 +12,7 @@
   import Line_Chart from './Com_LineChart.svelte';
   import Pie_Chart from './Com_Pie.svelte';
   // import nice from 'd3-scale/src/nice.js';
-  
+
 	const bst = new Binary_Tree();
 	let idx = 0;
 	let node_text_idx = 0;
@@ -713,10 +713,7 @@ const onMouseDown_bar_event = (e) => {
 				style={"inset: " + `${item.left.inset_top}% ${item.left.inset_right}% ${item.left.inset_bottom}% ${item.left.inset_left}%`}
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
-          <!-- <select on:change="{() => item.left.node_text = this.options[this.selectedIndex].text}"> -->
-          <!-- <select on:change="{() => console.log(this.options[this.selectedIndex].text)}"> -->
-          <!-- <button style="width: 100px;" on:click={test(item.left.id)}>test</button> -->
-          <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button>
+          <!-- <button style="width: 100px;" on:click={Set_Random_Data} id={item.left.id}>자동변경 시작</button> -->
           <select bind:value={item.left.node_text} id={item.left.id} on:change={Set_Data_Info(item.left)}>
             {#each component_type as type}
               <option value={type.text}>
@@ -748,7 +745,7 @@ const onMouseDown_bar_event = (e) => {
 			style={"inset: " + `${item.right.inset_top}% ${item.right.inset_right}% ${item.right.inset_bottom}% ${item.right.inset_left}%`}
 			>
 				<div class="div_Title" draggable="true" on:dragstart={onDragStart_div_event}>
-          <button style="width: 100px;" on:click={Set_Random_Data} id={item.right.id}>자동변경 시작</button>
+          <!-- <button style="width: 100px;" on:click={Set_Random_Data} id={item.right.id}>자동변경 시작</button> -->
           <select bind:value={item.right.node_text} id={item.right.id} on:change={Set_Data_Info(item.right)}>
             {#each component_type as type}
               <option value={type.text}>
@@ -782,7 +779,7 @@ const onMouseDown_bar_event = (e) => {
 			style={"inset: " + `${item.inset_top}% ${item.inset_right}% ${item.inset_bottom}% ${item.inset_left}%`}
 		>
 			<div class="div_Title" style={"cursor: " + 'default'}>
-        <button style="width: 100px;" on:click={Set_Random_Data} id={item.id}>자동변경 시작</button>
+        <!-- <button style="width: 100px;" on:click={Set_Random_Data} id={item.id}>자동변경 시작</button> -->
         <select bind:value={item.node_text} id={item.id} on:change={Set_Data_Info(item)}>
           {#each component_type as type}
             <option value={type.text}>

@@ -126,8 +126,8 @@ const default_data = [
 	};
 
   WebReceiveLineData.subscribe((Item) => {
-    console.log("==============Line Data================");
-    console.log(Item);
+    // console.log("==============Line Data================");
+    // console.log(Item);
 
 		let tmp_Main = Item;
     let tmp_Sub = [];
@@ -243,9 +243,11 @@ const default_data = [
 		stroke-linejoin: round;
 		stroke-linecap: round;
 		stroke-width: 2;
+    transition: 0.5s;
 	}
 
 	.path-area {
-		fill: rgba(231, 19, 167, 0.2);
+		fill: rgba(81, 83, 221, 0.2);
+    transition: 0.5s;    
 	}
 </style>

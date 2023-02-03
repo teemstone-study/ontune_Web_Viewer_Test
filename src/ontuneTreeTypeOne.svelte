@@ -23,58 +23,47 @@
     
 </style>
 
-<!-- {console.log(nodeItem)}; -->
-<!-- <div class="asdasds" style="height: 10000px;">
-  <div on:click>[]</div>
-  <VirtualList items={nodeItem} let:item>
-    <li>
-      <img class="treeImage" src={onsrc} alt="onimage"  />      
-      linux {item.hostname}
-    </li>
-  </VirtualList>
-</div> 
--->
 
-
-  <TreeView branchHoverColor="yellow" iconColor="black"  >
+  <!-- <TreeView branchHoverColor="yellow" iconColor="black"  >
     <TreeBranch rootContent="Linux" >
-      <!-- {#each nodeItem as item, i (item)}
+      {#each nodeItem as item, i (item)}
         <TreeLeaf>
+            {#if (i % 2) === 0 && isReverse && i < updateCount}
+            <img class="treeImage" src={onsrc} alt="onimage"  />
+            {:else}
+            <img class="treeImage" src={offsrc} alt="offimage" />
+            {/if}
             linux {item}
         </TreeLeaf>
-      {/each} -->
-      <!-- <div style={`width: 200px; height: ${nodeItem.length * 36}px;`}> -->
-        <div style="border-left:solid 2px white; margin-left:-8px">
-          <div style={`width: 150px; height: ${nodeItem.length * 36}px;`}>
-            <VirtualList items={nodeItem} let:item>
-              <TreeLeaf>
-                linux {item.hostname}
-              </TreeLeaf>
-            </VirtualList>
-          </div>
-        </div>
-        </TreeBranch>
+      {/each}
+    </TreeBranch>
   </TreeView>  
+-->
+<TreeView branchHoverColor="yellow" iconColor="black"  >
+  <TreeBranch rootContent="Linux" >
+    <!-- {#each nodeItem as item, i (item)}
+      <TreeLeaf>
+          linux {item}
+      </TreeLeaf>
+    {/each} -->
+    <!-- <div style={`width: 200px; height: ${nodeItem.length * 36}px;`}> -->
+    <div style="border-left:solid 2px white; margin-left:-8px">
+      <div style={`width: 273px; height: 871px;`}>
+        <VirtualList items={nodeItem} updateCount={updateCount} isReverse={isReverse} >
+          <!-- <TreeLeaf>
+            linux {item.hostname}
+          </TreeLeaf> -->
+        </VirtualList>
+      </div>
+    </div>
+  </TreeBranch>
+</TreeView>  
 
 
 
 
 
-    <!-- <TreeView branchHoverColor="yellow" iconColor="black"  >
-      <TreeBranch rootContent="Linux" >
-        {#each nodeItem as item, i (item)}
-          <TreeLeaf>
-              {#if (i % 2) === 0 && isReverse && i < updateCount}
-              <img class="treeImage" src={onsrc} alt="onimage"  />
-              {:else}
-              <img class="treeImage" src={offsrc} alt="offimage" />
-              {/if}
-              linux {item}
-          </TreeLeaf>
-        {/each}
-      </TreeBranch>
-    </TreeView>  
-  -->
+
 
 
 

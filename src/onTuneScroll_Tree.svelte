@@ -172,11 +172,14 @@
 </svelte-virtual-list-viewport> -->
 <script>
 	import { onMount, tick } from 'svelte';
+  import {TreeLeaf} from "svelte-tree-view-component";	
 
 	// props
 	export let items;
 	export let height = '100%';
 	export let itemHeight = undefined;
+	export let isReverse;
+	export let updateCount;
 
 	let foo;
 
@@ -196,6 +199,9 @@
 	let top = 0;
 	let bottom = 0;
 	let average_height;
+
+  let onsrc = "img/hostOS_icon_linux.png";
+  let offsrc = "img/hostOS_icon_linux_un.png";	
 
 	$: visible = items.slice(start, end).map((data, i) => {
 		return { index: i + start, data };
@@ -322,6 +328,68 @@
 	svelte-virtual-list-row {
 		/* overflow: hidden; */
 	}
+
+
+
+  /* Grid Scroll */
+  svelte-virtual-list-viewport::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+		background-color: grey;
+  }
+
+  svelte-virtual-list-viewport::-webkit-scrollbar-thumb {
+    background-color: #404247;
+    border-radius: 10px;
+  }
+
+  svelte-virtual-list-viewport::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
+  svelte-virtual-list-viewport::-webkit-scrollbar-button{
+    background-color: white;
+    width: 16px;
+    height: 16px;
+    /* display: block; */
+    /* border-style: solid; */
+  }
+
+  /* 스크롤 버튼 */
+  /* Up */
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url("img/grid_scroll/scroll_up_N.png");
+  }
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:vertical:decrement:hover {
+    background-image: url("img/grid_scroll/scroll_up_H.png");
+  }
+
+  /* Down */
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:vertical:increment {
+    background-image: url("img/grid_scroll/scroll_down_N.png");
+  }  
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:vertical:increment:hover {
+    background-image: url("img/grid_scroll/scroll_down_H.png");
+  }  
+
+  /* Left */
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:horizontal:decrement {
+    background-image: url("img/grid_scroll/scroll_left_N.png");
+  }
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:horizontal:decrement:hover {
+    background-image: url("img/grid_scroll/scroll_left_H.png");
+  }
+
+  /* Right */
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:horizontal:increment {
+    background-image: url("img/grid_scroll/scroll_right_N.png");
+  }  
+  svelte-virtual-list-viewport::-webkit-scrollbar-button:horizontal:increment:hover {
+    background-image: url("img/grid_scroll/scroll_right_H.png");
+  }  
+
 </style>
 
 <svelte-virtual-list-viewport
@@ -334,9 +402,17 @@
 		bind:this={contents}
 		style="padding-top: {top}px; padding-bottom: {bottom}px;"
 	>
-		{#each visible as row (row.index)}
+		{#each visible as row, i (row.index)}
 			<svelte-virtual-list-row>
-				<slot item={row.data}>Missing template</slot>
+				<TreeLeaf>
+					{#if (i % 2) === 0 && isReverse && i < updateCount}
+						<img class="treeImage" src={onsrc} alt="onimage"  />
+					{:else}
+						<img class="treeImage" src={offsrc} alt="offimage" />
+					{/if}					
+					linux {row.data.hostname}
+				</TreeLeaf>				
+				<!-- <slot item={row.data}>Missing template</slot> -->
 			</svelte-virtual-list-row>
 		{/each}
 	</svelte-virtual-list-contents>

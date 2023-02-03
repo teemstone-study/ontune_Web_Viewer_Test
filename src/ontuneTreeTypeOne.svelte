@@ -48,17 +48,11 @@
     {/each} -->
     <!-- <div style={`width: 200px; height: ${nodeItem.length * 36}px;`}> -->
     <div style="border-left:solid 2px white; margin-left:-8px">
-      <div style={`width: 150px; height: ${nodeItem.length * 36}px;`}>
-        <VirtualList items={nodeItem} let:item>
-          <TreeLeaf>
-            <!-- {#if (index % 2) === 0 && isReverse && index < updateCount} -->
-            {#if (isReverse)}
-              <img class="treeImage" src={onsrc} alt="onimage"  />
-            {:else}
-              <img class="treeImage" src={offsrc} alt="offimage" />
-            {/if}            
+      <div style={`width: 273px; height: 871px;`}>
+        <VirtualList items={nodeItem} updateCount={updateCount} isReverse={isReverse} >
+          <!-- <TreeLeaf>
             linux {item.hostname}
-          </TreeLeaf>
+          </TreeLeaf> -->
         </VirtualList>
       </div>
     </div>

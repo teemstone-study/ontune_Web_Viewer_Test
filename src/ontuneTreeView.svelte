@@ -326,7 +326,7 @@
       </TabPanel>
     </div>
   </div>
-  <Svrollbar {viewport} {contents} alwaysVisible={true} />
+  <!-- <Svrollbar {viewport} {contents} alwaysVisible={true} /> -->
   </div>
   </Tabs>
 
